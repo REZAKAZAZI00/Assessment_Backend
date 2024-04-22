@@ -1,11 +1,15 @@
 using Microsoft.AspNetCore.Mvc;
-
+using Assessment_Backend.Core.Servies.InterFace;
 namespace Assessment_Backend.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
+        public WeatherForecastController()
+        {
+                
+        }
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"

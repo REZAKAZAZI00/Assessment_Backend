@@ -4,4 +4,9 @@ global using System.Linq;
 global using System.Text;
 global using System.Threading.Tasks;
 global using System.Security.Cryptography;
+global using Serilog;
+global using Microsoft.EntityFrameworkCore;
+global using Assessment_Backend.DataLayer.Context;
+global using Microsoft.IdentityModel.Tokens;
+
 
