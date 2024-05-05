@@ -24,7 +24,7 @@
 
         #region Relations
 
-        public required Role Role { get; set; }
+        public  Role Role { get; set; }
         public  Student Student { get; set; }
         public  Teacher Teacher { get; set; }
         #endregion

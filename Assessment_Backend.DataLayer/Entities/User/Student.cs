@@ -1,4 +1,5 @@
 ﻿
+
 namespace Assessment_Backend.DataLayer.Entities.User
 {
     [Table("Student", Schema = "User")]
@@ -35,7 +36,7 @@ namespace Assessment_Backend.DataLayer.Entities.User
 
         #region Relations
 
-        public required User User { get; set; }
+        public  User User { get; set; }
 
         public  Grade? Grade { get; set; }
 

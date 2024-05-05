@@ -17,7 +17,7 @@
 
         #region Relations
 
-        public virtual User? User { get; set; }
+        public virtual List<User>? User { get; set; }
 
         #endregion
 
