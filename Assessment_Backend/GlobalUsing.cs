@@ -8,5 +8,12 @@ global using Serilog;
 global using Microsoft.EntityFrameworkCore;
 global using Assessment_Backend.DataLayer.Context;
 global using Microsoft.IdentityModel.Tokens;
+global using Azure.Core.GeoJson;
+global using Microsoft.AspNetCore.Mvc;
+global using Assessment_Backend.Core.DTOs.Account;
+global using Assessment_Backend.Core.DTOs;
+global using Assessment_Backend.Core.Servies.InterFace;
+
+
 
 
