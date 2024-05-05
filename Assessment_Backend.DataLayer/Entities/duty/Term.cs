@@ -1,5 +1,7 @@
-﻿namespace Assessment_Backend.DataLayer.Entities
+﻿namespace Assessment_Backend.DataLayer.Entities.duty
 {
+    [Table("Term", Schema = "duty")]
+
     public class Term
     {
         [Key]

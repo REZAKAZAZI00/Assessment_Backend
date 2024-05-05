@@ -39,7 +39,7 @@ internal class Program
 
         #region DbContext
         var connectionString = builder.Configuration.GetConnectionString("AssessmentConnection");
-       // builder.Services.AddDbContext<AssessmentDbContext>(options => options.UseSqlServer(connectionString));
+        builder.Services.AddDbContext<AssessmentDbContext>(options => options.UseSqlServer(connectionString));
         #endregion
 
         #region IOC
