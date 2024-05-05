@@ -1,3 +1,4 @@
+using Assessment_Backend.Core.Servies;
 using Microsoft.OpenApi.Models;
 
 internal class Program
@@ -44,7 +45,7 @@ internal class Program
 
         #region IOC
 
-
+        builder.Services.AddTransient<IUserServies, UserServies>();
 
         #endregion
         builder.Services.AddControllers();
