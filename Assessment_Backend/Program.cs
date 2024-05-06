@@ -1,4 +1,3 @@
-using Assessment_Backend.Core.Servies;
 using Microsoft.OpenApi.Models;
 
 internal class Program
