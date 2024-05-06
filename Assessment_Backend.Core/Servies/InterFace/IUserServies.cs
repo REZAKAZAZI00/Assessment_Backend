@@ -15,5 +15,7 @@
 
         Task<OutPutModel<bool>> RegisterStudentAsync(RegisterStudentDTO model);
 
+        Task<bool> IsExistCodeMelliAsync(string code);
+
     }
 }
