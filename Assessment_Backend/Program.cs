@@ -45,6 +45,7 @@ internal class Program
 
         #region IOC
 
+        builder.Services.AddScoped<ITokenHelperService, TokenHelper>();
         builder.Services.AddTransient<IUserServies, UserServies>();
 
         #endregion
