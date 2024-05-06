@@ -8,6 +8,7 @@
 
         public int StudentId { get; set; }
 
+        public int RoleId { get; set; }
         public int TeacherId { get; set; }
 
         public int UserId { get; set; }
@@ -31,7 +32,7 @@
         [Display(Name = "کد استادی ")]
         public string? TeacherCode { get; set; }
 
-
+        public required string Token { get; set; }
 
     }
 }
