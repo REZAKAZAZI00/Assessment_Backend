@@ -13,6 +13,8 @@ global using Microsoft.AspNetCore.Mvc;
 global using Assessment_Backend.Core.DTOs.Account;
 global using Assessment_Backend.Core.DTOs;
 global using Assessment_Backend.Core.Servies.InterFace;
+global using Assessment_Backend.Core.DTOs.Grade;
+
 
 
 
