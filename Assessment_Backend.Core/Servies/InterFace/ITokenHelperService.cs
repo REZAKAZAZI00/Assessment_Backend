@@ -2,7 +2,7 @@
 {
     public interface ITokenHelperService
     {    
-            string GenerateToken(int user);
-       
+        string GenerateToken<T>(User user, T entity) where T : class;
+
     }
 }

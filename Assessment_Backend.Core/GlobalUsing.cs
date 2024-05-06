@@ -10,4 +10,17 @@ global using System.Security.Claims;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.IdentityModel.Tokens;
 global using System.IdentityModel.Tokens.Jwt;
+global using Assessment_Backend.Core.Servies.InterFace;
+global using Assessment_Backend.DataLayer.Context;
+global using Assessment_Backend.Core.DTOs;
+global using Assessment_Backend.Core.Security;
+global using Assessment_Backend.DataLayer.Entities.User;
+global using Assessment_Backend.Core.DTOs.Account;
+global using Assessment_Backend.Core.DTOs.Role;
+global using Microsoft.EntityFrameworkCore;
+global using Assessment_Backend.Core.DTOs.Grade;
+global using Microsoft.Extensions.Logging;
+
+
+
 

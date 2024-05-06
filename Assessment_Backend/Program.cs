@@ -1,3 +1,4 @@
+using Assessment_Backend.Core.Servies;
 using Microsoft.OpenApi.Models;
 
 internal class Program
@@ -44,7 +45,9 @@ internal class Program
 
         #region IOC
 
-
+        builder.Services.AddScoped<ITokenHelperService, TokenHelper>();
+        builder.Services.AddTransient<IUserServies, UserServies>();
+        builder.Services.AddScoped<IGradeServies, GradeServies>();
 
         #endregion
         builder.Services.AddControllers();
