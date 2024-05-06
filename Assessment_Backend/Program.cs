@@ -47,6 +47,7 @@ internal class Program
 
         builder.Services.AddScoped<ITokenHelperService, TokenHelper>();
         builder.Services.AddTransient<IUserServies, UserServies>();
+        builder.Services.AddScoped<IGradeServies, GradeServies>();
 
         #endregion
         builder.Services.AddControllers();
