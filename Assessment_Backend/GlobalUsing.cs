@@ -15,6 +15,13 @@ global using Assessment_Backend.Core.DTOs;
 global using Assessment_Backend.Core.Servies.InterFace;
 global using Assessment_Backend.Core.DTOs.Grade;
 global using Assessment_Backend.Core.Servies;
+global using Assessment_Backend.Core.DTOs.Term;
+global using Assessment_Backend.Core.Services.InterFace;
+global using Assessment_Backend.Core.DTOs.Role;
+global using Assessment_Backend.Core.DTOs.Course;
+global using Microsoft.AspNetCore.Authorization;
+global using Assessment_Backend.Core.Services;
+global using Microsoft.OpenApi.Models;
 
 
 

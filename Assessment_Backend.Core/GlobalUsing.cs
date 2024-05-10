@@ -20,7 +20,11 @@ global using Assessment_Backend.Core.DTOs.Role;
 global using Microsoft.EntityFrameworkCore;
 global using Assessment_Backend.Core.DTOs.Grade;
 global using Microsoft.Extensions.Logging;
-
+global using Assessment_Backend.Core.DTOs.Term;
+global using Assessment_Backend.Core.DTOs.Course;
+global using Assessment_Backend.Core.Services.InterFace;
+global using Assessment_Backend.Core.Generator;
+global using Assessment_Backend.DataLayer.Entities.duty;
 
 
 

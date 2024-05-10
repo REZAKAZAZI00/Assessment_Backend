@@ -1,13 +1,11 @@
-﻿using Assessment_Backend.Core.DTOs.Role;
-
-namespace Assessment_Backend.Controllers
+﻿namespace Assessment_Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly IUserServies _userServies;
-        public AccountController(IUserServies userServies)
+        private readonly IUserService _userServies;
+        public AccountController(IUserService userServies)
         {
             _userServies = userServies;
         }
