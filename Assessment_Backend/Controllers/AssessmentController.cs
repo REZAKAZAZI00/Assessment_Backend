@@ -9,5 +9,21 @@
         {
             _assessmentService = assessmentService;
         }
+
+        [HttpPost("CreateAssessment")]
+        
+        public async Task<ActionResult<OutPutModel<CourseDTO>>> CreateAssessment(CreateAssessmentDTO courseDTO)
+        {
+            var result = await _assessmentService.CreateAssessmentAsync(courseDTO);
+            return result;
+        }
+
+        [HttpPut("UpdateAssessment")]
+
+        public async Task<ActionResult<OutPutModel<CourseDTO>>> UpdateAssessment(UpdateAssessmentDTO courseDTO)
+        {
+            var result = await _assessmentService.UpdateAssessmentAsync(courseDTO);
+            return result;
+        }
     }
 }
