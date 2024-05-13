@@ -16,6 +16,8 @@
         public string Link { get; set; }
 
         public int CountMembers { get; set; }
+
+        public List<AssessmentDTO> Assessments { get; set; }
     }
 
     public class CreateCourseDTO
@@ -40,6 +42,8 @@
 
     public class UpdateCourseDTO
     {
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+
         public int CourseId { get; set; }
 
 
@@ -49,7 +53,8 @@
         public string Title { get; set; }
 
         public string Description { get; set; }
-        public string Link { get; set; }
+
+        public bool ChangeLink { get; set; }
 
         public int CountMembers { get; set; }
     }
