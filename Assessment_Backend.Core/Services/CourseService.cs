@@ -64,7 +64,7 @@
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message,ex);
+                _logger.LogError(ex.Message, ex);
                 return new OutPutModel<List<CourseDTO>>
                 {
                     Message = ex.Message,
@@ -98,14 +98,14 @@
                 {
                     return new OutPutModel<List<CourseDTO>>
                     {
-                         Result= null,
-                         StatusCode = 401,
-                         Message=""
+                        Result = null,
+                        StatusCode = 401,
+                        Message = ""
                     };
                 }
 
                 var existingCourse = await _context.Courses
-                    .SingleOrDefaultAsync(c => c.CourseId == model.CourseId&&c.TeacherId==teacherId);
+                    .SingleOrDefaultAsync(c => c.CourseId == model.CourseId && c.TeacherId == teacherId);
                 if (existingCourse is null)
                 {
                     return new OutPutModel<List<CourseDTO>>
@@ -142,10 +142,10 @@
         {
             try
             {
-                var course = await GetCourseAsync();
+
                 return new OutPutModel<List<CourseDTO>>
                 {
-                    Result = null,
+                    Result = await GetCourseAsync(),
                     Message = "",
                     StatusCode = 200,
                 };
@@ -153,11 +153,13 @@
             }
             catch (Exception ex)
             {
-                _logger?.LogError(ex.Message, ex);
-                throw;
+                _logger.LogError(ex.Message, ex);
+                return new OutPutModel<List<CourseDTO>>
+                {
+                    StatusCode = 500,
+                    Message = ex.Message,
+                };
             }
-            throw new NotImplementedException();
-
         }
 
         public async Task<OutPutModel<List<TermDTO>>> GetAllTermAsync()
@@ -206,6 +208,7 @@
                 var course = await _context.Courses
                    .Include(t => t.Term)
                    .Include(t => t.Teacher)
+                   .Include(a => a.Assessments)
                    .Where(c => c.TeacherId == teacherId)
                    .Select(c => new CourseDTO
                    {
@@ -215,8 +218,19 @@
                        Title = c.Title,
                        CourseId = c.CourseId,
                        Term = c.Term.Title,
-                       TeacherName = c.Teacher.Name + " " + c.Teacher.family
-
+                       TeacherName = c.Teacher.Name + " " + c.Teacher.family,
+                       Assessments = c.Assessments
+                       .Select(a => new AssessmentDTO()
+                       {
+                           AssessmentId = a.AssessmentId,
+                           StartDate = a.StartDate,
+                           CourseId = a.CourseId,
+                           Description = a.Description,
+                           EndDate = a.EndDate,
+                           Title = a.Title,
+                           PenaltyRule = a.PenaltyRule
+                       })
+                       .ToList()
                    })
                    .ToListAsync();
                 return course;
@@ -228,9 +242,89 @@
             }
         }
 
-        public Task<OutPutModel<List<CourseDTO>>> UpdateCourseAsync(UpdateCourseDTO model)
+        public async Task<OutPutModel<List<CourseDTO>>> UpdateCourseAsync(UpdateCourseDTO model)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (!ValidateModel.Validate(model, out var validationResult))
+                {
+                    _logger.LogError(validationResult);
+
+                    return new OutPutModel<List<CourseDTO>>
+                    {
+                        Message = validationResult,
+                        Result = null,
+                        StatusCode = 400
+                    };
+                }
+
+                var course = await _context.Courses.FindAsync(model.CourseId);
+
+                if (course is null)
+                {
+                    return new OutPutModel<List<CourseDTO>>
+                    {
+                        Result = null,
+                        StatusCode = 404,
+                        Message = "Course not found"
+                    };
+                }
+
+                bool hasChanges = false;
+
+                if (course.Description != model.Description)
+                {
+                    course.Description = model.Description;
+                    hasChanges = true;
+                }
+
+                if (course.CountMembers != model.CountMembers)
+                {
+                    course.CountMembers = model.CountMembers;
+                    hasChanges = true;
+                }
+
+                if (course.TermId != model.TermId)
+                {
+                    course.TermId = model.TermId;
+                    hasChanges = true;
+                }
+
+                if (course.Title != model.Title)
+                {
+                    course.Title = model.Title;
+                    hasChanges = true;
+                }
+
+                if (model.ChangeLink)
+                {
+                    course.Link = NameGenerator.GenerateShareLink(8);
+                    hasChanges = true;
+                }
+
+                if (hasChanges)
+                {
+                    _context.Courses.Update(course);
+                    await _context.SaveChangesAsync();
+                }
+
+                return new OutPutModel<List<CourseDTO>>
+                {
+                    StatusCode = 200,
+                    Message = "",
+                    Result = await GetCourseAsync()
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return new OutPutModel<List<CourseDTO>>
+                {
+                    StatusCode = 500,
+                    Message = ex.Message,
+                };
+            }
         }
+
     }
 }
