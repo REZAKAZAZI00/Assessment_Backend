@@ -1,6 +1,4 @@
-﻿
-
-namespace Assessment_Backend.DataLayer.Context
+﻿namespace Assessment_Backend.DataLayer.Context
 {
     public class AssessmentDbContext : DbContext
     {
@@ -44,10 +42,19 @@ namespace Assessment_Backend.DataLayer.Context
                 fk.DeleteBehavior = DeleteBehavior.Restrict;
 
             modelBuilder.Entity<Assessment>()
-                .HasQueryFilter(a=> !a.IsDelete);   
-            
+                .HasQueryFilter(a=> !a.IsDelete);
+
+            modelBuilder.Entity<Course>()
+                .HasQueryFilter(a => !a.IsDelete);
+
             modelBuilder.Entity<Role>()
                 .HasQueryFilter(r => !r.IsDelete);
+
+            modelBuilder.Entity<Teacher>()
+                .HasQueryFilter(t => !t.IsDelete);
+
+            modelBuilder.Entity<Student>()
+                .HasQueryFilter(s => !s.IsDelete);
 
             modelBuilder.Entity<Term>()
                 .HasQueryFilter(t => !t.IsDelete);
@@ -81,6 +88,26 @@ namespace Assessment_Backend.DataLayer.Context
                 .WithOne(u => u.Student)
                 .HasForeignKey<Student>(s => s.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Course>()
+                      .HasMany(c => c.Assessments)
+                      .WithOne(a => a.Course)
+                      .HasForeignKey(a => a.CourseId)
+                      .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Course>()
+                .HasMany(c => c.CourseEnrollments)
+                .WithOne(ce => ce.Course)
+                .HasForeignKey(ce => ce.CourseId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Assessment>()
+               .HasMany(a => a.AssignmentSubmissions)
+               .WithOne(s => s.Assessment)
+               .HasForeignKey(s => s.AssignmentId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+
 
 
             base.OnModelCreating(modelBuilder);

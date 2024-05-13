@@ -19,6 +19,7 @@
 
         public int CountMembers { get; set; }
 
+        public bool IsDelete { get; set; }=false;
 
         #region Relations
 

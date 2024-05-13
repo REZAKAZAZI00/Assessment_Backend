@@ -33,6 +33,7 @@ namespace Assessment_Backend.DataLayer.Entities.User
         [EmailAddress(ErrorMessage = "ایمیل وارد شده معتبر نمی باشد")]
         public string Email { get; set; }
 
+        public bool IsDelete { get; set; }
 
         #region Relations
 

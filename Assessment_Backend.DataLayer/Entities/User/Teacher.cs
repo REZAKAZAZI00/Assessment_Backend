@@ -34,7 +34,7 @@
         [MaxLength(15, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد .")]
         public string TeacherCode  { get; set; }
 
-
+        public bool IsDelete { get; set; }
 
         #region Relations
 
