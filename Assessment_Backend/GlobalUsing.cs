@@ -22,6 +22,7 @@ global using Assessment_Backend.Core.DTOs.Course;
 global using Microsoft.AspNetCore.Authorization;
 global using Assessment_Backend.Core.Services;
 global using Microsoft.OpenApi.Models;
+global using Assessment_Backend.Core.DTOs.Assessment;
 
 
 
