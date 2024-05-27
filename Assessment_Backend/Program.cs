@@ -1,5 +1,3 @@
-using Microsoft.OpenApi.Models;
-
 internal class Program
 {
     private static void Main(string[] args)
@@ -45,11 +43,14 @@ internal class Program
         #region IOC
 
         builder.Services.AddScoped<ITokenHelperService, TokenHelper>();
-        builder.Services.AddTransient<IUserServies, UserServies>();
-        builder.Services.AddScoped<IGradeServies, GradeServies>();
+        builder.Services.AddTransient<IUserService, UserService>();
+        builder.Services.AddScoped<IGradeService, GradeService>();
+        builder.Services.AddTransient<ICourseService, CourseService>();
+        builder.Services.AddTransient<IAssessmentService, AssessmentService>();
 
         #endregion
         builder.Services.AddControllers();
+        builder.Services.AddHttpContextAccessor();
 
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
@@ -86,9 +87,7 @@ internal class Program
         #endregion
         var app = builder.Build();
 
-          
-          
-        
+         
 
         app.UseHttpsRedirection();
         app.UseAuthentication();

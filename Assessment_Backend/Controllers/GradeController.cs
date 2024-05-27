@@ -5,8 +5,8 @@
     public class GradeController : ControllerBase
     {
      
-        private readonly IGradeServies _gradesServies;
-        public GradeController(IGradeServies gradeServies)
+        private readonly IGradeService _gradesServies;
+        public GradeController(IGradeService gradeServies)
         {
               _gradesServies = gradeServies;
         }

@@ -1,13 +1,11 @@
-﻿using Assessment_Backend.Core.DTOs.Role;
-
-namespace Assessment_Backend.Controllers
+﻿namespace Assessment_Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly IUserServies _userServies;
-        public AccountController(IUserServies userServies)
+        private readonly IUserService _userServies;
+        public AccountController(IUserService userServies)
         {
             _userServies = userServies;
         }
@@ -33,9 +31,8 @@ namespace Assessment_Backend.Controllers
         [HttpPost("RegisterStudent")]
         public async Task<ActionResult<OutPutModel<bool>>> RegisterStudent(RegisterStudentDTO register)
         {
-            return null;
-
-
+           var result=await _userServies.RegisterStudentAsync(register);
+            return result;
         }
 
         [HttpGet("GetRoles")]

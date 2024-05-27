@@ -1,12 +1,12 @@
 ﻿namespace Assessment_Backend.Core.Servies
 {
-    public class UserServies : IUserServies
+    public class UserService : IUserService
     {
         private readonly AssessmentDbContext _context;
         private readonly ITokenHelperService _tokenHelperService;
-        private readonly ILogger<UserServies> _logger;
+        private readonly ILogger<UserService> _logger;
 
-        public UserServies(AssessmentDbContext context, ILogger<UserServies> logger, ITokenHelperService tokenHelperService)
+        public UserService(AssessmentDbContext context, ILogger<UserService> logger, ITokenHelperService tokenHelperService)
         {
             _context = context;
             _logger = logger;

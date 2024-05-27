@@ -1,17 +1,10 @@
-﻿
-
-namespace Assessment_Backend.DataLayer.Entities.User
+﻿namespace Assessment_Backend.Core.DTOs.Student
 {
-    [Table("Student", Schema = "User")]
-
-    public class Student
+    public class StudentDTO
     {
-        [Key]
         public int StudentId { get; set; }
 
-        public required int UserId { get; set; }
-
-        public int GradeId { get; set; }
+       
 
         [Display(Name = " نام  ")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
@@ -32,19 +25,5 @@ namespace Assessment_Backend.DataLayer.Entities.User
         [MaxLength(150, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد .")]
         [EmailAddress(ErrorMessage = "ایمیل وارد شده معتبر نمی باشد")]
         public string Email { get; set; }
-
-        public bool IsDelete { get; set; }
-
-        #region Relations
-
-        public  User User { get; set; }
-
-        public  Grade? Grade { get; set; }
-
-        public List<CourseEnrollment> CourseEnrollments { get; set; }
-
-        public  List<AssignmentSubmission> AssignmentSubmissions { get; set; }
-
-        #endregion
     }
 }

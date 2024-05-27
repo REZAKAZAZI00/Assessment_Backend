@@ -1,11 +1,10 @@
-﻿
-namespace Assessment_Backend.Core.Servies
+﻿namespace Assessment_Backend.Core.Servies
 {
-    public class GradeServies : IGradeServies
+    public class GradeService : IGradeService
     {
         private readonly AssessmentDbContext _context;
-        private readonly ILogger<GradeServies> _logger;
-        public GradeServies(AssessmentDbContext context,ILogger<GradeServies> logger)
+        private readonly ILogger<GradeService> _logger;
+        public GradeService(AssessmentDbContext context,ILogger<GradeService> logger)
         {
            _context = context;
             _logger = logger;

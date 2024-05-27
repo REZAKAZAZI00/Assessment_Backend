@@ -4,6 +4,7 @@ using Assessment_Backend.DataLayer.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Assessment_Backend.DataLayer.Migrations
 {
     [DbContext(typeof(AssessmentDbContext))]
-    partial class AssessmentDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240513090215_Mig_Update_Course")]
+    partial class Mig_Update_Course
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -143,9 +146,6 @@ namespace Assessment_Backend.DataLayer.Migrations
                     b.Property<int>("GradeId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsDelete")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(70)
@@ -186,9 +186,6 @@ namespace Assessment_Backend.DataLayer.Migrations
                         .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
-
-                    b.Property<bool>("IsDelete")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -330,6 +327,9 @@ namespace Assessment_Backend.DataLayer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AS_Id"));
 
+                    b.Property<int>("AssessmentId")
+                        .HasColumnType("int");
+
                     b.Property<int>("AssignmentId")
                         .HasColumnType("int");
 
@@ -358,7 +358,7 @@ namespace Assessment_Backend.DataLayer.Migrations
 
                     b.HasKey("AS_Id");
 
-                    b.HasIndex("AssignmentId");
+                    b.HasIndex("AssessmentId");
 
                     b.HasIndex("StudentId");
 
@@ -527,7 +527,7 @@ namespace Assessment_Backend.DataLayer.Migrations
                     b.HasOne("Assessment_Backend.DataLayer.Entities.duty.Course", "Course")
                         .WithMany("Assessments")
                         .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Course");
@@ -537,8 +537,8 @@ namespace Assessment_Backend.DataLayer.Migrations
                 {
                     b.HasOne("Assessment_Backend.DataLayer.Entities.duty.Assessment", "Assessment")
                         .WithMany("AssignmentSubmissions")
-                        .HasForeignKey("AssignmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("AssessmentId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Assessment_Backend.DataLayer.Entities.User.Student", "Student")
@@ -576,7 +576,7 @@ namespace Assessment_Backend.DataLayer.Migrations
                     b.HasOne("Assessment_Backend.DataLayer.Entities.duty.Course", "Course")
                         .WithMany("CourseEnrollments")
                         .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Assessment_Backend.DataLayer.Entities.User.Student", "Student")

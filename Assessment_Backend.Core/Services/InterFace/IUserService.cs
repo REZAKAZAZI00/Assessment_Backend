@@ -1,6 +1,6 @@
 ﻿namespace Assessment_Backend.Core.Servies.InterFace
 {
-    public interface IUserServies
+    public interface IUserService
     {
         #region Role
 

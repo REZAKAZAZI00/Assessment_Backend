@@ -1,6 +1,4 @@
-﻿
-
-public static class HttpContextExtensions
+﻿public static class HttpContextExtensions
 {
     public static int GetUserId(this IHttpContextAccessor httpContextAccessor)
     {
@@ -20,4 +18,39 @@ public static class HttpContextExtensions
         }
 
     }
+
+    public static int GetTeacherId(this IHttpContextAccessor httpContextAccessor)
+    {
+        try
+        {
+            if (int.TryParse(httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(c => c.Type == "TeacherId")?.Value, out int teacherId))
+            {
+                return teacherId;
+            }
+        }
+        catch (Exception)
+        {
+            return 0;
+        }
+
+        return 0; 
+    }
+
+    public static int GetStudentId(this IHttpContextAccessor httpContextAccessor)
+    {
+        try
+        {
+            if (int.TryParse(httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(c => c.Type == "StudentId")?.Value, out int studentId))
+            {
+                return studentId;
+            }
+        }
+        catch (Exception)
+        {
+            return 0;
+        }
+
+        return 0;
+    }
+
 }
