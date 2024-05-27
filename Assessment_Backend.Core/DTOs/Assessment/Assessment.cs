@@ -53,4 +53,10 @@
 
         public string PenaltyRule { get; set; }
     }
+
+    public class DeleteAssessmentDTO
+    {
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        public int AssessmentId { get; set; }
+    }
 }
