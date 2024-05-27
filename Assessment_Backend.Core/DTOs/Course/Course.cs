@@ -64,5 +64,10 @@
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         public int CourseId { get; set; }
     }
+    public class JoinClassDTO
+    {
+        public required string ClassLink { get; set; }
 
+
+    }
 }

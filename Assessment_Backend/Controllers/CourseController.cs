@@ -20,6 +20,7 @@
 
 
         [HttpGet("Course")]
+        [Authorize]
         public async Task<ActionResult<OutPutModel<List<CourseDTO>>>> GetAllCourse() 
         {
             return await _courseServies.GetAllCourseAsync();
@@ -46,6 +47,14 @@
         public async Task<ActionResult<OutPutModel<List<CourseDTO>>>> UpdateCourse(UpdateCourseDTO courseDTO)
         {
             var result = await _courseServies.UpdateCourseAsync(courseDTO);
+            return result;
+        }
+        [HttpPost("JoinClass")]
+        [Authorize]
+        public async Task<ActionResult<OutPutModel<List<CourseDTO>>>> JoinClass(JoinClassDTO model)
+        {
+            var result = await _courseServies.JoinClassAsync(model);
+               
             return result;
         }
 

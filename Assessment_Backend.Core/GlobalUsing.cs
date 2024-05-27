@@ -11,6 +11,7 @@ global using Microsoft.Extensions.Configuration;
 global using Microsoft.IdentityModel.Tokens;
 global using System.IdentityModel.Tokens.Jwt;
 global using Assessment_Backend.Core.Servies.InterFace;
+global using AutoMapper;
 global using Assessment_Backend.DataLayer.Context;
 global using Assessment_Backend.Core.DTOs;
 global using Assessment_Backend.Core.Security;
@@ -26,6 +27,7 @@ global using Assessment_Backend.Core.DTOs.Course;
 global using Assessment_Backend.Core.Services.InterFace;
 global using Assessment_Backend.Core.Generator;
 global using Assessment_Backend.DataLayer.Entities.duty;
+global using Assessment_Backend.Core.DTOs.Student;
 
 
 

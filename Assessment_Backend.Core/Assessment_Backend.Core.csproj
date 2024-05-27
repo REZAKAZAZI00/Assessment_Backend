@@ -18,4 +18,8 @@
     <ProjectReference Include="..\Assessment_Backend.DataLayer\Assessment_Backend.DataLayer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DTOs\NewFolder\" />
+  </ItemGroup>
+
 </Project>

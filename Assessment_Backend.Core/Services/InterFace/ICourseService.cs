@@ -21,7 +21,7 @@
 
         Task<OutPutModel<List<CourseDTO>>> GetAllCourseAsync();
 
-
+        Task<OutPutModel<List<CourseDTO>>> JoinClassAsync(JoinClassDTO model);
 
         #endregion
     }

@@ -31,9 +31,8 @@
         [HttpPost("RegisterStudent")]
         public async Task<ActionResult<OutPutModel<bool>>> RegisterStudent(RegisterStudentDTO register)
         {
-            return null;
-
-
+           var result=await _userServies.RegisterStudentAsync(register);
+            return result;
         }
 
         [HttpGet("GetRoles")]

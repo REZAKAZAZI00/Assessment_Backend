@@ -200,45 +200,107 @@
             try
             {
                 int teacherId = _httpContextAccessor.GetTeacherId();
+                int studentId = _httpContextAccessor.GetStudentId();
 
-                if (teacherId is 0)
-                {
-                    return null;
-                }
-                var course = await _context.Courses
-                   .Include(t => t.Term)
-                   .Include(t => t.Teacher)
-                   .Include(a => a.Assessments)
-                   .Where(c => c.TeacherId == teacherId)
-                   .Select(c => new CourseDTO
-                   {
-                       CountMembers = c.CountMembers,
-                       Description = c.Description,
-                       Link = c.Link,
-                       Title = c.Title,
-                       CourseId = c.CourseId,
-                       Term = c.Term.Title,
-                       TeacherName = c.Teacher.Name + " " + c.Teacher.family,
-                       Assessments = c.Assessments
-                       .Select(a => new AssessmentDTO()
-                       {
-                           AssessmentId = a.AssessmentId,
-                           StartDate = a.StartDate,
-                           CourseId = a.CourseId,
-                           Description = a.Description,
-                           EndDate = a.EndDate,
-                           Title = a.Title,
-                           PenaltyRule = a.PenaltyRule
-                       })
-                       .ToList()
-                   })
-                   .ToListAsync();
-                return course;
+                var query = _context.Courses
+                    .Include(c => c.Term)
+                    .Include(c => c.Teacher)
+                    .Include(c => c.Assessments)
+                    .Where(c => teacherId != 0 ? c.TeacherId == teacherId : c.CourseEnrollments.Any(e => e.StudentId == studentId))
+                    .Select(c => new CourseDTO
+                    {
+                        CountMembers = c.CountMembers,
+                        Description = c.Description,
+                        Link = c.Link,
+                        Title = c.Title,
+                        CourseId = c.CourseId,
+                        Term = c.Term.Title,
+                        TeacherName = c.Teacher.Name + " " + c.Teacher.family,
+                        Assessments = c.Assessments
+                            .Select(a => new AssessmentDTO
+                            {
+                                AssessmentId = a.AssessmentId,
+                                StartDate = a.StartDate,
+                                CourseId = a.CourseId,
+                                Description = a.Description,
+                                EndDate = a.EndDate,
+                                Title = a.Title,
+                                PenaltyRule = a.PenaltyRule
+                            })
+                            .ToList()
+                    });
+
+                return await query.ToListAsync();
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message, ex);
                 return null;
+            }
+        }
+
+
+        public async Task<OutPutModel<List<CourseDTO>>> JoinClassAsync(JoinClassDTO model)
+        {
+            try
+            {
+                if (!ValidateModel.Validate(model, out var validationResult))
+                {
+                    _logger.LogError(validationResult);
+
+                    return new OutPutModel<List<CourseDTO>>
+                    {
+                        Message = validationResult,
+                        Result = null,
+                        StatusCode = 400
+                    };
+                }
+
+
+                int studentId = _httpContextAccessor.GetStudentId();
+
+                if (studentId is 0)
+                {
+                    return new OutPutModel<List<CourseDTO>>
+                    {
+                        Result = null,
+                        StatusCode = 401,
+                        Message = ""
+                    };
+                }
+                var course = await _context.Courses.SingleOrDefaultAsync(c => c.Link == model.ClassLink);
+                if (course is null)
+                {
+                    return new OutPutModel<List<CourseDTO>>
+                    {
+                        Result = null,
+                        StatusCode = 404,
+                        Message = "Course not found"
+                    };
+                }
+                await _context.CourseEnrollments.AddAsync(new CourseEnrollment()
+                {
+                    DateTime = DateTime.Now,
+                    CourseId = course.CourseId,
+                    StudentId = studentId,
+                });
+                await _context.SaveChangesAsync();
+
+                return new OutPutModel<List<CourseDTO>>
+                {
+                    Message = "",
+                    StatusCode = 200,
+                    Result = await GetCourseAsync()
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return new OutPutModel<List<CourseDTO>>
+                {
+                    StatusCode = 500,
+                    Message = ex.Message,
+                };
             }
         }
 
@@ -269,44 +331,26 @@
                         Message = "Course not found"
                     };
                 }
-
-                bool hasChanges = false;
-
-                if (course.Description != model.Description)
+                var config = new MapperConfiguration(cfg =>
                 {
-                    course.Description = model.Description;
-                    hasChanges = true;
-                }
+                    cfg.CreateMap<UpdateAssessmentDTO, Course>()
+                        .ForMember(dest => dest.CourseId, opt => opt.Ignore()) // برای جلوگیری از بروزرسانی ایدی
+                        .ForAllMembers(opt => opt.Condition((src, dest, srcMember) => srcMember != null));
+                });
+                var mapper = config.CreateMapper();
 
-                if (course.CountMembers != model.CountMembers)
-                {
-                    course.CountMembers = model.CountMembers;
-                    hasChanges = true;
-                }
-
-                if (course.TermId != model.TermId)
-                {
-                    course.TermId = model.TermId;
-                    hasChanges = true;
-                }
-
-                if (course.Title != model.Title)
-                {
-                    course.Title = model.Title;
-                    hasChanges = true;
-                }
+                mapper.Map(model, course);
 
                 if (model.ChangeLink)
                 {
                     course.Link = NameGenerator.GenerateShareLink(8);
-                    hasChanges = true;
+
                 }
 
-                if (hasChanges)
-                {
-                    _context.Courses.Update(course);
-                    await _context.SaveChangesAsync();
-                }
+
+                _context.Courses.Update(course);
+                await _context.SaveChangesAsync();
+
 
                 return new OutPutModel<List<CourseDTO>>
                 {

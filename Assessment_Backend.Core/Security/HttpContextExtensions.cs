@@ -36,4 +36,21 @@
         return 0; 
     }
 
+    public static int GetStudentId(this IHttpContextAccessor httpContextAccessor)
+    {
+        try
+        {
+            if (int.TryParse(httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(c => c.Type == "StudentId")?.Value, out int studentId))
+            {
+                return studentId;
+            }
+        }
+        catch (Exception)
+        {
+            return 0;
+        }
+
+        return 0;
+    }
+
 }
