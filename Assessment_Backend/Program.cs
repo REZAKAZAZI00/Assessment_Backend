@@ -49,6 +49,24 @@ internal class Program
         builder.Services.AddTransient<IAssessmentService, AssessmentService>();
 
         #endregion
+
+
+        builder.Services.AddControllers();
+
+        #region Cors
+        builder.Services.AddCors(options =>
+        {
+            options.AddDefaultPolicy(
+            corsbuilder =>
+            {
+                corsbuilder.WithOrigins("*")
+               .AllowAnyHeader()
+               .AllowAnyMethod()
+               .AllowAnyOrigin();
+            });
+        });
+        #endregion
+
         builder.Services.AddControllers();
         builder.Services.AddHttpContextAccessor();
 
@@ -87,7 +105,7 @@ internal class Program
         #endregion
         var app = builder.Build();
 
-         
+        app.UseCors();
 
         app.UseHttpsRedirection();
         app.UseAuthentication();
