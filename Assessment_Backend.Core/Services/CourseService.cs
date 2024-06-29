@@ -67,7 +67,7 @@
                 _logger.LogError(ex.Message, ex);
                 return new OutPutModel<List<CourseDTO>>
                 {
-                    Message = ex.Message,
+                    Message = "خطای غیرمنتظره ای رخ داد مجدد تلاش کنید.",
                     Result = null,
                     StatusCode = 500
                 };
@@ -131,7 +131,7 @@
                 _logger.LogError(ex.Message, ex);
                 return new OutPutModel<List<CourseDTO>>
                 {
-                    Message = ex.Message,
+                    Message = "خطای غیرمنتظره ای رخ داد مجدد تلاش کنید.",
                     Result = null,
                     StatusCode = 500
                 };
@@ -157,7 +157,7 @@
                 return new OutPutModel<List<CourseDTO>>
                 {
                     StatusCode = 500,
-                    Message = ex.Message,
+                    Message = "خطای غیرمنتظره ای رخ داد مجدد تلاش کنی",
                 };
             }
         }
@@ -365,7 +365,7 @@
                 return new OutPutModel<List<CourseDTO>>
                 {
                     StatusCode = 500,
-                    Message = ex.Message,
+                    Message = "خطای غیرمنتظره ای رخ داد مجدد تلاش کنید",
                 };
             }
         }

@@ -36,7 +36,7 @@
             }
             catch (Exception ex)
             {
-                var errorMessage = "Unexpected error occurred";
+                var errorMessage = "خطای غیرمنتظره ای رخ داد مجدد تلاش کنید";
                 _logger.LogError(errorMessage, ex);
                 return new OutPutModel<List<RoleDTO>>
                 {
@@ -78,7 +78,7 @@
                 {
                     return new OutPutModel<UserProfileDTO>
                     {
-                        Message = "Invalid login attempt.",
+                        Message = "اطلاعات وارد شده صیحیح نمی باشد. ",
                         Result = null,
                         StatusCode = 400
                     };
@@ -130,7 +130,7 @@
             catch (Exception ex)
             {
 
-                var errorMessage = "Unexpected error occurred";
+                var errorMessage = "خطای غیرمنتظره ای رخ داد مجدد تلاش کنید";
                 _logger.LogError(errorMessage, ex);
                 return new OutPutModel<UserProfileDTO>
                 {
@@ -166,7 +166,7 @@
                     {
                          Result=false,
                          StatusCode=400,
-                         Message="بعد"
+                         Message="دانشجو گرامی شما قبلا ثبت نام کردید"
                     };
                 }
 
@@ -205,7 +205,7 @@
             catch (Exception ex)
             {
 
-                var errorMessage = "Unexpected error occurred";
+                var errorMessage = "خطای غیرمنتظره ای رخ داد مجدد تلاش کنید.";
                 _logger.LogError(errorMessage, ex);
                 return new OutPutModel<bool>
                 {
@@ -241,7 +241,7 @@
                     {
                         Result = false,
                         StatusCode = 400,
-                        Message = "بعد"
+                        Message = "استاد گرامی شما قبلا ثبت نام کردید."
                     };
                 }
                 var newUser = new User()
@@ -279,7 +279,7 @@
             catch (Exception ex)
             {
 
-                var errorMessage = "Unexpected error occurred";
+                var errorMessage = ".خطای غیرمنتظره ای رخ داد مجدد تلاش کنید";
                 _logger.LogError(errorMessage, ex);
                 return new OutPutModel<bool>
                 {
