@@ -69,7 +69,8 @@
                 return new OutPutModel<AssessmentDTO>
                 {
                     StatusCode = 500,
-                    Message = ex.Message
+                    Message = "خطای غیرمنتظره ای رخ داد مجدد تلاش کنید",
+
                 };
             }
         }
@@ -113,7 +114,8 @@
                 _logger.LogError(ex.Message, ex);
                 return new OutPutModel<CourseDTO>
                 {
-                    Message = ex.Message,
+                    Message = "خطای غیرمنتظره ای رخ داد مجدد تلاش کنید",
+
                     StatusCode = 500,
 
                 };
@@ -124,13 +126,14 @@
         {
             try
             {
-                var existing = await _context.Assessments.SingleOrDefaultAsync();
+                var existing = await _context.Assessments
+                    .SingleOrDefaultAsync(a => a.AssessmentId == assessmentDTO.AssessmentId);
                 if (existing is null)
                 {
                     return new OutPutModel<CourseDTO>
                     {
                         StatusCode = 404,
-                        Message = "",
+                        Message = "تکلیف پیدا نشد.",
 
                     };
                 }
@@ -150,7 +153,7 @@
                 return new OutPutModel<CourseDTO>
                 {
                     StatusCode = 500,
-                    Message = ex.Message,
+                    Message = "خطای غیرمنتظره ای رخ داد مجدد تلاش کنید"
                 };
             }
         }
@@ -186,43 +189,43 @@
         {
             try
             {
-               var assessments=await _context.AssignmentSubmissions
-                    .Include(s=> s.Student)
-                    .Where(a=> a.AssignmentId == assignmentId)
-                    .Select(a=> new SubmittedAssignmentDTO
-                    {
+                var assessments = await _context.AssignmentSubmissions
+                     .Include(s => s.Student)
+                     .Where(a => a.AssignmentId == assignmentId)
+                     .Select(a => new SubmittedAssignmentDTO
+                     {
                          AssignmentId = a.AssignmentId,
                          CreateDate = a.CreateDate,
-                         LateScore=a.LateScore,
-                         AS_Id=a.AS_Id,
-                         FileName=a.FileName,
-                         RawScore=a.RawScore,
-                         Text=a.Text,
-                         ReviewedDate=a.ReviewedDate,
-                         Student=new StudentDTO
+                         LateScore = a.LateScore,
+                         AS_Id = a.AS_Id,
+                         FileName = a.FileName,
+                         RawScore = a.RawScore,
+                         Text = a.Text,
+                         ReviewedDate = a.ReviewedDate,
+                         Student = new StudentDTO
                          {
-                             Email=a.Student.Email,
-                             Name=a.Student.Name,
-                             PhoneNumber=a.Student.PhoneNumber,
-                             StudentId=a.Student.StudentId,
-                             family = a.Student.family   
-                         }  
-                    })
-                    .ToListAsync();
+                             Email = a.Student.Email,
+                             Name = a.Student.Name,
+                             PhoneNumber = a.Student.PhoneNumber,
+                             StudentId = a.Student.StudentId,
+                             family = a.Student.family
+                         }
+                     })
+                     .ToListAsync();
                 return new OutPutModel<List<SubmittedAssignmentDTO>>
                 {
-                     Result=assessments,
-                      StatusCode=200,
-                       Message=""
+                    Result = assessments,
+                    StatusCode = 200,
+                    Message = ""
                 };
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message,ex);
+                _logger.LogError(ex.Message, ex);
                 return new OutPutModel<List<SubmittedAssignmentDTO>>
                 {
                     StatusCode = 500,
-                    Message = ex.Message,
+                    Message = "خطای غیرمنتظره ای رخ داد مجدد تلاش کنید"
 
                 };
             }
@@ -256,7 +259,7 @@
                                 Title = a.Title,
                                 PenaltyRule = a.PenaltyRule,
                                 StartDate = a.StartDate,
-                                 
+
                             })
                             .ToList()
                     }).SingleAsync();
@@ -274,35 +277,35 @@
         {
             try
             {
-                    
+
                 var existingAssignmentSubmissions = await _context.AssignmentSubmissions
-                    .Where(a=> a.AS_Id==scoreRegistrationDTO.AS_Id)
+                    .Where(a => a.AS_Id == scoreRegistrationDTO.AS_Id)
                     .SingleOrDefaultAsync();
                 if (existingAssignmentSubmissions is null)
                 {
                     return new OutPutModel<AssessmentDTO>
                     {
-                         Result=null,
-                         Message="",
-                         StatusCode=400,
+                        Result = null,
+                        Message = "در ثبت نمره مشکل به وجود اومد مجدد تلاش کنید؟",
+                        StatusCode = 400,
                     };
                 }
-                existingAssignmentSubmissions.LateScore=scoreRegistrationDTO.Score;
+                existingAssignmentSubmissions.LateScore = scoreRegistrationDTO.Score;
                 _context.AssignmentSubmissions.Update(existingAssignmentSubmissions);
-                await _context.SaveChangesAsync();  
+                await _context.SaveChangesAsync();
                 return new OutPutModel<AssessmentDTO>
                 {
                     StatusCode = 200,
                     Result = await GetAssignmentByIdAsync(existingAssignmentSubmissions.AssignmentId),
-                    Message="",  
+                    Message = "",
                 };
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message,ex);
+                _logger.LogError(ex.Message, ex);
                 return new OutPutModel<AssessmentDTO>
                 {
-                    Message = ex.Message,
+                    Message = "خطای غیرمنتظره ای رخ داد مجدد تلاش کنید",
                     Result = null,
                     StatusCode = 500
                 };
@@ -332,7 +335,7 @@
                     {
                         Result = null,
                         StatusCode = 404,
-                        Message = ""
+                        Message = "تکلیف پیدا نشد ."
                     };
                 }
 
@@ -361,7 +364,8 @@
                 return new OutPutModel<CourseDTO>
                 {
 
-                    Message = ex.Message,
+                    Message = "خطای غیرمنتظره ای رخ داد مجدد تلاش کنید",
+
                     StatusCode = 500,
                     Result = null,
                 };

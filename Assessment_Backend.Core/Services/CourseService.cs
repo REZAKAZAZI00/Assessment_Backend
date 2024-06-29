@@ -38,7 +38,7 @@
 
                         Result = null,
                         StatusCode = 401,
-                        Message = ""
+                        Message = "لطفاً مجدداً وارد حساب کاربری خود شوید."
                     };
                 }
 
@@ -100,7 +100,7 @@
                     {
                         Result = null,
                         StatusCode = 401,
-                        Message = ""
+                        Message = "لطفاً مجدداً وارد حساب کاربری خود شوید."
                     };
                 }
 
@@ -112,7 +112,7 @@
                     {
                         StatusCode = 404,
                         Result = await GetCourseAsync(),
-                        Message = ""
+                        Message = "درس انتخاب شده حذف نشد مجدد تلاش کنید."
 
                     };
                 }
@@ -157,7 +157,7 @@
                 return new OutPutModel<List<CourseDTO>>
                 {
                     StatusCode = 500,
-                    Message = "خطای غیرمنتظره ای رخ داد مجدد تلاش کنی",
+                    Message = "خطای غیرمنتظره ای رخ داد مجدد تلاش کنید",
                 };
             }
         }
@@ -188,7 +188,7 @@
                 _logger.LogError(ex.Message, ex);
                 return new OutPutModel<List<TermDTO>>
                 {
-                    Message = ex.Message,
+                    Message = ".خطای غیرمنتظره ای رخ داد مجدد تلاش کنید",
                     StatusCode = 500,
 
                 };
@@ -265,7 +265,7 @@
                     {
                         Result = null,
                         StatusCode = 401,
-                        Message = ""
+                        Message = "لطفاً مجدداً وارد حساب کاربری خود شوید."
                     };
                 }
                 var course = await _context.Courses.SingleOrDefaultAsync(c => c.Link == model.ClassLink);
@@ -275,7 +275,7 @@
                     {
                         Result = null,
                         StatusCode = 404,
-                        Message = "Course not found"
+                        Message = "درسی پیدا نشد."
                     };
                 }
                 await _context.CourseEnrollments.AddAsync(new CourseEnrollment()
@@ -299,7 +299,7 @@
                 return new OutPutModel<List<CourseDTO>>
                 {
                     StatusCode = 500,
-                    Message = ex.Message,
+                    Message = "خطای غیرمنتظره ای رخ داد مجدد تلاش کنید.",
                 };
             }
         }
@@ -328,7 +328,7 @@
                     {
                         Result = null,
                         StatusCode = 404,
-                        Message = "Course not found"
+                        Message = "درس پیدا نشد ."
                     };
                 }
                 var config = new MapperConfiguration(cfg =>

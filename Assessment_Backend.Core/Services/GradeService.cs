@@ -35,7 +35,7 @@
                 {
                     Result=null,
                     StatusCode = 500,
-                    Message=ex.Message
+                    Message = "خطای غیرمنتظره ای رخ داد مجدد تلاش کنید",
                 };
 			}
         }
