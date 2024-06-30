@@ -92,16 +92,13 @@ namespace Assessment_Backend.Core.Services
                         StatusCode = 400
                     };
                 }
+                string name = NameGenerator.GenerateNameForImage() + Path.GetExtension(assessmentDTO.File.FileName);
 
                 if (assessmentDTO.File is not null)
                 {
                     string filePath = "";
 
-
-                    _logger.LogCritical("test     +++"+Directory.GetCurrentDirectory());
-
-                    string name = NameGenerator.GenerateNameForImage() + Path.GetExtension(assessmentDTO.File.FileName);
-                     filePath = Path.Combine(Directory.GetCurrentDirectory(), "/data/file", name);
+                     filePath = Path.Combine(Directory.GetCurrentDirectory(), "data", name);
 
                         using var stream = new FileStream(filePath, FileMode.Create);
                         assessmentDTO.File.CopyTo(stream);
@@ -117,7 +114,7 @@ namespace Assessment_Backend.Core.Services
                     StartDate = assessmentDTO.StartDate,
                     PenaltyRule = assessmentDTO.PenaltyRule,
                     CourseId = assessmentDTO.CourseId,
-                    FileName = ""
+                    FileName =name ,
                 };
                 await _context.Assessments.AddAsync(newAssessment);
                 await _context.SaveChangesAsync();
