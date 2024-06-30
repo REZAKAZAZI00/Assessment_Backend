@@ -114,46 +114,46 @@ internal class Program
 
         #region Adding Security Middleware
 
-        app.Use(async (context, next) =>
-        {
-            if (context.Request.Path.StartsWithSegments("/swagger") && context.Request.Method == "GET")
-            {
-                string authHeader = context.Request.Headers["Authorization"];
+        //app.Use(async (context, next) =>
+        //{
+        //    if (context.Request.Path.StartsWithSegments("/swagger") && context.Request.Method == "GET")
+        //    {
+        //        string authHeader = context.Request.Headers["Authorization"];
 
-                if (authHeader == null || !authHeader.StartsWith("Basic "))
-                {
-                    // Password not provided in the request
-                    context.Response.StatusCode = 401;
-                    context.Response.Headers["WWW-Authenticate"] = "Basic realm=\"My API\"";
-                    await context.Response.WriteAsync("To access Swagger, you need to provide a password.");
-                    return;
-                }
-                else
-                {
-                    // Check the password
-                    string credentials = Encoding.UTF8.GetString(Convert.FromBase64String(authHeader.Substring(6)));
-                    string[] parts = credentials.Split(':');
-                    string username = parts[0];
-                    string password = parts[1];
+        //        if (authHeader == null || !authHeader.StartsWith("Basic "))
+        //        {
+        //            // Password not provided in the request
+        //            context.Response.StatusCode = 401;
+        //            context.Response.Headers["WWW-Authenticate"] = "Basic realm=\"My API\"";
+        //            await context.Response.WriteAsync("To access Swagger, you need to provide a password.");
+        //            return;
+        //        }
+        //        else
+        //        {
+        //            // Check the password
+        //            string credentials = Encoding.UTF8.GetString(Convert.FromBase64String(authHeader.Substring(6)));
+        //            string[] parts = credentials.Split(':');
+        //            string username = parts[0];
+        //            string password = parts[1];
 
-                    if (username == "admin" && password == "123456789")
-                    {
-                        // Correct password, allow access to Swagger
-                        await next();
-                        return;
-                    }
-                    else
-                    {
-                        // Incorrect password
-                        context.Response.StatusCode = 401;
-                        await context.Response.WriteAsync("Incorrect password.");
-                        return;
-                    }
-                }
-            }
+        //            if (username == "admin" && password == "123456789")
+        //            {
+        //                // Correct password, allow access to Swagger
+        //                await next();
+        //                return;
+        //            }
+        //            else
+        //            {
+        //                // Incorrect password
+        //                context.Response.StatusCode = 401;
+        //                await context.Response.WriteAsync("Incorrect password.");
+        //                return;
+        //            }
+        //        }
+        //    }
 
-            await next();
-        });
+        //    await next();
+        //});
         #endregion
         app.UseSwagger();
         app.UseSwaggerUI();
