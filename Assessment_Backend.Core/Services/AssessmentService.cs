@@ -1,4 +1,6 @@
-﻿namespace Assessment_Backend.Core.Services
+﻿using AutoMapper;
+
+namespace Assessment_Backend.Core.Services
 {
     public class AssessmentService : IAssessmentService
     {
@@ -89,6 +91,22 @@
                         Result = null,
                         StatusCode = 400
                     };
+                }
+
+                if (assessmentDTO.File is not null)
+                {
+                    string filePath = "";
+
+
+                    _logger.LogCritical(Directory.GetCurrentDirectory());
+
+                    string name = NameGenerator.GenerateNameForImage() + Path.GetExtension(assessmentDTO.File.FileName);
+                     filePath = Path.Combine(Directory.GetCurrentDirectory(), "/var/lib/data/file", name);
+
+                        using var stream = new FileStream(filePath, FileMode.Create);
+                        assessmentDTO.File.CopyTo(stream);
+
+                    
                 }
                 var newAssessment = new Assessment()
                 {
