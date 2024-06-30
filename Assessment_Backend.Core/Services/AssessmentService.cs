@@ -98,10 +98,10 @@ namespace Assessment_Backend.Core.Services
                     string filePath = "";
 
 
-                    _logger.LogCritical(Directory.GetCurrentDirectory());
+                    _logger.LogCritical("test     +++"+Directory.GetCurrentDirectory());
 
                     string name = NameGenerator.GenerateNameForImage() + Path.GetExtension(assessmentDTO.File.FileName);
-                     filePath = Path.Combine(Directory.GetCurrentDirectory(), "/var/lib/data/file", name);
+                     filePath = Path.Combine(Directory.GetCurrentDirectory(), "/data/file", name);
 
                         using var stream = new FileStream(filePath, FileMode.Create);
                         assessmentDTO.File.CopyTo(stream);
