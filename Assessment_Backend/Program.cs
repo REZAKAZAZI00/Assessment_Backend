@@ -7,7 +7,7 @@ internal class Program
         Log.Logger = new LoggerConfiguration()
            .MinimumLevel.Debug()
            .WriteTo.Console()
-           .WriteTo.File("logs/backend.txt", rollingInterval: RollingInterval.Day)
+           .WriteTo.File("data/backend.txt", rollingInterval: RollingInterval.Day)
            .CreateLogger();
         #endregion
         builder.Host.UseSerilog();
