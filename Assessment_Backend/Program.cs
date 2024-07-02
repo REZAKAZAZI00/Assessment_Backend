@@ -47,6 +47,7 @@ internal class Program
         builder.Services.AddScoped<IGradeService, GradeService>();
         builder.Services.AddTransient<ICourseService, CourseService>();
         builder.Services.AddTransient<IAssessmentService, AssessmentService>();
+        builder.Services.AddScoped<IStatisticsService , StatisticsService>();
 
         #endregion
 
