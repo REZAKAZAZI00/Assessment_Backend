@@ -195,6 +195,7 @@
             }
         }
 
+
         public async Task<List<CourseDTO>> GetCourseAsync()
         {
             try
@@ -206,6 +207,7 @@
                     .Include(c => c.Term)
                     .Include(c => c.Teacher)
                     .Include(c => c.Assessments)
+                    .Include(c => c.CourseEnrollments).ThenInclude(e => e.Student) // Include Student information
                     .Where(c => teacherId != 0 ? c.TeacherId == teacherId : c.CourseEnrollments.Any(e => e.StudentId == studentId))
                     .Select(c => new CourseDTO
                     {
@@ -216,6 +218,14 @@
                         CourseId = c.CourseId,
                         Term = c.Term.Title,
                         TeacherName = c.Teacher.Name + " " + c.Teacher.family,
+                         Student = teacherId > 0 ? c.CourseEnrollments.Select(e => new StudentDTO // Add StudentDTO to CourseDTO only if teacherId > 0
+                        {
+                            StudentId = e.StudentId,
+                            Name = e.Student.Name,
+                            family = e.Student.family,
+                            PhoneNumber = e.Student.PhoneNumber,
+                            Email = e.Student.Email
+                        }).ToList() : null,
                         Assessments = c.Assessments
                             .Select(a => new AssessmentDTO
                             {

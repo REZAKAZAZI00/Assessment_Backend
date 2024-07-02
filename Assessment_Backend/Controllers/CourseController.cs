@@ -59,7 +59,7 @@
         }
 
 
-        [HttpPost("LeavingClass")]
+        [HttpDelete("LeavingClass")]
         [Authorize]
         public async Task<ActionResult<OutPutModel<List<CourseDTO>>>> LeavingClass(LeavingClassDTO model)
         {
