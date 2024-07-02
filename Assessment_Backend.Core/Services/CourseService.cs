@@ -278,6 +278,32 @@
                         Message = "درسی پیدا نشد."
                     };
                 }
+                var existingEnrollment = await _context.CourseEnrollments
+                          .SingleOrDefaultAsync(ce =>
+                          ce.CourseId == course.CourseId 
+                          && ce.StudentId == studentId);
+
+                if (existingEnrollment != null)
+                {
+                    return new OutPutModel<List<CourseDTO>>
+                    {
+                        Message = "شما قبلاً در این درس عضو شده‌اید.",
+                        StatusCode = 200,
+                        Result = await GetCourseAsync()
+                    };
+                }
+
+                var count=_context.CourseEnrollments
+                    .Where(ce=> ce.CourseId==course.CourseId).Count();
+                if (count >= course.CountMembers)
+                {
+                    return new OutPutModel<List<CourseDTO>>
+                    {
+                        Message = "ظرفیت کلاس پر شده است.",
+                        StatusCode = 200,
+                        Result = await GetCourseAsync()
+                    };
+                }
                 await _context.CourseEnrollments.AddAsync(new CourseEnrollment()
                 {
                     DateTime = DateTime.Now,
@@ -331,15 +357,11 @@
                         Message = "درس پیدا نشد ."
                     };
                 }
-                var config = new MapperConfiguration(cfg =>
-                {
-                    cfg.CreateMap<UpdateAssessmentDTO, Course>()
-                        .ForMember(dest => dest.CourseId, opt => opt.Ignore()) // برای جلوگیری از بروزرسانی ایدی
-                        .ForAllMembers(opt => opt.Condition((src, dest, srcMember) => srcMember != null));
-                });
-                var mapper = config.CreateMapper();
-
-                mapper.Map(model, course);
+                course.Description = model.Description;
+                course.Title = model.Title;
+                course.TermId = model.TermId;
+                course.CountMembers = model.CountMembers;   
+                
 
                 if (model.ChangeLink)
                 {
