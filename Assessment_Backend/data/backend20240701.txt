@@ -1,0 +1,664 @@
+2024-07-01 15:18:50.744 +03:30 [DBG] Registered model binder providers, in the following order: ["Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BinderTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ServicesModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.HeaderModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FloatingPointTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.EnumTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DateTimeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.TryParseModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CancellationTokenModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ByteArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormFileModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormCollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.KeyValuePairModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DictionaryModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ComplexObjectModelBinderProvider"]
+2024-07-01 15:18:50.859 +03:30 [DBG] Hosting starting
+2024-07-01 15:18:50.892 +03:30 [INF] User profile is available. Using 'C:\Users\rezak\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-07-01 15:18:50.901 +03:30 [DBG] Reading data from file 'C:\Users\rezak\AppData\Local\ASP.NET\DataProtection-Keys\key-2afc5c31-70f2-4593-8c95-5521f204c386.xml'.
+2024-07-01 15:18:50.915 +03:30 [DBG] Reading data from file 'C:\Users\rezak\AppData\Local\ASP.NET\DataProtection-Keys\key-a8e29bd3-d5ad-42cf-9cb6-92ce63901067.xml'.
+2024-07-01 15:18:50.917 +03:30 [DBG] Reading data from file 'C:\Users\rezak\AppData\Local\ASP.NET\DataProtection-Keys\key-ab7da6d7-0c87-4da0-8099-5864cb86239e.xml'.
+2024-07-01 15:18:50.918 +03:30 [DBG] Reading data from file 'C:\Users\rezak\AppData\Local\ASP.NET\DataProtection-Keys\key-b8a01d7c-4918-4f00-afba-1d71a3f67ea5.xml'.
+2024-07-01 15:18:50.919 +03:30 [DBG] Reading data from file 'C:\Users\rezak\AppData\Local\ASP.NET\DataProtection-Keys\key-c38bd368-8778-496f-977d-efd467e8f7ce.xml'.
+2024-07-01 15:18:50.920 +03:30 [DBG] Reading data from file 'C:\Users\rezak\AppData\Local\ASP.NET\DataProtection-Keys\key-d0f018e5-1db4-4816-9b5a-8ea812f01aaf.xml'.
+2024-07-01 15:18:50.921 +03:30 [DBG] Reading data from file 'C:\Users\rezak\AppData\Local\ASP.NET\DataProtection-Keys\key-df943432-fe4b-469c-aac5-af6388aae7f9.xml'.
+2024-07-01 15:18:50.923 +03:30 [DBG] Reading data from file 'C:\Users\rezak\AppData\Local\ASP.NET\DataProtection-Keys\key-ea1f83d5-e4bf-49eb-85e1-83edb47299f6.xml'.
+2024-07-01 15:18:50.924 +03:30 [DBG] Reading data from file 'C:\Users\rezak\AppData\Local\ASP.NET\DataProtection-Keys\key-efe863b5-bb4c-4c9d-8779-22b642eba318.xml'.
+2024-07-01 15:18:50.930 +03:30 [DBG] Found key {2afc5c31-70f2-4593-8c95-5521f204c386}.
+2024-07-01 15:18:50.937 +03:30 [DBG] Found key {a8e29bd3-d5ad-42cf-9cb6-92ce63901067}.
+2024-07-01 15:18:50.938 +03:30 [DBG] Found key {ab7da6d7-0c87-4da0-8099-5864cb86239e}.
+2024-07-01 15:18:50.938 +03:30 [DBG] Found key {b8a01d7c-4918-4f00-afba-1d71a3f67ea5}.
+2024-07-01 15:18:50.939 +03:30 [DBG] Found key {c38bd368-8778-496f-977d-efd467e8f7ce}.
+2024-07-01 15:18:50.940 +03:30 [DBG] Found key {d0f018e5-1db4-4816-9b5a-8ea812f01aaf}.
+2024-07-01 15:18:50.941 +03:30 [DBG] Found key {df943432-fe4b-469c-aac5-af6388aae7f9}.
+2024-07-01 15:18:50.941 +03:30 [DBG] Found key {ea1f83d5-e4bf-49eb-85e1-83edb47299f6}.
+2024-07-01 15:18:50.942 +03:30 [DBG] Found key {efe863b5-bb4c-4c9d-8779-22b642eba318}.
+2024-07-01 15:18:50.948 +03:30 [DBG] Considering key {2afc5c31-70f2-4593-8c95-5521f204c386} with expiration date 2024-09-28 19:40:00Z as default key.
+2024-07-01 15:18:50.951 +03:30 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2024-07-01 15:18:50.954 +03:30 [DBG] Decrypting secret element using Windows DPAPI.
+2024-07-01 15:18:50.956 +03:30 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2024-07-01 15:18:50.961 +03:30 [DBG] Opening CNG algorithm 'AES' from provider 'null' with chaining mode CBC.
+2024-07-01 15:18:50.963 +03:30 [DBG] Opening CNG algorithm 'SHA256' from provider 'null' with HMAC.
+2024-07-01 15:18:50.965 +03:30 [DBG] Using key {2afc5c31-70f2-4593-8c95-5521f204c386} as the default key.
+2024-07-01 15:18:50.967 +03:30 [DBG] Key ring with default key {2afc5c31-70f2-4593-8c95-5521f204c386} was loaded during application startup.
+2024-07-01 15:18:51.286 +03:30 [INF] Now listening on: https://localhost:7005
+2024-07-01 15:18:51.287 +03:30 [INF] Now listening on: http://localhost:5243
+2024-07-01 15:18:51.288 +03:30 [DBG] Loaded hosting startup assembly Assessment_Backend
+2024-07-01 15:18:51.288 +03:30 [DBG] Loaded hosting startup assembly Microsoft.AspNetCore.Watch.BrowserRefresh
+2024-07-01 15:18:51.289 +03:30 [DBG] Loaded hosting startup assembly Microsoft.WebTools.BrowserLink.Net
+2024-07-01 15:18:51.290 +03:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-07-01 15:18:51.291 +03:30 [INF] Hosting environment: Development
+2024-07-01 15:18:51.292 +03:30 [INF] Content root path: C:\Users\rezak\OneDrive\Desktop\assessment\a\Assessment_Backend\Assessment_Backend
+2024-07-01 15:18:51.292 +03:30 [DBG] Hosting started
+2024-07-01 15:18:51.343 +03:30 [DBG] Connection id "0HN4POF3DEFCL" accepted.
+2024-07-01 15:18:51.343 +03:30 [DBG] Connection id "0HN4POF3DEFCK" accepted.
+2024-07-01 15:18:51.345 +03:30 [DBG] Connection id "0HN4POF3DEFCL" started.
+2024-07-01 15:18:51.345 +03:30 [DBG] Connection id "0HN4POF3DEFCK" started.
+2024-07-01 15:18:53.537 +03:30 [DBG] Connection id "0HN4POF3DEFCM" accepted.
+2024-07-01 15:18:53.851 +03:30 [DBG] Connection id "0HN4POF3DEFCM" started.
+2024-07-01 15:18:54.000 +03:30 [DBG] Connection 0HN4POF3DEFCM established using the following protocol: "Tls13"
+2024-07-01 15:18:54.099 +03:30 [INF] Request starting HTTP/2 GET https://localhost:7005/swagger/index.html - null null
+2024-07-01 15:18:54.360 +03:30 [DBG] Wildcard detected, all requests with hosts will be allowed.
+2024-07-01 15:18:54.382 +03:30 [DBG] No candidates found for the request path '/swagger/index.html'
+2024-07-01 15:18:54.384 +03:30 [DBG] Request did not match any endpoints
+2024-07-01 15:18:54.489 +03:30 [DBG] AuthenticationScheme: Bearer was not authenticated.
+2024-07-01 15:18:54.582 +03:30 [DBG] Response markup is scheduled to include Browser Link script injection.
+2024-07-01 15:18:54.584 +03:30 [DBG] Response markup is scheduled to include browser refresh script injection.
+2024-07-01 15:18:54.652 +03:30 [INF] Request starting HTTP/2 GET https://localhost:7005/_framework/aspnetcore-browser-refresh.js - null null
+2024-07-01 15:18:54.653 +03:30 [INF] Request starting HTTP/2 GET https://localhost:7005/_vs/browserLink - null null
+2024-07-01 15:18:54.654 +03:30 [DBG] Response markup was updated to include Browser Link script injection.
+2024-07-01 15:18:54.669 +03:30 [DBG] Response markup was updated to include browser refresh script injection.
+2024-07-01 15:18:54.713 +03:30 [INF] Request finished HTTP/2 GET https://localhost:7005/swagger/index.html - 200 null text/html;charset=utf-8 607.3151ms
+2024-07-01 15:18:54.764 +03:30 [INF] Request finished HTTP/2 GET https://localhost:7005/_framework/aspnetcore-browser-refresh.js - 200 13772 application/javascript; charset=utf-8 112.1415ms
+2024-07-01 15:18:54.842 +03:30 [INF] Request finished HTTP/2 GET https://localhost:7005/_vs/browserLink - 200 null text/javascript; charset=UTF-8 189.5662ms
+2024-07-01 15:18:54.905 +03:30 [INF] Request starting HTTP/2 GET https://localhost:7005/swagger/v1/swagger.json - null null
+2024-07-01 15:18:54.956 +03:30 [DBG] No candidates found for the request path '/swagger/v1/swagger.json'
+2024-07-01 15:18:54.959 +03:30 [DBG] Request did not match any endpoints
+2024-07-01 15:18:54.967 +03:30 [DBG] AuthenticationScheme: Bearer was not authenticated.
+2024-07-01 15:18:55.111 +03:30 [INF] Request finished HTTP/2 GET https://localhost:7005/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 205.8737ms
+2024-07-01 15:18:58.066 +03:30 [DBG] Connection id "0HN4POF3DEFCM" received FIN.
+2024-07-01 15:18:58.069 +03:30 [DBG] Connection id "0HN4POF3DEFCM" sending FIN because: "The Socket transport's send loop completed gracefully."
+2024-07-01 15:18:58.078 +03:30 [DBG] Connection id "0HN4POF3DEFCM" is closed. The last processed stream ID was 7.
+2024-07-01 15:18:58.090 +03:30 [DBG] The connection queue processing loop for 0HN4POF3DEFCM completed.
+2024-07-01 15:18:58.102 +03:30 [DBG] Connection id "0HN4POF3DEFCM" stopped.
+2024-07-01 15:19:01.372 +03:30 [DBG] Authentication of the HTTPS connection timed out.
+2024-07-01 15:19:01.373 +03:30 [DBG] Authentication of the HTTPS connection timed out.
+2024-07-01 15:19:01.377 +03:30 [DBG] Connection id "0HN4POF3DEFCK" stopped.
+2024-07-01 15:19:01.381 +03:30 [DBG] Connection id "0HN4POF3DEFCL" stopped.
+2024-07-01 15:19:01.387 +03:30 [DBG] Connection id "0HN4POF3DEFCK" sending FIN because: "The Socket transport's send loop completed gracefully."
+2024-07-01 15:19:01.397 +03:30 [DBG] Connection id "0HN4POF3DEFCL" sending FIN because: "The Socket transport's send loop completed gracefully."
+2024-07-01 15:20:20.204 +03:30 [DBG] Connection id "0HN4POF3DEFCN" accepted.
+2024-07-01 15:20:20.210 +03:30 [DBG] Connection id "0HN4POF3DEFCN" started.
+2024-07-01 15:20:20.224 +03:30 [DBG] Connection 0HN4POF3DEFCN established using the following protocol: "Tls13"
+2024-07-01 15:20:20.257 +03:30 [INF] Request starting HTTP/2 POST https://localhost:7005/api/Account/Login - application/json 58
+2024-07-01 15:20:20.281 +03:30 [DBG] 1 candidate(s) found for the request path '/api/Account/Login'
+2024-07-01 15:20:20.291 +03:30 [DBG] Endpoint 'Assessment_Backend.Controllers.AccountController.Login (Assessment_Backend)' with route pattern 'api/Account/Login' is valid for the request path '/api/Account/Login'
+2024-07-01 15:20:20.304 +03:30 [DBG] Request matched endpoint 'Assessment_Backend.Controllers.AccountController.Login (Assessment_Backend)'
+2024-07-01 15:20:20.313 +03:30 [DBG] The request has an origin header: 'https://localhost:7005'.
+2024-07-01 15:20:20.316 +03:30 [INF] CORS policy execution successful.
+2024-07-01 15:20:20.323 +03:30 [DBG] AuthenticationScheme: Bearer was not authenticated.
+2024-07-01 15:20:20.329 +03:30 [DBG] Static files was skipped as the request already matched an endpoint.
+2024-07-01 15:20:20.331 +03:30 [INF] Executing endpoint 'Assessment_Backend.Controllers.AccountController.Login (Assessment_Backend)'
+2024-07-01 15:20:20.389 +03:30 [INF] Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[Assessment_Backend.Core.DTOs.OutPutModel`1[Assessment_Backend.Core.DTOs.Account.UserProfileDTO]]] Login(Assessment_Backend.Core.DTOs.Account.LoginDTO) on controller Assessment_Backend.Controllers.AccountController (Assessment_Backend).
+2024-07-01 15:20:20.396 +03:30 [DBG] Execution plan of authorization filters (in the following order): ["None"]
+2024-07-01 15:20:20.402 +03:30 [DBG] Execution plan of resource filters (in the following order): ["None"]
+2024-07-01 15:20:20.410 +03:30 [DBG] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)","Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter (Order: -2000)"]
+2024-07-01 15:20:20.416 +03:30 [DBG] Execution plan of exception filters (in the following order): ["None"]
+2024-07-01 15:20:20.419 +03:30 [DBG] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter (Order: -2000)"]
+2024-07-01 15:20:20.428 +03:30 [DBG] Executing controller factory for controller Assessment_Backend.Controllers.AccountController (Assessment_Backend)
+2024-07-01 15:20:20.778 +03:30 [DBG] An 'IServiceProvider' was created for internal use by Entity Framework.
+2024-07-01 15:20:20.833 +03:30 [DBG] Executed controller factory for controller Assessment_Backend.Controllers.AccountController (Assessment_Backend)
+2024-07-01 15:20:20.868 +03:30 [DBG] Attempting to bind parameter 'model' of type 'Assessment_Backend.Core.DTOs.Account.LoginDTO' ...
+2024-07-01 15:20:20.876 +03:30 [DBG] Attempting to bind parameter 'model' of type 'Assessment_Backend.Core.DTOs.Account.LoginDTO' using the name '' in request data ...
+2024-07-01 15:20:20.881 +03:30 [DBG] Selected input formatter 'Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonInputFormatter' for content type 'application/json'.
+2024-07-01 15:20:20.899 +03:30 [DBG] Connection id "0HN4POF3DEFCN", Request id "0HN4POF3DEFCN:00000001": started reading request body.
+2024-07-01 15:20:20.908 +03:30 [DBG] Connection id "0HN4POF3DEFCN", Request id "0HN4POF3DEFCN:00000001": done reading request body.
+2024-07-01 15:20:20.926 +03:30 [DBG] JSON input formatter succeeded, deserializing to type 'Assessment_Backend.Core.DTOs.Account.LoginDTO'
+2024-07-01 15:20:20.934 +03:30 [DBG] Done attempting to bind parameter 'model' of type 'Assessment_Backend.Core.DTOs.Account.LoginDTO'.
+2024-07-01 15:20:20.942 +03:30 [DBG] Done attempting to bind parameter 'model' of type 'Assessment_Backend.Core.DTOs.Account.LoginDTO'.
+2024-07-01 15:20:20.947 +03:30 [DBG] Attempting to validate the bound parameter 'model' of type 'Assessment_Backend.Core.DTOs.Account.LoginDTO' ...
+2024-07-01 15:20:20.967 +03:30 [DBG] Done attempting to validate the bound parameter 'model' of type 'Assessment_Backend.Core.DTOs.Account.LoginDTO'.
+2024-07-01 15:20:21.100 +03:30 [INF] Executing action method Assessment_Backend.Controllers.AccountController.Login (Assessment_Backend) - Validation state: "Valid"
+2024-07-01 15:20:22.497 +03:30 [WRN] Entity 'SubType' has a global query filter defined and is the required end of a relationship with the entity 'Sub'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2024-07-01 15:20:22.501 +03:30 [WRN] Entity 'Teacher' has a global query filter defined and is the required end of a relationship with the entity 'TeacherSub'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2024-07-01 15:20:22.505 +03:30 [WRN] Entity 'Role' has a global query filter defined and is the required end of a relationship with the entity 'User'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2024-07-01 15:20:22.516 +03:30 [WRN] Entity 'Assessment' has a global query filter defined and is the required end of a relationship with the entity 'AssignmentSubmission'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2024-07-01 15:20:22.534 +03:30 [WRN] Entity 'Course' has a global query filter defined and is the required end of a relationship with the entity 'CourseEnrollment'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2024-07-01 15:20:22.603 +03:30 [WRN] The foreign key property 'TeacherSub.SubsId1' was created in shadow state because a conflicting property with the simple name 'SubsId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+2024-07-01 15:20:22.980 +03:30 [DBG] Entity Framework Core 8.0.4 initialized 'AssessmentDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:8.0.4' with options: None
+2024-07-01 15:20:23.128 +03:30 [DBG] Compiling query expression: 
+'DbSet<User>()
+    .SingleOrDefault(u => u.CodeMelli == __8__locals1_model_CodeMelli_0 && u.Password == __password_1)'
+2024-07-01 15:20:23.529 +03:30 [DBG] Generated query execution expression: 
+'queryContext => ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync<User>(
+    asyncEnumerable: new SingleQueryingEnumerable<User>(
+        (RelationalQueryContext)queryContext, 
+        RelationalCommandCache.QueryExpression(
+            Projection Mapping:
+                EmptyProjectionMember -> Dictionary<IProperty, int> { [Property: User.UserId (int) Required PK AfterSave:Throw ValueGenerated.OnAdd, 0], [Property: User.CodeMelli (string) Required MaxLength(10), 1], [Property: User.Password (string) Required MaxLength(100), 2], [Property: User.RoleId (int) Required FK Index, 3] }
+            SELECT TOP(2) u.UserId, u.CodeMelli, u.Password, u.RoleId
+            FROM User.User AS u
+            WHERE (u.CodeMelli == @__8__locals1_model_CodeMelli_0) && (u.Password == @__password_1)), 
+        null, 
+        Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, User>, 
+        Assessment_Backend.DataLayer.Context.AssessmentDbContext, 
+        False, 
+        False, 
+        True
+    ), 
+    cancellationToken: queryContext.CancellationToken)'
+2024-07-01 15:20:23.627 +03:30 [DBG] Creating DbConnection.
+2024-07-01 15:20:23.676 +03:30 [DBG] Created DbConnection. (46ms).
+2024-07-01 15:20:23.684 +03:30 [DBG] Opening connection to database 'Assessmentdb' on server '4378c8e6-7fb4-473d-bd8b-c4753a7cc0de.hsvc.ir,31716'.
+2024-07-01 15:20:25.038 +03:30 [DBG] Opened connection to database 'Assessmentdb' on server '4378c8e6-7fb4-473d-bd8b-c4753a7cc0de.hsvc.ir,31716'.
+2024-07-01 15:20:25.053 +03:30 [DBG] Creating DbCommand for 'ExecuteReader'.
+2024-07-01 15:20:25.068 +03:30 [DBG] Created DbCommand for 'ExecuteReader' (15ms).
+2024-07-01 15:20:25.094 +03:30 [DBG] Initialized DbCommand for 'ExecuteReader' (42ms).
+2024-07-01 15:20:25.114 +03:30 [DBG] Executing DbCommand [Parameters=[@__8__locals1_model_CodeMelli_0='?' (Size = 10), @__password_1='?' (Size = 100)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [u].[UserId], [u].[CodeMelli], [u].[Password], [u].[RoleId]
+FROM [User].[User] AS [u]
+WHERE [u].[CodeMelli] = @__8__locals1_model_CodeMelli_0 AND [u].[Password] = @__password_1
+2024-07-01 15:20:25.319 +03:30 [INF] Executed DbCommand (204ms) [Parameters=[@__8__locals1_model_CodeMelli_0='?' (Size = 10), @__password_1='?' (Size = 100)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [u].[UserId], [u].[CodeMelli], [u].[Password], [u].[RoleId]
+FROM [User].[User] AS [u]
+WHERE [u].[CodeMelli] = @__8__locals1_model_CodeMelli_0 AND [u].[Password] = @__password_1
+2024-07-01 15:20:25.451 +03:30 [DBG] Context 'AssessmentDbContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2024-07-01 15:20:25.498 +03:30 [DBG] Closing data reader to 'Assessmentdb' on server '4378c8e6-7fb4-473d-bd8b-c4753a7cc0de.hsvc.ir,31716'.
+2024-07-01 15:20:25.516 +03:30 [DBG] A data reader for 'Assessmentdb' on server '4378c8e6-7fb4-473d-bd8b-c4753a7cc0de.hsvc.ir,31716' is being disposed after spending 171ms reading results.
+2024-07-01 15:20:25.527 +03:30 [DBG] Closing connection to database 'Assessmentdb' on server '4378c8e6-7fb4-473d-bd8b-c4753a7cc0de.hsvc.ir,31716'.
+2024-07-01 15:20:25.550 +03:30 [DBG] Closed connection to database 'Assessmentdb' on server '4378c8e6-7fb4-473d-bd8b-c4753a7cc0de.hsvc.ir,31716' (23ms).
+2024-07-01 15:20:25.569 +03:30 [DBG] Compiling query expression: 
+'DbSet<Student>()
+    .Include(g => g.Grade)
+    .SingleOrDefault(s => s.UserId == __existingUser_UserId_0)'
+2024-07-01 15:20:25.598 +03:30 [DBG] Including navigation: 'Student.Grade'.
+2024-07-01 15:20:25.733 +03:30 [DBG] Generated query execution expression: 
+'queryContext => ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync<Student>(
+    asyncEnumerable: new SingleQueryingEnumerable<Student>(
+        (RelationalQueryContext)queryContext, 
+        RelationalCommandCache.QueryExpression(
+            Client Projections:
+                0 -> Dictionary<IProperty, int> { [Property: Student.StudentId (int) Required PK AfterSave:Throw ValueGenerated.OnAdd, 0], [Property: Student.Email (string) Required MaxLength(150), 1], [Property: Student.GradeId (int) Required FK Index, 2], [Property: Student.IsDelete (bool) Required, 3], [Property: Student.Name (string) Required MaxLength(70), 4], [Property: Student.PhoneNumber (string) Required MaxLength(11), 5], [Property: Student.UserId (int) Required FK Index, 6], [Property: Student.family (string) Required MaxLength(70), 7] }
+                1 -> Dictionary<IProperty, int> { [Property: Grade.GradeId (int) Required PK AfterSave:Throw ValueGenerated.OnAdd, 8], [Property: Grade.IsDelete (bool) Required, 9], [Property: Grade.Title (string) Required MaxLength(50), 10] }
+            SELECT TOP(2) s.StudentId, s.Email, s.GradeId, s.IsDelete, s.Name, s.PhoneNumber, s.UserId, s.family, t.GradeId, t.IsDelete, t.Title
+            FROM User.Student AS s
+            INNER JOIN 
+            (
+                SELECT g.GradeId, g.IsDelete, g.Title
+                FROM User.Grade AS g
+                WHERE Not(g.IsDelete)
+            ) AS t ON s.GradeId == t.GradeId
+            WHERE Not(s.IsDelete) && (s.UserId == @__existingUser_UserId_0)), 
+        null, 
+        Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, Student>, 
+        Assessment_Backend.DataLayer.Context.AssessmentDbContext, 
+        False, 
+        False, 
+        True
+    ), 
+    cancellationToken: queryContext.CancellationToken)'
+2024-07-01 15:20:25.748 +03:30 [DBG] Opening connection to database 'Assessmentdb' on server '4378c8e6-7fb4-473d-bd8b-c4753a7cc0de.hsvc.ir,31716'.
+2024-07-01 15:20:25.753 +03:30 [DBG] Opened connection to database 'Assessmentdb' on server '4378c8e6-7fb4-473d-bd8b-c4753a7cc0de.hsvc.ir,31716'.
+2024-07-01 15:20:25.759 +03:30 [DBG] Creating DbCommand for 'ExecuteReader'.
+2024-07-01 15:20:25.761 +03:30 [DBG] Created DbCommand for 'ExecuteReader' (2ms).
+2024-07-01 15:20:25.764 +03:30 [DBG] Initialized DbCommand for 'ExecuteReader' (4ms).
+2024-07-01 15:20:25.767 +03:30 [DBG] Executing DbCommand [Parameters=[@__existingUser_UserId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [s].[StudentId], [s].[Email], [s].[GradeId], [s].[IsDelete], [s].[Name], [s].[PhoneNumber], [s].[UserId], [s].[family], [t].[GradeId], [t].[IsDelete], [t].[Title]
+FROM [User].[Student] AS [s]
+INNER JOIN (
+    SELECT [g].[GradeId], [g].[IsDelete], [g].[Title]
+    FROM [User].[Grade] AS [g]
+    WHERE [g].[IsDelete] = CAST(0 AS bit)
+) AS [t] ON [s].[GradeId] = [t].[GradeId]
+WHERE [s].[IsDelete] = CAST(0 AS bit) AND [s].[UserId] = @__existingUser_UserId_0
+2024-07-01 15:20:25.827 +03:30 [INF] Executed DbCommand (61ms) [Parameters=[@__existingUser_UserId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [s].[StudentId], [s].[Email], [s].[GradeId], [s].[IsDelete], [s].[Name], [s].[PhoneNumber], [s].[UserId], [s].[family], [t].[GradeId], [t].[IsDelete], [t].[Title]
+FROM [User].[Student] AS [s]
+INNER JOIN (
+    SELECT [g].[GradeId], [g].[IsDelete], [g].[Title]
+    FROM [User].[Grade] AS [g]
+    WHERE [g].[IsDelete] = CAST(0 AS bit)
+) AS [t] ON [s].[GradeId] = [t].[GradeId]
+WHERE [s].[IsDelete] = CAST(0 AS bit) AND [s].[UserId] = @__existingUser_UserId_0
+2024-07-01 15:20:25.831 +03:30 [DBG] Closing data reader to 'Assessmentdb' on server '4378c8e6-7fb4-473d-bd8b-c4753a7cc0de.hsvc.ir,31716'.
+2024-07-01 15:20:25.834 +03:30 [DBG] A data reader for 'Assessmentdb' on server '4378c8e6-7fb4-473d-bd8b-c4753a7cc0de.hsvc.ir,31716' is being disposed after spending 2ms reading results.
+2024-07-01 15:20:25.838 +03:30 [DBG] Closing connection to database 'Assessmentdb' on server '4378c8e6-7fb4-473d-bd8b-c4753a7cc0de.hsvc.ir,31716'.
+2024-07-01 15:20:25.844 +03:30 [DBG] Closed connection to database 'Assessmentdb' on server '4378c8e6-7fb4-473d-bd8b-c4753a7cc0de.hsvc.ir,31716' (5ms).
+2024-07-01 15:20:25.850 +03:30 [DBG] Compiling query expression: 
+'DbSet<Teacher>()
+    .SingleOrDefault(t => t.UserId == __existingUser_UserId_0)'
+2024-07-01 15:20:25.861 +03:30 [DBG] Generated query execution expression: 
+'queryContext => ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync<Teacher>(
+    asyncEnumerable: new SingleQueryingEnumerable<Teacher>(
+        (RelationalQueryContext)queryContext, 
+        RelationalCommandCache.QueryExpression(
+            Projection Mapping:
+                EmptyProjectionMember -> Dictionary<IProperty, int> { [Property: Teacher.TeacherId (int) Required PK AfterSave:Throw ValueGenerated.OnAdd, 0], [Property: Teacher.Email (string) Required MaxLength(150), 1], [Property: Teacher.IsDelete (bool) Required, 2], [Property: Teacher.Name (string) Required MaxLength(70), 3], [Property: Teacher.PhoneNumber (string) Required MaxLength(11), 4], [Property: Teacher.TeacherCode (string) Required MaxLength(15), 5], [Property: Teacher.UserId (int) Required FK Index, 6], [Property: Teacher.family (string) Required MaxLength(70), 7] }
+            SELECT TOP(2) t.TeacherId, t.Email, t.IsDelete, t.Name, t.PhoneNumber, t.TeacherCode, t.UserId, t.family
+            FROM User.Teacher AS t
+            WHERE Not(t.IsDelete) && (t.UserId == @__existingUser_UserId_0)), 
+        null, 
+        Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, Teacher>, 
+        Assessment_Backend.DataLayer.Context.AssessmentDbContext, 
+        False, 
+        False, 
+        True
+    ), 
+    cancellationToken: queryContext.CancellationToken)'
+2024-07-01 15:20:25.872 +03:30 [DBG] Opening connection to database 'Assessmentdb' on server '4378c8e6-7fb4-473d-bd8b-c4753a7cc0de.hsvc.ir,31716'.
+2024-07-01 15:20:25.876 +03:30 [DBG] Opened connection to database 'Assessmentdb' on server '4378c8e6-7fb4-473d-bd8b-c4753a7cc0de.hsvc.ir,31716'.
+2024-07-01 15:20:25.881 +03:30 [DBG] Creating DbCommand for 'ExecuteReader'.
+2024-07-01 15:20:25.882 +03:30 [DBG] Created DbCommand for 'ExecuteReader' (1ms).
+2024-07-01 15:20:25.888 +03:30 [DBG] Initialized DbCommand for 'ExecuteReader' (7ms).
+2024-07-01 15:20:25.891 +03:30 [DBG] Executing DbCommand [Parameters=[@__existingUser_UserId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [t].[TeacherId], [t].[Email], [t].[IsDelete], [t].[Name], [t].[PhoneNumber], [t].[TeacherCode], [t].[UserId], [t].[family]
+FROM [User].[Teacher] AS [t]
+WHERE [t].[IsDelete] = CAST(0 AS bit) AND [t].[UserId] = @__existingUser_UserId_0
+2024-07-01 15:20:25.943 +03:30 [INF] Executed DbCommand (52ms) [Parameters=[@__existingUser_UserId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [t].[TeacherId], [t].[Email], [t].[IsDelete], [t].[Name], [t].[PhoneNumber], [t].[TeacherCode], [t].[UserId], [t].[family]
+FROM [User].[Teacher] AS [t]
+WHERE [t].[IsDelete] = CAST(0 AS bit) AND [t].[UserId] = @__existingUser_UserId_0
+2024-07-01 15:20:25.995 +03:30 [DBG] The navigation 'User.Teacher' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2024-07-01 15:20:26.003 +03:30 [DBG] Context 'AssessmentDbContext' started tracking 'Teacher' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2024-07-01 15:20:26.032 +03:30 [DBG] Closing data reader to 'Assessmentdb' on server '4378c8e6-7fb4-473d-bd8b-c4753a7cc0de.hsvc.ir,31716'.
+2024-07-01 15:20:26.035 +03:30 [DBG] A data reader for 'Assessmentdb' on server '4378c8e6-7fb4-473d-bd8b-c4753a7cc0de.hsvc.ir,31716' is being disposed after spending 82ms reading results.
+2024-07-01 15:20:26.038 +03:30 [DBG] Closing connection to database 'Assessmentdb' on server '4378c8e6-7fb4-473d-bd8b-c4753a7cc0de.hsvc.ir,31716'.
+2024-07-01 15:20:26.044 +03:30 [DBG] Closed connection to database 'Assessmentdb' on server '4378c8e6-7fb4-473d-bd8b-c4753a7cc0de.hsvc.ir,31716' (5ms).
+2024-07-01 15:20:26.122 +03:30 [INF] Executed action method Assessment_Backend.Controllers.AccountController.Login (Assessment_Backend), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 5009.8713ms.
+2024-07-01 15:20:26.135 +03:30 [DBG] List of registered output formatters, in the following order: ["Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StreamOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter"]
+2024-07-01 15:20:26.150 +03:30 [DBG] Attempting to select an output formatter based on Accept header '["text/plain"]'.
+2024-07-01 15:20:26.161 +03:30 [DBG] Could not find an output formatter based on content negotiation. Accepted types were (["text/plain"])
+2024-07-01 15:20:26.167 +03:30 [DBG] Attempting to select an output formatter without using a content type as no explicit content types were specified for the response.
+2024-07-01 15:20:26.170 +03:30 [DBG] Attempting to select the first formatter in the output formatters list which can write the result.
+2024-07-01 15:20:26.175 +03:30 [DBG] Selected output formatter 'Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter' and content type 'application/json' to write the response.
+2024-07-01 15:20:26.179 +03:30 [INF] Executing ObjectResult, writing value of type 'Assessment_Backend.Core.DTOs.OutPutModel`1[[Assessment_Backend.Core.DTOs.Account.UserProfileDTO, Assessment_Backend.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-07-01 15:20:26.202 +03:30 [INF] Executed action Assessment_Backend.Controllers.AccountController.Login (Assessment_Backend) in 5772.7282ms
+2024-07-01 15:20:26.206 +03:30 [INF] Executed endpoint 'Assessment_Backend.Controllers.AccountController.Login (Assessment_Backend)'
+2024-07-01 15:20:26.213 +03:30 [DBG] 'AssessmentDbContext' disposed.
+2024-07-01 15:20:26.221 +03:30 [DBG] Disposing connection to database 'Assessmentdb' on server '4378c8e6-7fb4-473d-bd8b-c4753a7cc0de.hsvc.ir,31716'.
+2024-07-01 15:20:26.232 +03:30 [DBG] Disposed connection to database '' on server '' (9ms).
+2024-07-01 15:20:26.236 +03:30 [INF] Request finished HTTP/2 POST https://localhost:7005/api/Account/Login - 200 null application/json; charset=utf-8 5979.0683ms
+2024-07-01 15:22:01.590 +03:30 [INF] Request starting HTTP/2 POST https://localhost:7005/api/Assessment/CreateAssessment?CourseId=1&Title=11111&Description=11111&StartDate=2024%2F07%2F03&EndDate=2024%2F07%2F09&PenaltyRule=0 - multipart/form-data; boundary=----WebKitFormBoundaryZfpqYXda5ZZEHjdr 107339
+2024-07-01 15:22:01.613 +03:30 [DBG] 1 candidate(s) found for the request path '/api/Assessment/CreateAssessment'
+2024-07-01 15:22:01.619 +03:30 [DBG] Endpoint 'Assessment_Backend.Controllers.AssessmentController.CreateAssessment (Assessment_Backend)' with route pattern 'api/Assessment/CreateAssessment' is valid for the request path '/api/Assessment/CreateAssessment'
+2024-07-01 15:22:01.623 +03:30 [DBG] Request matched endpoint 'Assessment_Backend.Controllers.AssessmentController.CreateAssessment (Assessment_Backend)'
+2024-07-01 15:22:01.626 +03:30 [DBG] The request has an origin header: 'https://localhost:7005'.
+2024-07-01 15:22:01.629 +03:30 [INF] CORS policy execution successful.
+2024-07-01 15:22:01.729 +03:30 [DBG] Successfully validated the token.
+2024-07-01 15:22:01.734 +03:30 [DBG] AuthenticationScheme: Bearer was successfully authenticated.
+2024-07-01 15:22:01.739 +03:30 [DBG] Static files was skipped as the request already matched an endpoint.
+2024-07-01 15:22:01.746 +03:30 [INF] Executing endpoint 'Assessment_Backend.Controllers.AssessmentController.CreateAssessment (Assessment_Backend)'
+2024-07-01 15:22:01.769 +03:30 [INF] Route matched with {action = "CreateAssessment", controller = "Assessment"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[Assessment_Backend.Core.DTOs.OutPutModel`1[Assessment_Backend.Core.DTOs.Course.CourseDTO]]] CreateAssessment(Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO) on controller Assessment_Backend.Controllers.AssessmentController (Assessment_Backend).
+2024-07-01 15:22:01.773 +03:30 [DBG] Execution plan of authorization filters (in the following order): ["None"]
+2024-07-01 15:22:01.776 +03:30 [DBG] Execution plan of resource filters (in the following order): ["None"]
+2024-07-01 15:22:01.779 +03:30 [DBG] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)","Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter (Order: -2000)"]
+2024-07-01 15:22:01.788 +03:30 [DBG] Execution plan of exception filters (in the following order): ["None"]
+2024-07-01 15:22:01.798 +03:30 [DBG] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter (Order: -2000)"]
+2024-07-01 15:22:01.807 +03:30 [DBG] Executing controller factory for controller Assessment_Backend.Controllers.AssessmentController (Assessment_Backend)
+2024-07-01 15:22:01.819 +03:30 [DBG] Executed controller factory for controller Assessment_Backend.Controllers.AssessmentController (Assessment_Backend)
+2024-07-01 15:22:01.831 +03:30 [DBG] Connection id "0HN4POF3DEFCN", Request id "0HN4POF3DEFCN:00000003": started reading request body.
+2024-07-01 15:22:01.836 +03:30 [DBG] Connection id "0HN4POF3DEFCN", Request id "0HN4POF3DEFCN:00000003": done reading request body.
+2024-07-01 15:22:01.883 +03:30 [DBG] Attempting to bind parameter 'assessmentDTO' of type 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO' ...
+2024-07-01 15:22:01.892 +03:30 [DBG] Attempting to bind parameter 'assessmentDTO' of type 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO' using the name '' in request data ...
+2024-07-01 15:22:01.905 +03:30 [DBG] Attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.CourseId' of type 'System.Int32' using the name 'CourseId' in request data ...
+2024-07-01 15:22:01.916 +03:30 [DBG] Done attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.CourseId' of type 'System.Int32'.
+2024-07-01 15:22:01.923 +03:30 [DBG] Attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.Title' of type 'System.String' using the name 'Title' in request data ...
+2024-07-01 15:22:01.930 +03:30 [DBG] Done attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.Title' of type 'System.String'.
+2024-07-01 15:22:01.939 +03:30 [DBG] Attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.Description' of type 'System.String' using the name 'Description' in request data ...
+2024-07-01 15:22:01.946 +03:30 [DBG] Done attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.Description' of type 'System.String'.
+2024-07-01 15:22:01.963 +03:30 [DBG] Attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.StartDate' of type 'System.DateTime' using the name 'StartDate' in request data ...
+2024-07-01 15:22:01.969 +03:30 [DBG] Done attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.StartDate' of type 'System.DateTime'.
+2024-07-01 15:22:01.973 +03:30 [DBG] Attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.EndDate' of type 'System.DateTime' using the name 'EndDate' in request data ...
+2024-07-01 15:22:01.977 +03:30 [DBG] Done attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.EndDate' of type 'System.DateTime'.
+2024-07-01 15:22:01.983 +03:30 [DBG] Attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.File' of type 'Microsoft.AspNetCore.Http.IFormFile' using the name 'File' in request data ...
+2024-07-01 15:22:01.991 +03:30 [DBG] Done attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.File' of type 'Microsoft.AspNetCore.Http.IFormFile'.
+2024-07-01 15:22:01.995 +03:30 [DBG] Attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.PenaltyRule' of type 'System.String' using the name 'PenaltyRule' in request data ...
+2024-07-01 15:22:02.002 +03:30 [DBG] Done attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.PenaltyRule' of type 'System.String'.
+2024-07-01 15:22:02.007 +03:30 [DBG] Done attempting to bind parameter 'assessmentDTO' of type 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO'.
+2024-07-01 15:22:02.011 +03:30 [DBG] Done attempting to bind parameter 'assessmentDTO' of type 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO'.
+2024-07-01 15:22:02.018 +03:30 [DBG] Attempting to validate the bound parameter 'assessmentDTO' of type 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO' ...
+2024-07-01 15:22:02.026 +03:30 [DBG] Done attempting to validate the bound parameter 'assessmentDTO' of type 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO'.
+2024-07-01 15:22:02.083 +03:30 [INF] Executing action method Assessment_Backend.Controllers.AssessmentController.CreateAssessment (Assessment_Backend) - Validation state: "Valid"
+2024-07-01 15:23:03.570 +03:30 [ERR] Value for ServiceURL is not a valid URL: s3.ir-thr-at1.arvanstorage.ir
+2024-07-01 15:23:03.586 +03:30 [INF] Executed action method Assessment_Backend.Controllers.AssessmentController.CreateAssessment (Assessment_Backend), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 61499.9903ms.
+2024-07-01 15:23:03.596 +03:30 [DBG] List of registered output formatters, in the following order: ["Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StreamOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter"]
+2024-07-01 15:23:03.600 +03:30 [DBG] Attempting to select an output formatter based on Accept header '["text/plain"]'.
+2024-07-01 15:23:03.603 +03:30 [DBG] Could not find an output formatter based on content negotiation. Accepted types were (["text/plain"])
+2024-07-01 15:23:03.611 +03:30 [DBG] Attempting to select an output formatter without using a content type as no explicit content types were specified for the response.
+2024-07-01 15:23:03.614 +03:30 [DBG] Attempting to select the first formatter in the output formatters list which can write the result.
+2024-07-01 15:23:03.615 +03:30 [DBG] Selected output formatter 'Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter' and content type 'application/json' to write the response.
+2024-07-01 15:23:03.617 +03:30 [INF] Executing ObjectResult, writing value of type 'Assessment_Backend.Core.DTOs.OutPutModel`1[[Assessment_Backend.Core.DTOs.Course.CourseDTO, Assessment_Backend.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-07-01 15:23:03.630 +03:30 [INF] Executed action Assessment_Backend.Controllers.AssessmentController.CreateAssessment (Assessment_Backend) in 61822.7734ms
+2024-07-01 15:23:03.644 +03:30 [INF] Executed endpoint 'Assessment_Backend.Controllers.AssessmentController.CreateAssessment (Assessment_Backend)'
+2024-07-01 15:23:03.655 +03:30 [INF] Request finished HTTP/2 POST https://localhost:7005/api/Assessment/CreateAssessment?CourseId=1&Title=11111&Description=11111&StartDate=2024%2F07%2F03&EndDate=2024%2F07%2F09&PenaltyRule=0 - 200 null application/json; charset=utf-8 62068.6009ms
+2024-07-01 15:23:24.391 +03:30 [DBG] Connection id "0HN4POF3DEFCN" received FIN.
+2024-07-01 15:23:24.393 +03:30 [DBG] Connection id "0HN4POF3DEFCN" is closed. The last processed stream ID was 3.
+2024-07-01 15:23:24.395 +03:30 [DBG] The connection queue processing loop for 0HN4POF3DEFCN completed.
+2024-07-01 15:23:24.404 +03:30 [DBG] Connection id "0HN4POF3DEFCN" sending FIN because: "The Socket transport's send loop completed gracefully."
+2024-07-01 15:23:24.412 +03:30 [DBG] Connection id "0HN4POF3DEFCN" stopped.
+2024-07-01 15:25:33.301 +03:30 [DBG] Registered model binder providers, in the following order: ["Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BinderTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ServicesModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.HeaderModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FloatingPointTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.EnumTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DateTimeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.TryParseModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CancellationTokenModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ByteArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormFileModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormCollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.KeyValuePairModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DictionaryModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ComplexObjectModelBinderProvider"]
+2024-07-01 15:25:33.449 +03:30 [DBG] Hosting starting
+2024-07-01 15:25:33.482 +03:30 [INF] User profile is available. Using 'C:\Users\rezak\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-07-01 15:25:33.491 +03:30 [DBG] Reading data from file 'C:\Users\rezak\AppData\Local\ASP.NET\DataProtection-Keys\key-2afc5c31-70f2-4593-8c95-5521f204c386.xml'.
+2024-07-01 15:25:33.496 +03:30 [DBG] Reading data from file 'C:\Users\rezak\AppData\Local\ASP.NET\DataProtection-Keys\key-a8e29bd3-d5ad-42cf-9cb6-92ce63901067.xml'.
+2024-07-01 15:25:33.499 +03:30 [DBG] Reading data from file 'C:\Users\rezak\AppData\Local\ASP.NET\DataProtection-Keys\key-ab7da6d7-0c87-4da0-8099-5864cb86239e.xml'.
+2024-07-01 15:25:33.500 +03:30 [DBG] Reading data from file 'C:\Users\rezak\AppData\Local\ASP.NET\DataProtection-Keys\key-b8a01d7c-4918-4f00-afba-1d71a3f67ea5.xml'.
+2024-07-01 15:25:33.501 +03:30 [DBG] Reading data from file 'C:\Users\rezak\AppData\Local\ASP.NET\DataProtection-Keys\key-c38bd368-8778-496f-977d-efd467e8f7ce.xml'.
+2024-07-01 15:25:33.502 +03:30 [DBG] Reading data from file 'C:\Users\rezak\AppData\Local\ASP.NET\DataProtection-Keys\key-d0f018e5-1db4-4816-9b5a-8ea812f01aaf.xml'.
+2024-07-01 15:25:33.503 +03:30 [DBG] Reading data from file 'C:\Users\rezak\AppData\Local\ASP.NET\DataProtection-Keys\key-df943432-fe4b-469c-aac5-af6388aae7f9.xml'.
+2024-07-01 15:25:33.505 +03:30 [DBG] Reading data from file 'C:\Users\rezak\AppData\Local\ASP.NET\DataProtection-Keys\key-ea1f83d5-e4bf-49eb-85e1-83edb47299f6.xml'.
+2024-07-01 15:25:33.506 +03:30 [DBG] Reading data from file 'C:\Users\rezak\AppData\Local\ASP.NET\DataProtection-Keys\key-efe863b5-bb4c-4c9d-8779-22b642eba318.xml'.
+2024-07-01 15:25:33.510 +03:30 [DBG] Found key {2afc5c31-70f2-4593-8c95-5521f204c386}.
+2024-07-01 15:25:33.515 +03:30 [DBG] Found key {a8e29bd3-d5ad-42cf-9cb6-92ce63901067}.
+2024-07-01 15:25:33.516 +03:30 [DBG] Found key {ab7da6d7-0c87-4da0-8099-5864cb86239e}.
+2024-07-01 15:25:33.517 +03:30 [DBG] Found key {b8a01d7c-4918-4f00-afba-1d71a3f67ea5}.
+2024-07-01 15:25:33.518 +03:30 [DBG] Found key {c38bd368-8778-496f-977d-efd467e8f7ce}.
+2024-07-01 15:25:33.519 +03:30 [DBG] Found key {d0f018e5-1db4-4816-9b5a-8ea812f01aaf}.
+2024-07-01 15:25:33.520 +03:30 [DBG] Found key {df943432-fe4b-469c-aac5-af6388aae7f9}.
+2024-07-01 15:25:33.521 +03:30 [DBG] Found key {ea1f83d5-e4bf-49eb-85e1-83edb47299f6}.
+2024-07-01 15:25:33.522 +03:30 [DBG] Found key {efe863b5-bb4c-4c9d-8779-22b642eba318}.
+2024-07-01 15:25:33.529 +03:30 [DBG] Considering key {2afc5c31-70f2-4593-8c95-5521f204c386} with expiration date 2024-09-28 19:40:00Z as default key.
+2024-07-01 15:25:33.534 +03:30 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2024-07-01 15:25:33.543 +03:30 [DBG] Decrypting secret element using Windows DPAPI.
+2024-07-01 15:25:33.545 +03:30 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2024-07-01 15:25:33.551 +03:30 [DBG] Opening CNG algorithm 'AES' from provider 'null' with chaining mode CBC.
+2024-07-01 15:25:33.553 +03:30 [DBG] Opening CNG algorithm 'SHA256' from provider 'null' with HMAC.
+2024-07-01 15:25:33.555 +03:30 [DBG] Using key {2afc5c31-70f2-4593-8c95-5521f204c386} as the default key.
+2024-07-01 15:25:33.557 +03:30 [DBG] Key ring with default key {2afc5c31-70f2-4593-8c95-5521f204c386} was loaded during application startup.
+2024-07-01 15:25:33.785 +03:30 [INF] Now listening on: https://localhost:7005
+2024-07-01 15:25:33.786 +03:30 [INF] Now listening on: http://localhost:5243
+2024-07-01 15:25:33.787 +03:30 [DBG] Loaded hosting startup assembly Assessment_Backend
+2024-07-01 15:25:33.788 +03:30 [DBG] Loaded hosting startup assembly Microsoft.AspNetCore.Watch.BrowserRefresh
+2024-07-01 15:25:33.789 +03:30 [DBG] Loaded hosting startup assembly Microsoft.WebTools.BrowserLink.Net
+2024-07-01 15:25:33.790 +03:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-07-01 15:25:33.792 +03:30 [INF] Hosting environment: Development
+2024-07-01 15:25:33.792 +03:30 [INF] Content root path: C:\Users\rezak\OneDrive\Desktop\assessment\a\Assessment_Backend\Assessment_Backend
+2024-07-01 15:25:33.794 +03:30 [DBG] Hosting started
+2024-07-01 15:25:34.036 +03:30 [DBG] Connection id "0HN4POIRDOKL9" accepted.
+2024-07-01 15:25:34.036 +03:30 [DBG] Connection id "0HN4POIRDOKL8" accepted.
+2024-07-01 15:25:34.037 +03:30 [DBG] Connection id "0HN4POIRDOKL9" received FIN.
+2024-07-01 15:25:34.039 +03:30 [DBG] Connection id "0HN4POIRDOKL8" started.
+2024-07-01 15:25:34.037 +03:30 [DBG] Connection id "0HN4POIRDOKL8" received FIN.
+2024-07-01 15:25:34.038 +03:30 [DBG] Connection id "0HN4POIRDOKL9" started.
+2024-07-01 15:25:34.055 +03:30 [DBG] Failed to authenticate HTTPS connection.
+System.IO.IOException: Received an unexpected EOF or 0 bytes from the transport stream.
+   at System.Net.Security.SslStream.ReceiveHandshakeFrameAsync[TIOAdapter](CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ProcessAuthenticationWithTelemetryAsync(Boolean isAsync, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware.OnConnectionAsync(ConnectionContext context)
+2024-07-01 15:25:34.055 +03:30 [DBG] Failed to authenticate HTTPS connection.
+System.IO.IOException: Received an unexpected EOF or 0 bytes from the transport stream.
+   at System.Net.Security.SslStream.ReceiveHandshakeFrameAsync[TIOAdapter](CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ProcessAuthenticationWithTelemetryAsync(Boolean isAsync, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware.OnConnectionAsync(ConnectionContext context)
+2024-07-01 15:25:34.087 +03:30 [DBG] Connection id "0HN4POIRDOKL8" stopped.
+2024-07-01 15:25:34.088 +03:30 [DBG] Connection id "0HN4POIRDOKL9" stopped.
+2024-07-01 15:25:34.091 +03:30 [DBG] Connection id "0HN4POIRDOKL9" sending FIN because: "The Socket transport's send loop completed gracefully."
+2024-07-01 15:25:34.091 +03:30 [DBG] Connection id "0HN4POIRDOKL8" sending FIN because: "The Socket transport's send loop completed gracefully."
+2024-07-01 15:25:34.800 +03:30 [DBG] Connection id "0HN4POIRDOKLA" accepted.
+2024-07-01 15:25:34.816 +03:30 [DBG] Connection id "0HN4POIRDOKLA" started.
+2024-07-01 15:25:34.849 +03:30 [DBG] Connection 0HN4POIRDOKLA established using the following protocol: "Tls13"
+2024-07-01 15:25:34.892 +03:30 [INF] Request starting HTTP/2 GET https://localhost:7005/swagger/index.html - null null
+2024-07-01 15:25:35.011 +03:30 [DBG] Wildcard detected, all requests with hosts will be allowed.
+2024-07-01 15:25:35.023 +03:30 [DBG] No candidates found for the request path '/swagger/index.html'
+2024-07-01 15:25:35.025 +03:30 [DBG] Request did not match any endpoints
+2024-07-01 15:25:35.100 +03:30 [DBG] AuthenticationScheme: Bearer was not authenticated.
+2024-07-01 15:25:35.179 +03:30 [DBG] Response markup is scheduled to include Browser Link script injection.
+2024-07-01 15:25:35.182 +03:30 [DBG] Response markup is scheduled to include browser refresh script injection.
+2024-07-01 15:25:35.199 +03:30 [DBG] Response markup was updated to include Browser Link script injection.
+2024-07-01 15:25:35.201 +03:30 [DBG] Response markup was updated to include browser refresh script injection.
+2024-07-01 15:25:35.203 +03:30 [INF] Request finished HTTP/2 GET https://localhost:7005/swagger/index.html - 200 null text/html;charset=utf-8 315.7146ms
+2024-07-01 15:25:35.230 +03:30 [INF] Request starting HTTP/2 GET https://localhost:7005/_vs/browserLink - null null
+2024-07-01 15:25:35.230 +03:30 [INF] Request starting HTTP/2 GET https://localhost:7005/_framework/aspnetcore-browser-refresh.js - null null
+2024-07-01 15:25:35.245 +03:30 [INF] Request finished HTTP/2 GET https://localhost:7005/_framework/aspnetcore-browser-refresh.js - 200 13772 application/javascript; charset=utf-8 15.9191ms
+2024-07-01 15:25:35.266 +03:30 [INF] Request finished HTTP/2 GET https://localhost:7005/_vs/browserLink - 200 null text/javascript; charset=UTF-8 37.0521ms
+2024-07-01 15:25:35.307 +03:30 [INF] Request starting HTTP/2 GET https://localhost:7005/swagger/v1/swagger.json - null null
+2024-07-01 15:25:35.310 +03:30 [DBG] No candidates found for the request path '/swagger/v1/swagger.json'
+2024-07-01 15:25:35.311 +03:30 [DBG] Request did not match any endpoints
+2024-07-01 15:25:35.313 +03:30 [DBG] AuthenticationScheme: Bearer was not authenticated.
+2024-07-01 15:25:35.433 +03:30 [INF] Request finished HTTP/2 GET https://localhost:7005/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 125.9468ms
+2024-07-01 15:25:37.924 +03:30 [DBG] Connection id "0HN4POIRDOKLA" received FIN.
+2024-07-01 15:25:37.929 +03:30 [DBG] The connection queue processing loop for 0HN4POIRDOKLA completed.
+2024-07-01 15:25:37.931 +03:30 [DBG] Connection id "0HN4POIRDOKLA" is closed. The last processed stream ID was 7.
+2024-07-01 15:25:37.934 +03:30 [DBG] Connection id "0HN4POIRDOKLA" sending FIN because: "The Socket transport's send loop completed gracefully."
+2024-07-01 15:25:37.949 +03:30 [DBG] Connection id "0HN4POIRDOKLA" stopped.
+2024-07-01 15:26:42.824 +03:30 [DBG] Connection id "0HN4POIRDOKLB" accepted.
+2024-07-01 15:26:42.848 +03:30 [DBG] Connection id "0HN4POIRDOKLB" started.
+2024-07-01 15:26:42.863 +03:30 [DBG] Connection 0HN4POIRDOKLB established using the following protocol: "Tls13"
+2024-07-01 15:26:42.888 +03:30 [INF] Request starting HTTP/2 POST https://localhost:7005/api/Assessment/CreateAssessment?CourseId=1&Title=11&Description=111&StartDate=2024%2F07%2F02&EndDate=2024%2F07%2F07&PenaltyRule=0 - multipart/form-data; boundary=----WebKitFormBoundaryxQREdfxiQWZIdPEw 107339
+2024-07-01 15:26:42.936 +03:30 [DBG] 1 candidate(s) found for the request path '/api/Assessment/CreateAssessment'
+2024-07-01 15:26:42.945 +03:30 [DBG] Endpoint 'Assessment_Backend.Controllers.AssessmentController.CreateAssessment (Assessment_Backend)' with route pattern 'api/Assessment/CreateAssessment' is valid for the request path '/api/Assessment/CreateAssessment'
+2024-07-01 15:26:42.951 +03:30 [DBG] Request matched endpoint 'Assessment_Backend.Controllers.AssessmentController.CreateAssessment (Assessment_Backend)'
+2024-07-01 15:26:42.956 +03:30 [DBG] The request has an origin header: 'https://localhost:7005'.
+2024-07-01 15:26:42.961 +03:30 [INF] CORS policy execution successful.
+2024-07-01 15:26:43.088 +03:30 [DBG] Successfully validated the token.
+2024-07-01 15:26:43.092 +03:30 [DBG] AuthenticationScheme: Bearer was successfully authenticated.
+2024-07-01 15:26:43.099 +03:30 [DBG] Static files was skipped as the request already matched an endpoint.
+2024-07-01 15:26:43.102 +03:30 [INF] Executing endpoint 'Assessment_Backend.Controllers.AssessmentController.CreateAssessment (Assessment_Backend)'
+2024-07-01 15:26:43.154 +03:30 [INF] Route matched with {action = "CreateAssessment", controller = "Assessment"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[Assessment_Backend.Core.DTOs.OutPutModel`1[Assessment_Backend.Core.DTOs.Course.CourseDTO]]] CreateAssessment(Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO) on controller Assessment_Backend.Controllers.AssessmentController (Assessment_Backend).
+2024-07-01 15:26:43.164 +03:30 [DBG] Execution plan of authorization filters (in the following order): ["None"]
+2024-07-01 15:26:43.167 +03:30 [DBG] Execution plan of resource filters (in the following order): ["None"]
+2024-07-01 15:26:43.170 +03:30 [DBG] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)","Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter (Order: -2000)"]
+2024-07-01 15:26:43.177 +03:30 [DBG] Execution plan of exception filters (in the following order): ["None"]
+2024-07-01 15:26:43.184 +03:30 [DBG] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter (Order: -2000)"]
+2024-07-01 15:26:43.194 +03:30 [DBG] Executing controller factory for controller Assessment_Backend.Controllers.AssessmentController (Assessment_Backend)
+2024-07-01 15:26:43.454 +03:30 [DBG] An 'IServiceProvider' was created for internal use by Entity Framework.
+2024-07-01 15:26:43.503 +03:30 [DBG] Executed controller factory for controller Assessment_Backend.Controllers.AssessmentController (Assessment_Backend)
+2024-07-01 15:26:43.535 +03:30 [DBG] Connection id "0HN4POIRDOKLB", Request id "0HN4POIRDOKLB:00000001": started reading request body.
+2024-07-01 15:26:43.538 +03:30 [DBG] Connection id "0HN4POIRDOKLB", Request id "0HN4POIRDOKLB:00000001": done reading request body.
+2024-07-01 15:26:43.589 +03:30 [DBG] Attempting to bind parameter 'assessmentDTO' of type 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO' ...
+2024-07-01 15:26:43.600 +03:30 [DBG] Attempting to bind parameter 'assessmentDTO' of type 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO' using the name '' in request data ...
+2024-07-01 15:26:43.611 +03:30 [DBG] Attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.CourseId' of type 'System.Int32' using the name 'CourseId' in request data ...
+2024-07-01 15:26:43.618 +03:30 [DBG] Done attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.CourseId' of type 'System.Int32'.
+2024-07-01 15:26:43.624 +03:30 [DBG] Attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.Title' of type 'System.String' using the name 'Title' in request data ...
+2024-07-01 15:26:43.630 +03:30 [DBG] Done attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.Title' of type 'System.String'.
+2024-07-01 15:26:43.634 +03:30 [DBG] Attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.Description' of type 'System.String' using the name 'Description' in request data ...
+2024-07-01 15:26:43.637 +03:30 [DBG] Done attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.Description' of type 'System.String'.
+2024-07-01 15:26:43.643 +03:30 [DBG] Attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.StartDate' of type 'System.DateTime' using the name 'StartDate' in request data ...
+2024-07-01 15:26:43.648 +03:30 [DBG] Done attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.StartDate' of type 'System.DateTime'.
+2024-07-01 15:26:43.652 +03:30 [DBG] Attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.EndDate' of type 'System.DateTime' using the name 'EndDate' in request data ...
+2024-07-01 15:26:43.659 +03:30 [DBG] Done attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.EndDate' of type 'System.DateTime'.
+2024-07-01 15:26:43.666 +03:30 [DBG] Attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.File' of type 'Microsoft.AspNetCore.Http.IFormFile' using the name 'File' in request data ...
+2024-07-01 15:26:43.673 +03:30 [DBG] Done attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.File' of type 'Microsoft.AspNetCore.Http.IFormFile'.
+2024-07-01 15:26:43.680 +03:30 [DBG] Attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.PenaltyRule' of type 'System.String' using the name 'PenaltyRule' in request data ...
+2024-07-01 15:26:43.684 +03:30 [DBG] Done attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.PenaltyRule' of type 'System.String'.
+2024-07-01 15:26:43.689 +03:30 [DBG] Done attempting to bind parameter 'assessmentDTO' of type 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO'.
+2024-07-01 15:26:43.694 +03:30 [DBG] Done attempting to bind parameter 'assessmentDTO' of type 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO'.
+2024-07-01 15:26:43.697 +03:30 [DBG] Attempting to validate the bound parameter 'assessmentDTO' of type 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO' ...
+2024-07-01 15:26:43.714 +03:30 [DBG] Done attempting to validate the bound parameter 'assessmentDTO' of type 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO'.
+2024-07-01 15:26:43.844 +03:30 [INF] Executing action method Assessment_Backend.Controllers.AssessmentController.CreateAssessment (Assessment_Backend) - Validation state: "Valid"
+2024-07-01 15:27:25.634 +03:30 [INF] Executed action method Assessment_Backend.Controllers.AssessmentController.CreateAssessment (Assessment_Backend), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 41778.0429ms.
+2024-07-01 15:27:25.645 +03:30 [DBG] List of registered output formatters, in the following order: ["Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StreamOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter"]
+2024-07-01 15:27:25.652 +03:30 [DBG] Attempting to select an output formatter based on Accept header '["text/plain"]'.
+2024-07-01 15:27:25.658 +03:30 [DBG] Could not find an output formatter based on content negotiation. Accepted types were (["text/plain"])
+2024-07-01 15:27:25.667 +03:30 [DBG] Attempting to select an output formatter without using a content type as no explicit content types were specified for the response.
+2024-07-01 15:27:25.671 +03:30 [DBG] Attempting to select the first formatter in the output formatters list which can write the result.
+2024-07-01 15:27:25.673 +03:30 [DBG] Selected output formatter 'Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter' and content type 'application/json' to write the response.
+2024-07-01 15:27:25.679 +03:30 [INF] Executing ObjectResult, writing value of type 'Assessment_Backend.Core.DTOs.OutPutModel`1[[Assessment_Backend.Core.DTOs.Course.CourseDTO, Assessment_Backend.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-07-01 15:27:25.708 +03:30 [INF] Executed action Assessment_Backend.Controllers.AssessmentController.CreateAssessment (Assessment_Backend) in 42511.0741ms
+2024-07-01 15:27:25.718 +03:30 [INF] Executed endpoint 'Assessment_Backend.Controllers.AssessmentController.CreateAssessment (Assessment_Backend)'
+2024-07-01 15:27:25.721 +03:30 [DBG] Connection id "0HN4POIRDOKLB" received FIN.
+2024-07-01 15:27:25.724 +03:30 [DBG] Connection id "0HN4POIRDOKLB" is closed. The last processed stream ID was 1.
+2024-07-01 15:27:25.728 +03:30 [INF] Request finished HTTP/2 POST https://localhost:7005/api/Assessment/CreateAssessment?CourseId=1&Title=11&Description=111&StartDate=2024%2F07%2F02&EndDate=2024%2F07%2F07&PenaltyRule=0 - 200 null application/json; charset=utf-8 42839.6285ms
+2024-07-01 15:27:25.729 +03:30 [DBG] Connection id "0HN4POIRDOKLB" sending FIN because: "The Socket transport's send loop completed gracefully."
+2024-07-01 15:27:25.745 +03:30 [DBG] The connection queue processing loop for 0HN4POIRDOKLB completed.
+2024-07-01 15:27:25.748 +03:30 [DBG] Connection id "0HN4POIRDOKLB" stopped.
+2024-07-01 15:30:27.784 +03:30 [DBG] Connection id "0HN4POIRDOKLC" accepted.
+2024-07-01 15:30:27.809 +03:30 [DBG] Connection id "0HN4POIRDOKLC" started.
+2024-07-01 15:30:27.823 +03:30 [DBG] Connection 0HN4POIRDOKLC established using the following protocol: "Tls13"
+2024-07-01 15:30:27.848 +03:30 [INF] Request starting HTTP/2 POST https://localhost:7005/api/Assessment/CreateAssessment?CourseId=1&Title=11&Description=111&StartDate=2024%2F07%2F02&EndDate=2024%2F07%2F07&PenaltyRule=0 - multipart/form-data; boundary=----WebKitFormBoundaryQ0T4Aw5D8jW4Ii6M 198682
+2024-07-01 15:30:27.881 +03:30 [DBG] 1 candidate(s) found for the request path '/api/Assessment/CreateAssessment'
+2024-07-01 15:30:27.884 +03:30 [DBG] Endpoint 'Assessment_Backend.Controllers.AssessmentController.CreateAssessment (Assessment_Backend)' with route pattern 'api/Assessment/CreateAssessment' is valid for the request path '/api/Assessment/CreateAssessment'
+2024-07-01 15:30:27.890 +03:30 [DBG] Request matched endpoint 'Assessment_Backend.Controllers.AssessmentController.CreateAssessment (Assessment_Backend)'
+2024-07-01 15:30:27.895 +03:30 [DBG] The request has an origin header: 'https://localhost:7005'.
+2024-07-01 15:30:27.897 +03:30 [INF] CORS policy execution successful.
+2024-07-01 15:30:27.901 +03:30 [DBG] Successfully validated the token.
+2024-07-01 15:30:27.903 +03:30 [DBG] AuthenticationScheme: Bearer was successfully authenticated.
+2024-07-01 15:30:27.909 +03:30 [DBG] Static files was skipped as the request already matched an endpoint.
+2024-07-01 15:30:27.912 +03:30 [INF] Executing endpoint 'Assessment_Backend.Controllers.AssessmentController.CreateAssessment (Assessment_Backend)'
+2024-07-01 15:30:27.918 +03:30 [INF] Route matched with {action = "CreateAssessment", controller = "Assessment"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[Assessment_Backend.Core.DTOs.OutPutModel`1[Assessment_Backend.Core.DTOs.Course.CourseDTO]]] CreateAssessment(Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO) on controller Assessment_Backend.Controllers.AssessmentController (Assessment_Backend).
+2024-07-01 15:30:27.921 +03:30 [DBG] Execution plan of authorization filters (in the following order): ["None"]
+2024-07-01 15:30:27.924 +03:30 [DBG] Execution plan of resource filters (in the following order): ["None"]
+2024-07-01 15:30:27.926 +03:30 [DBG] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)","Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter (Order: -2000)"]
+2024-07-01 15:30:27.930 +03:30 [DBG] Execution plan of exception filters (in the following order): ["None"]
+2024-07-01 15:30:27.938 +03:30 [DBG] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter (Order: -2000)"]
+2024-07-01 15:30:27.946 +03:30 [DBG] Executing controller factory for controller Assessment_Backend.Controllers.AssessmentController (Assessment_Backend)
+2024-07-01 15:30:27.968 +03:30 [DBG] Executed controller factory for controller Assessment_Backend.Controllers.AssessmentController (Assessment_Backend)
+2024-07-01 15:30:27.973 +03:30 [DBG] Connection id "0HN4POIRDOKLC", Request id "0HN4POIRDOKLC:00000001": started reading request body.
+2024-07-01 15:30:27.975 +03:30 [DBG] Connection id "0HN4POIRDOKLC", Request id "0HN4POIRDOKLC:00000001": done reading request body.
+2024-07-01 15:30:27.990 +03:30 [DBG] Attempting to bind parameter 'assessmentDTO' of type 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO' ...
+2024-07-01 15:30:27.994 +03:30 [DBG] Attempting to bind parameter 'assessmentDTO' of type 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO' using the name '' in request data ...
+2024-07-01 15:30:28.001 +03:30 [DBG] Attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.CourseId' of type 'System.Int32' using the name 'CourseId' in request data ...
+2024-07-01 15:30:28.005 +03:30 [DBG] Done attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.CourseId' of type 'System.Int32'.
+2024-07-01 15:30:28.008 +03:30 [DBG] Attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.Title' of type 'System.String' using the name 'Title' in request data ...
+2024-07-01 15:30:28.011 +03:30 [DBG] Done attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.Title' of type 'System.String'.
+2024-07-01 15:30:28.017 +03:30 [DBG] Attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.Description' of type 'System.String' using the name 'Description' in request data ...
+2024-07-01 15:30:28.021 +03:30 [DBG] Done attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.Description' of type 'System.String'.
+2024-07-01 15:30:28.024 +03:30 [DBG] Attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.StartDate' of type 'System.DateTime' using the name 'StartDate' in request data ...
+2024-07-01 15:30:28.027 +03:30 [DBG] Done attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.StartDate' of type 'System.DateTime'.
+2024-07-01 15:30:28.034 +03:30 [DBG] Attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.EndDate' of type 'System.DateTime' using the name 'EndDate' in request data ...
+2024-07-01 15:30:28.037 +03:30 [DBG] Done attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.EndDate' of type 'System.DateTime'.
+2024-07-01 15:30:28.041 +03:30 [DBG] Attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.File' of type 'Microsoft.AspNetCore.Http.IFormFile' using the name 'File' in request data ...
+2024-07-01 15:30:28.044 +03:30 [DBG] Done attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.File' of type 'Microsoft.AspNetCore.Http.IFormFile'.
+2024-07-01 15:30:28.051 +03:30 [DBG] Attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.PenaltyRule' of type 'System.String' using the name 'PenaltyRule' in request data ...
+2024-07-01 15:30:28.056 +03:30 [DBG] Done attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.PenaltyRule' of type 'System.String'.
+2024-07-01 15:30:28.060 +03:30 [DBG] Done attempting to bind parameter 'assessmentDTO' of type 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO'.
+2024-07-01 15:30:28.062 +03:30 [DBG] Done attempting to bind parameter 'assessmentDTO' of type 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO'.
+2024-07-01 15:30:28.067 +03:30 [DBG] Attempting to validate the bound parameter 'assessmentDTO' of type 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO' ...
+2024-07-01 15:30:28.071 +03:30 [DBG] Done attempting to validate the bound parameter 'assessmentDTO' of type 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO'.
+2024-07-01 15:30:28.131 +03:30 [INF] Executing action method Assessment_Backend.Controllers.AssessmentController.CreateAssessment (Assessment_Backend) - Validation state: "Valid"
+2024-07-01 15:37:02.691 +03:30 [DBG] Registered model binder providers, in the following order: ["Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BinderTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ServicesModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.HeaderModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FloatingPointTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.EnumTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DateTimeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.TryParseModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CancellationTokenModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ByteArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormFileModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormCollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.KeyValuePairModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DictionaryModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ComplexObjectModelBinderProvider"]
+2024-07-01 15:37:02.809 +03:30 [DBG] Hosting starting
+2024-07-01 15:37:02.841 +03:30 [INF] User profile is available. Using 'C:\Users\rezak\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-07-01 15:37:02.851 +03:30 [DBG] Reading data from file 'C:\Users\rezak\AppData\Local\ASP.NET\DataProtection-Keys\key-2afc5c31-70f2-4593-8c95-5521f204c386.xml'.
+2024-07-01 15:37:02.859 +03:30 [DBG] Reading data from file 'C:\Users\rezak\AppData\Local\ASP.NET\DataProtection-Keys\key-a8e29bd3-d5ad-42cf-9cb6-92ce63901067.xml'.
+2024-07-01 15:37:02.861 +03:30 [DBG] Reading data from file 'C:\Users\rezak\AppData\Local\ASP.NET\DataProtection-Keys\key-ab7da6d7-0c87-4da0-8099-5864cb86239e.xml'.
+2024-07-01 15:37:02.862 +03:30 [DBG] Reading data from file 'C:\Users\rezak\AppData\Local\ASP.NET\DataProtection-Keys\key-b8a01d7c-4918-4f00-afba-1d71a3f67ea5.xml'.
+2024-07-01 15:37:02.866 +03:30 [DBG] Reading data from file 'C:\Users\rezak\AppData\Local\ASP.NET\DataProtection-Keys\key-c38bd368-8778-496f-977d-efd467e8f7ce.xml'.
+2024-07-01 15:37:02.867 +03:30 [DBG] Reading data from file 'C:\Users\rezak\AppData\Local\ASP.NET\DataProtection-Keys\key-d0f018e5-1db4-4816-9b5a-8ea812f01aaf.xml'.
+2024-07-01 15:37:02.868 +03:30 [DBG] Reading data from file 'C:\Users\rezak\AppData\Local\ASP.NET\DataProtection-Keys\key-df943432-fe4b-469c-aac5-af6388aae7f9.xml'.
+2024-07-01 15:37:02.869 +03:30 [DBG] Reading data from file 'C:\Users\rezak\AppData\Local\ASP.NET\DataProtection-Keys\key-ea1f83d5-e4bf-49eb-85e1-83edb47299f6.xml'.
+2024-07-01 15:37:02.870 +03:30 [DBG] Reading data from file 'C:\Users\rezak\AppData\Local\ASP.NET\DataProtection-Keys\key-efe863b5-bb4c-4c9d-8779-22b642eba318.xml'.
+2024-07-01 15:37:02.875 +03:30 [DBG] Found key {2afc5c31-70f2-4593-8c95-5521f204c386}.
+2024-07-01 15:37:02.880 +03:30 [DBG] Found key {a8e29bd3-d5ad-42cf-9cb6-92ce63901067}.
+2024-07-01 15:37:02.882 +03:30 [DBG] Found key {ab7da6d7-0c87-4da0-8099-5864cb86239e}.
+2024-07-01 15:37:02.883 +03:30 [DBG] Found key {b8a01d7c-4918-4f00-afba-1d71a3f67ea5}.
+2024-07-01 15:37:02.884 +03:30 [DBG] Found key {c38bd368-8778-496f-977d-efd467e8f7ce}.
+2024-07-01 15:37:02.885 +03:30 [DBG] Found key {d0f018e5-1db4-4816-9b5a-8ea812f01aaf}.
+2024-07-01 15:37:02.886 +03:30 [DBG] Found key {df943432-fe4b-469c-aac5-af6388aae7f9}.
+2024-07-01 15:37:02.887 +03:30 [DBG] Found key {ea1f83d5-e4bf-49eb-85e1-83edb47299f6}.
+2024-07-01 15:37:02.888 +03:30 [DBG] Found key {efe863b5-bb4c-4c9d-8779-22b642eba318}.
+2024-07-01 15:37:02.893 +03:30 [DBG] Considering key {2afc5c31-70f2-4593-8c95-5521f204c386} with expiration date 2024-09-28 19:40:00Z as default key.
+2024-07-01 15:37:02.897 +03:30 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2024-07-01 15:37:02.901 +03:30 [DBG] Decrypting secret element using Windows DPAPI.
+2024-07-01 15:37:02.904 +03:30 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2024-07-01 15:37:02.912 +03:30 [DBG] Opening CNG algorithm 'AES' from provider 'null' with chaining mode CBC.
+2024-07-01 15:37:02.919 +03:30 [DBG] Opening CNG algorithm 'SHA256' from provider 'null' with HMAC.
+2024-07-01 15:37:02.921 +03:30 [DBG] Using key {2afc5c31-70f2-4593-8c95-5521f204c386} as the default key.
+2024-07-01 15:37:02.923 +03:30 [DBG] Key ring with default key {2afc5c31-70f2-4593-8c95-5521f204c386} was loaded during application startup.
+2024-07-01 15:37:03.189 +03:30 [INF] Now listening on: https://localhost:7005
+2024-07-01 15:37:03.190 +03:30 [INF] Now listening on: http://localhost:5243
+2024-07-01 15:37:03.191 +03:30 [DBG] Loaded hosting startup assembly Assessment_Backend
+2024-07-01 15:37:03.192 +03:30 [DBG] Loaded hosting startup assembly Microsoft.AspNetCore.Watch.BrowserRefresh
+2024-07-01 15:37:03.193 +03:30 [DBG] Loaded hosting startup assembly Microsoft.WebTools.BrowserLink.Net
+2024-07-01 15:37:03.194 +03:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-07-01 15:37:03.194 +03:30 [INF] Hosting environment: Development
+2024-07-01 15:37:03.195 +03:30 [INF] Content root path: C:\Users\rezak\OneDrive\Desktop\assessment\a\Assessment_Backend\Assessment_Backend
+2024-07-01 15:37:03.196 +03:30 [DBG] Hosting started
+2024-07-01 15:37:03.419 +03:30 [DBG] Connection id "0HN4POP8S9LBR" received FIN.
+2024-07-01 15:37:03.419 +03:30 [DBG] Connection id "0HN4POP8S9LBQ" received FIN.
+2024-07-01 15:37:03.426 +03:30 [DBG] Connection id "0HN4POP8S9LBR" accepted.
+2024-07-01 15:37:03.426 +03:30 [DBG] Connection id "0HN4POP8S9LBQ" accepted.
+2024-07-01 15:37:03.428 +03:30 [DBG] Connection id "0HN4POP8S9LBR" started.
+2024-07-01 15:37:03.428 +03:30 [DBG] Connection id "0HN4POP8S9LBQ" started.
+2024-07-01 15:37:03.444 +03:30 [DBG] Failed to authenticate HTTPS connection.
+System.IO.IOException: Received an unexpected EOF or 0 bytes from the transport stream.
+   at System.Net.Security.SslStream.ReceiveHandshakeFrameAsync[TIOAdapter](CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ProcessAuthenticationWithTelemetryAsync(Boolean isAsync, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware.OnConnectionAsync(ConnectionContext context)
+2024-07-01 15:37:03.444 +03:30 [DBG] Failed to authenticate HTTPS connection.
+System.IO.IOException: Received an unexpected EOF or 0 bytes from the transport stream.
+   at System.Net.Security.SslStream.ReceiveHandshakeFrameAsync[TIOAdapter](CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ProcessAuthenticationWithTelemetryAsync(Boolean isAsync, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware.OnConnectionAsync(ConnectionContext context)
+2024-07-01 15:37:03.478 +03:30 [DBG] Connection id "0HN4POP8S9LBR" stopped.
+2024-07-01 15:37:03.478 +03:30 [DBG] Connection id "0HN4POP8S9LBQ" stopped.
+2024-07-01 15:37:03.482 +03:30 [DBG] Connection id "0HN4POP8S9LBR" sending FIN because: "The Socket transport's send loop completed gracefully."
+2024-07-01 15:37:03.482 +03:30 [DBG] Connection id "0HN4POP8S9LBQ" sending FIN because: "The Socket transport's send loop completed gracefully."
+2024-07-01 15:37:04.219 +03:30 [DBG] Connection id "0HN4POP8S9LBS" accepted.
+2024-07-01 15:37:04.224 +03:30 [DBG] Connection id "0HN4POP8S9LBS" started.
+2024-07-01 15:37:04.259 +03:30 [DBG] Connection 0HN4POP8S9LBS established using the following protocol: "Tls13"
+2024-07-01 15:37:04.307 +03:30 [INF] Request starting HTTP/2 GET https://localhost:7005/swagger/index.html - null null
+2024-07-01 15:37:04.425 +03:30 [DBG] Wildcard detected, all requests with hosts will be allowed.
+2024-07-01 15:37:04.441 +03:30 [DBG] No candidates found for the request path '/swagger/index.html'
+2024-07-01 15:37:04.443 +03:30 [DBG] Request did not match any endpoints
+2024-07-01 15:37:04.500 +03:30 [DBG] AuthenticationScheme: Bearer was not authenticated.
+2024-07-01 15:37:04.578 +03:30 [DBG] Response markup is scheduled to include Browser Link script injection.
+2024-07-01 15:37:04.581 +03:30 [DBG] Response markup is scheduled to include browser refresh script injection.
+2024-07-01 15:37:04.598 +03:30 [DBG] Response markup was updated to include Browser Link script injection.
+2024-07-01 15:37:04.600 +03:30 [DBG] Response markup was updated to include browser refresh script injection.
+2024-07-01 15:37:04.603 +03:30 [INF] Request finished HTTP/2 GET https://localhost:7005/swagger/index.html - 200 null text/html;charset=utf-8 299.8088ms
+2024-07-01 15:37:04.634 +03:30 [INF] Request starting HTTP/2 GET https://localhost:7005/_vs/browserLink - null null
+2024-07-01 15:37:04.634 +03:30 [INF] Request starting HTTP/2 GET https://localhost:7005/_framework/aspnetcore-browser-refresh.js - null null
+2024-07-01 15:37:04.648 +03:30 [INF] Request finished HTTP/2 GET https://localhost:7005/_framework/aspnetcore-browser-refresh.js - 200 13772 application/javascript; charset=utf-8 14.9676ms
+2024-07-01 15:37:04.673 +03:30 [INF] Request finished HTTP/2 GET https://localhost:7005/_vs/browserLink - 200 null text/javascript; charset=UTF-8 39.0892ms
+2024-07-01 15:37:04.725 +03:30 [INF] Request starting HTTP/2 GET https://localhost:7005/swagger/v1/swagger.json - null null
+2024-07-01 15:37:04.728 +03:30 [DBG] No candidates found for the request path '/swagger/v1/swagger.json'
+2024-07-01 15:37:04.729 +03:30 [DBG] Request did not match any endpoints
+2024-07-01 15:37:04.732 +03:30 [DBG] AuthenticationScheme: Bearer was not authenticated.
+2024-07-01 15:37:04.855 +03:30 [INF] Request finished HTTP/2 GET https://localhost:7005/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 130.093ms
+2024-07-01 15:37:07.288 +03:30 [DBG] Connection id "0HN4POP8S9LBS" received FIN.
+2024-07-01 15:37:07.294 +03:30 [DBG] The connection queue processing loop for 0HN4POP8S9LBS completed.
+2024-07-01 15:37:07.298 +03:30 [DBG] Connection id "0HN4POP8S9LBS" is closed. The last processed stream ID was 7.
+2024-07-01 15:37:07.303 +03:30 [DBG] Connection id "0HN4POP8S9LBS" sending FIN because: "The Socket transport's send loop completed gracefully."
+2024-07-01 15:37:07.320 +03:30 [DBG] Connection id "0HN4POP8S9LBS" stopped.
+2024-07-01 15:38:35.950 +03:30 [DBG] Connection id "0HN4POP8S9LBT" accepted.
+2024-07-01 15:38:35.972 +03:30 [DBG] Connection id "0HN4POP8S9LBT" started.
+2024-07-01 15:38:35.982 +03:30 [DBG] Connection 0HN4POP8S9LBT established using the following protocol: "Tls13"
+2024-07-01 15:38:35.990 +03:30 [INF] Request starting HTTP/2 POST https://localhost:7005/api/Assessment/CreateAssessment?CourseId=1&Title=1111111111&Description=1111&StartDate=2024%2F07%2F05&EndDate=2024%2F07%2F05&PenaltyRule=0 - multipart/form-data; boundary=----WebKitFormBoundaryWIGWXrf7FkdGAoby 198682
+2024-07-01 15:38:36.040 +03:30 [DBG] 1 candidate(s) found for the request path '/api/Assessment/CreateAssessment'
+2024-07-01 15:38:36.051 +03:30 [DBG] Endpoint 'Assessment_Backend.Controllers.AssessmentController.CreateAssessment (Assessment_Backend)' with route pattern 'api/Assessment/CreateAssessment' is valid for the request path '/api/Assessment/CreateAssessment'
+2024-07-01 15:38:36.057 +03:30 [DBG] Request matched endpoint 'Assessment_Backend.Controllers.AssessmentController.CreateAssessment (Assessment_Backend)'
+2024-07-01 15:38:36.063 +03:30 [DBG] The request has an origin header: 'https://localhost:7005'.
+2024-07-01 15:38:36.070 +03:30 [INF] CORS policy execution successful.
+2024-07-01 15:38:36.206 +03:30 [DBG] Successfully validated the token.
+2024-07-01 15:38:36.214 +03:30 [DBG] AuthenticationScheme: Bearer was successfully authenticated.
+2024-07-01 15:38:36.220 +03:30 [DBG] Static files was skipped as the request already matched an endpoint.
+2024-07-01 15:38:36.226 +03:30 [INF] Executing endpoint 'Assessment_Backend.Controllers.AssessmentController.CreateAssessment (Assessment_Backend)'
+2024-07-01 15:38:36.286 +03:30 [INF] Route matched with {action = "CreateAssessment", controller = "Assessment"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[Assessment_Backend.Core.DTOs.OutPutModel`1[Assessment_Backend.Core.DTOs.Course.CourseDTO]]] CreateAssessment(Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO) on controller Assessment_Backend.Controllers.AssessmentController (Assessment_Backend).
+2024-07-01 15:38:36.292 +03:30 [DBG] Execution plan of authorization filters (in the following order): ["None"]
+2024-07-01 15:38:36.295 +03:30 [DBG] Execution plan of resource filters (in the following order): ["None"]
+2024-07-01 15:38:36.298 +03:30 [DBG] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)","Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter (Order: -2000)"]
+2024-07-01 15:38:36.310 +03:30 [DBG] Execution plan of exception filters (in the following order): ["None"]
+2024-07-01 15:38:36.328 +03:30 [DBG] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter (Order: -2000)"]
+2024-07-01 15:38:36.339 +03:30 [DBG] Executing controller factory for controller Assessment_Backend.Controllers.AssessmentController (Assessment_Backend)
+2024-07-01 15:38:36.602 +03:30 [DBG] An 'IServiceProvider' was created for internal use by Entity Framework.
+2024-07-01 15:38:36.653 +03:30 [DBG] Executed controller factory for controller Assessment_Backend.Controllers.AssessmentController (Assessment_Backend)
+2024-07-01 15:38:36.692 +03:30 [DBG] Connection id "0HN4POP8S9LBT", Request id "0HN4POP8S9LBT:00000001": started reading request body.
+2024-07-01 15:38:36.698 +03:30 [DBG] Connection id "0HN4POP8S9LBT", Request id "0HN4POP8S9LBT:00000001": done reading request body.
+2024-07-01 15:38:36.756 +03:30 [DBG] Attempting to bind parameter 'assessmentDTO' of type 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO' ...
+2024-07-01 15:38:36.766 +03:30 [DBG] Attempting to bind parameter 'assessmentDTO' of type 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO' using the name '' in request data ...
+2024-07-01 15:38:36.776 +03:30 [DBG] Attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.CourseId' of type 'System.Int32' using the name 'CourseId' in request data ...
+2024-07-01 15:38:36.781 +03:30 [DBG] Done attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.CourseId' of type 'System.Int32'.
+2024-07-01 15:38:36.790 +03:30 [DBG] Attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.Title' of type 'System.String' using the name 'Title' in request data ...
+2024-07-01 15:38:36.796 +03:30 [DBG] Done attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.Title' of type 'System.String'.
+2024-07-01 15:38:36.803 +03:30 [DBG] Attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.Description' of type 'System.String' using the name 'Description' in request data ...
+2024-07-01 15:38:36.807 +03:30 [DBG] Done attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.Description' of type 'System.String'.
+2024-07-01 15:38:36.811 +03:30 [DBG] Attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.StartDate' of type 'System.DateTime' using the name 'StartDate' in request data ...
+2024-07-01 15:38:36.816 +03:30 [DBG] Done attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.StartDate' of type 'System.DateTime'.
+2024-07-01 15:38:36.821 +03:30 [DBG] Attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.EndDate' of type 'System.DateTime' using the name 'EndDate' in request data ...
+2024-07-01 15:38:36.826 +03:30 [DBG] Done attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.EndDate' of type 'System.DateTime'.
+2024-07-01 15:38:36.833 +03:30 [DBG] Attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.File' of type 'Microsoft.AspNetCore.Http.IFormFile' using the name 'File' in request data ...
+2024-07-01 15:38:36.841 +03:30 [DBG] Done attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.File' of type 'Microsoft.AspNetCore.Http.IFormFile'.
+2024-07-01 15:38:36.848 +03:30 [DBG] Attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.PenaltyRule' of type 'System.String' using the name 'PenaltyRule' in request data ...
+2024-07-01 15:38:36.852 +03:30 [DBG] Done attempting to bind property 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO.PenaltyRule' of type 'System.String'.
+2024-07-01 15:38:36.860 +03:30 [DBG] Done attempting to bind parameter 'assessmentDTO' of type 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO'.
+2024-07-01 15:38:36.866 +03:30 [DBG] Done attempting to bind parameter 'assessmentDTO' of type 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO'.
+2024-07-01 15:38:36.872 +03:30 [DBG] Attempting to validate the bound parameter 'assessmentDTO' of type 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO' ...
+2024-07-01 15:38:36.889 +03:30 [DBG] Done attempting to validate the bound parameter 'assessmentDTO' of type 'Assessment_Backend.Core.DTOs.Assessment.CreateAssessmentDTO'.
+2024-07-01 15:38:36.985 +03:30 [INF] Executing action method Assessment_Backend.Controllers.AssessmentController.CreateAssessment (Assessment_Backend) - Validation state: "Valid"
+2024-07-01 15:38:57.943 +03:30 [INF] Executed action method Assessment_Backend.Controllers.AssessmentController.CreateAssessment (Assessment_Backend), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 20944.1642ms.
+2024-07-01 15:38:57.951 +03:30 [DBG] List of registered output formatters, in the following order: ["Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StreamOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter"]
+2024-07-01 15:38:57.961 +03:30 [DBG] Attempting to select an output formatter based on Accept header '["text/plain"]'.
+2024-07-01 15:38:57.966 +03:30 [DBG] Could not find an output formatter based on content negotiation. Accepted types were (["text/plain"])
+2024-07-01 15:38:57.969 +03:30 [DBG] Attempting to select an output formatter without using a content type as no explicit content types were specified for the response.
+2024-07-01 15:38:57.974 +03:30 [DBG] Attempting to select the first formatter in the output formatters list which can write the result.
+2024-07-01 15:38:57.978 +03:30 [DBG] Selected output formatter 'Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter' and content type 'application/json' to write the response.
+2024-07-01 15:38:57.992 +03:30 [INF] Executing ObjectResult, writing value of type 'Assessment_Backend.Core.DTOs.OutPutModel`1[[Assessment_Backend.Core.DTOs.Course.CourseDTO, Assessment_Backend.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-07-01 15:38:58.019 +03:30 [INF] Executed action Assessment_Backend.Controllers.AssessmentController.CreateAssessment (Assessment_Backend) in 21676.6554ms
+2024-07-01 15:38:58.023 +03:30 [INF] Executed endpoint 'Assessment_Backend.Controllers.AssessmentController.CreateAssessment (Assessment_Backend)'
+2024-07-01 15:38:58.032 +03:30 [INF] Request finished HTTP/2 POST https://localhost:7005/api/Assessment/CreateAssessment?CourseId=1&Title=1111111111&Description=1111&StartDate=2024%2F07%2F05&EndDate=2024%2F07%2F05&PenaltyRule=0 - 200 null application/json; charset=utf-8 22042.1823ms
+2024-07-01 15:39:14.193 +03:30 [DBG] Connection id "0HN4POP8S9LBT" received FIN.
+2024-07-01 15:39:14.195 +03:30 [DBG] Connection id "0HN4POP8S9LBT" is closed. The last processed stream ID was 1.
+2024-07-01 15:39:14.195 +03:30 [DBG] The connection queue processing loop for 0HN4POP8S9LBT completed.
+2024-07-01 15:39:14.197 +03:30 [DBG] Connection id "0HN4POP8S9LBT" sending FIN because: "The Socket transport's send loop completed gracefully."
+2024-07-01 15:39:14.210 +03:30 [DBG] Connection id "0HN4POP8S9LBT" stopped.

@@ -1,9 +1,14 @@
-﻿using AutoMapper;
+﻿using Amazon.S3;
+using Amazon.S3.Model;
+using Amazon.S3.Util;
+using System.Reflection;
 
 namespace Assessment_Backend.Core.Services
 {
     public class AssessmentService : IAssessmentService
     {
+        private const string BUCKET_NAME = "assessment";
+        private static IAmazonS3 _s3Client;
         private readonly AssessmentDbContext _context;
         private readonly ILogger<AssessmentService> _logger;
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -43,6 +48,9 @@ namespace Assessment_Backend.Core.Services
                         Message = ""
                     };
                 }
+
+
+
 
                 string fileName = NameGenerator.GenerateName(15);
                 // TODO Save File
@@ -84,7 +92,6 @@ namespace Assessment_Backend.Core.Services
                 if (!ValidateModel.Validate(assessmentDTO, out var validationResult))
                 {
                     _logger.LogError(validationResult);
-
                     return new OutPutModel<CourseDTO>
                     {
                         Message = validationResult,
@@ -92,50 +99,95 @@ namespace Assessment_Backend.Core.Services
                         StatusCode = 400
                     };
                 }
-                string name = NameGenerator.GenerateNameForImage() + Path.GetExtension(assessmentDTO.File.FileName);
 
-                if (assessmentDTO.File is not null)
+                var awsCredentials = new Amazon.Runtime.BasicAWSCredentials("7115d73c-b7dc-421d-ab5d-19114c5a7057", "735e892a72adfea1666d7fd644d0eeab84f0b4e12e4ef0d4d488be06d72c90c3");
+                var config = new AmazonS3Config { ServiceURL = "https://s3.ir-thr-at1.arvanstorage.ir" };
+                _s3Client = new AmazonS3Client(awsCredentials, config);
+
+               
+                if (assessmentDTO.File != null)
                 {
-                    string filePath = "";
+                    var fileName = Path.Combine("assessment/", NameGenerator.GenerateName() + Path.GetExtension(assessmentDTO.File.FileName));
 
-                     filePath = Path.Combine(Directory.GetCurrentDirectory(), "data", name);
-
-                        using var stream = new FileStream(filePath, FileMode.Create);
-                        assessmentDTO.File.CopyTo(stream);
-
-                    
+                    bool bucketExists = await AmazonS3Util.DoesS3BucketExistV2Async(_s3Client, BUCKET_NAME);
+                    if (bucketExists)
+                    {
+                        var result = await UploadObjectFromFileAsync(_s3Client, BUCKET_NAME, fileName, assessmentDTO.File);
+                        if (result)
+                        {
+                            var newAssessment = new Assessment()
+                            {
+                                Description = assessmentDTO.Description,
+                                EndDate = assessmentDTO.EndDate,
+                                Title = assessmentDTO.Title,
+                                IsDelete = false,
+                                StartDate = assessmentDTO.StartDate,
+                                PenaltyRule = assessmentDTO.PenaltyRule,
+                                CourseId = assessmentDTO.CourseId,
+                                FileName = fileName,
+                            };
+                            await _context.Assessments.AddAsync(newAssessment);
+                            await _context.SaveChangesAsync();
+                            return new OutPutModel<CourseDTO>
+                            {
+                                StatusCode = 200,
+                                Result = await GetCourseByIdAsync(assessmentDTO.CourseId),
+                                Message = " با موفقیت بارگزاری شد"
+                            };
+                        }
+                        else
+                        {
+                            return new OutPutModel<CourseDTO>
+                            {
+                                StatusCode = 500,
+                                Message = "بارگزاری ناموفق بود. مجدداً تلاش کنید."
+                            };
+                        }
+                    }
+                    else
+                    {
+                        _logger.LogCritical("Bucket in ArvanStorage doesn't exist.");
+                        return new OutPutModel<CourseDTO>
+                        {
+                            StatusCode = 500,
+                            Message = "بارگزاری ناموفق بود. مجدداً تلاش کنید."
+                        };
+                    }
                 }
-                var newAssessment = new Assessment()
+                else
                 {
-                    Description = assessmentDTO.Description,
-                    EndDate = assessmentDTO.EndDate,
-                    Title = assessmentDTO.Title,
-                    IsDelete = false,
-                    StartDate = assessmentDTO.StartDate,
-                    PenaltyRule = assessmentDTO.PenaltyRule,
-                    CourseId = assessmentDTO.CourseId,
-                    FileName =name ,
-                };
-                await _context.Assessments.AddAsync(newAssessment);
-                await _context.SaveChangesAsync();
-                return new OutPutModel<CourseDTO>
-                {
-                    StatusCode = 200,
-                    Result = await GetCourseByIdAsync(assessmentDTO.CourseId),
-                };
+                    var newAssessment = new Assessment()
+                    {
+                        Description = assessmentDTO.Description,
+                        EndDate = assessmentDTO.EndDate,
+                        Title = assessmentDTO.Title,
+                        IsDelete = false,
+                        StartDate = assessmentDTO.StartDate,
+                        PenaltyRule = assessmentDTO.PenaltyRule,
+                        CourseId = assessmentDTO.CourseId,
+                        FileName = "",
+                    };
+                    await _context.Assessments.AddAsync(newAssessment);
+                    await _context.SaveChangesAsync();
+                    return new OutPutModel<CourseDTO>
+                    {
+                        StatusCode = 200,
+                        Result = await GetCourseByIdAsync(assessmentDTO.CourseId),
+                        Message = ""
+                    };
+                }
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message, ex);
                 return new OutPutModel<CourseDTO>
                 {
-                    Message = "خطای غیرمنتظره ای رخ داد مجدد تلاش کنید",
-
+                    Message = "خطای غیرمنتظره‌ای رخ داد. مجدداً تلاش کنید.",
                     StatusCode = 500,
-
                 };
             }
         }
+
 
         public async Task<OutPutModel<CourseDTO>> DeleteAssessmentAsync(DeleteAssessmentDTO assessmentDTO)
         {
@@ -305,7 +357,23 @@ namespace Assessment_Backend.Core.Services
                         StatusCode = 400,
                     };
                 }
-                existingAssignmentSubmissions.LateScore = scoreRegistrationDTO.Score;
+
+                var timeSent = existingAssignmentSubmissions.CreateDate;
+               
+                var assessment = await _context.Assessments.FindAsync(existingAssignmentSubmissions.AssignmentId);
+                var expirationDate = assessment.EndDate;
+                var xa = assessment.PenaltyRule;
+
+                if (timeSent <= expirationDate)
+                {
+                    existingAssignmentSubmissions.LateScore = scoreRegistrationDTO.Score;
+                }
+                var delayInSeconds = (expirationDate - timeSent).TotalSeconds;
+                var lateScore = 100 - ((30 * delayInSeconds) / 3600);
+                 
+                existingAssignmentSubmissions.RawScore=scoreRegistrationDTO.Score;
+                existingAssignmentSubmissions.LateScore =(int)lateScore;
+                
                 _context.AssignmentSubmissions.Update(existingAssignmentSubmissions);
                 await _context.SaveChangesAsync();
                 return new OutPutModel<AssessmentDTO>
@@ -386,5 +454,46 @@ namespace Assessment_Backend.Core.Services
                 };
             }
         }
+
+        
+
+   
+        public async Task<bool> UploadObjectFromFileAsync(IAmazonS3 client, string bucketName, string keyName, IFormFile formFile)
+        {
+            try
+            {
+                using Stream inputStream = formFile.OpenReadStream();
+                using MemoryStream memoryStream = new MemoryStream();
+                inputStream.CopyTo(memoryStream);
+
+                var putRequest = new PutObjectRequest
+                {
+                    BucketName = bucketName,
+                    Key = keyName,
+                    InputStream = inputStream,
+                    ContentType = formFile.ContentType,//contentType, //For using and jpg image
+                    CannedACL = S3CannedACL.PublicRead, //it's public to show as a image on internet
+
+                };
+
+                putRequest.Metadata.Add("x-amz-meta-title", "someTitle");
+
+                PutObjectResponse response = await client.PutObjectAsync(putRequest);
+
+                foreach (PropertyInfo prop in response.GetType().GetProperties())
+                {
+                    Console.WriteLine($"{prop.Name}: {prop.GetValue(response, null)}");
+                }
+
+                Console.WriteLine($"Object {keyName} added to {bucketName} bucket");
+                return true;
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Error: {e.Message}");
+                return false;
+            }
+        }
+
     }
 }
