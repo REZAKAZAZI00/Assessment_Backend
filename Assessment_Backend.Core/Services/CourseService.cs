@@ -288,7 +288,7 @@
                     return new OutPutModel<List<CourseDTO>>
                     {
                         Message = "شما قبلاً در این درس عضو شده‌اید.",
-                        StatusCode = 200,
+                        StatusCode = 409,
                         Result = await GetCourseAsync()
                     };
                 }
@@ -300,7 +300,7 @@
                     return new OutPutModel<List<CourseDTO>>
                     {
                         Message = "ظرفیت کلاس پر شده است.",
-                        StatusCode = 200,
+                        StatusCode = 409,
                         Result = await GetCourseAsync()
                     };
                 }
@@ -326,6 +326,71 @@
                 {
                     StatusCode = 500,
                     Message = "خطای غیرمنتظره ای رخ داد مجدد تلاش کنید.",
+                };
+            }
+        }
+
+        public async Task<OutPutModel<List<CourseDTO>>> LeavingClassAsync(LeavingClassDTO model)
+        {
+            try
+            {
+
+                if (!ValidateModel.Validate(model, out var validationResult))
+                {
+                    _logger.LogError(validationResult);
+
+                    return new OutPutModel<List<CourseDTO>>
+                    {
+                        Message = validationResult,
+                        Result = null,
+                        StatusCode = 400
+                    };
+                }
+
+
+                int studentId = _httpContextAccessor.GetStudentId();
+
+                if (studentId is 0)
+                {
+                    return new OutPutModel<List<CourseDTO>>
+                    {
+                        Result = null,
+                        StatusCode = 401,
+                        Message = "لطفاً مجدداً وارد حساب کاربری خود شوید."
+                    };
+                }
+
+                var existingEnrollment = await _context.CourseEnrollments
+                    .SingleOrDefaultAsync(c=> c.CourseId==model.CourseId&&c.StudentId==studentId);
+
+                if (existingEnrollment is null)
+                {
+                    return new OutPutModel<List<CourseDTO>>
+                    {
+                         Result= await GetCourseAsync(),
+                         Message="خطای در حذف کلاس به وجود امد است مجدد تلاش کنید.",
+                         StatusCode=404
+                    };
+                }
+                _context.CourseEnrollments.Remove(existingEnrollment);
+                await _context.SaveChangesAsync();
+
+
+                return new OutPutModel<List<CourseDTO>>
+                {
+                     StatusCode=200,
+                     Message="",
+                     Result = await GetCourseAsync()
+                };
+            }
+            catch (Exception ex)
+            {
+
+                _logger.LogError(ex.Message, ex);
+                return new OutPutModel<List<CourseDTO>>
+                {
+                    StatusCode = 500,
+                    Message = "خطای غیرمنتظره ای رخ داد مجدد تلاش کنید",
                 };
             }
         }

@@ -58,5 +58,16 @@
             return result;
         }
 
+
+        [HttpPost("LeavingClass")]
+        [Authorize]
+        public async Task<ActionResult<OutPutModel<List<CourseDTO>>>> LeavingClass(LeavingClassDTO model)
+        {
+            var result = await _courseServies.LeavingClassAsync(model);
+
+            return result;
+        }
+
+
     }
 }

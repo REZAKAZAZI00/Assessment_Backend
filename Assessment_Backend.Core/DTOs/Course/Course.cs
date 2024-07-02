@@ -70,4 +70,10 @@
 
 
     }
+
+    public class LeavingClassDTO
+    {
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        public int CourseId { get; set; }
+    }
 }
