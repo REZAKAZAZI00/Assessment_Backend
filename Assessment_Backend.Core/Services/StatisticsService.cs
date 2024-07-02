@@ -88,15 +88,15 @@ namespace Assessment_Backend.Core.Services
                 }
 
                 int classCount=_context.Courses.Count(c=>c.TeacherId==teacherId);
+                
+                int assessmentCount = await _context.Assessments
+                          .CountAsync(a => a.Course.TeacherId == teacherId);
 
-                var a = _context.Courses.Where(c=> c.TeacherId==teacherId);
 
-                int assessmentCount = await _context.Assessments.Where(a => a.Course.TeacherId == teacherId)
-                    .CountAsync();
                 var TeacherStatistics = new TeacherStatisticsDTO
                 {
                     ClassCount = classCount,
-                    AssessmentCount = 0
+                    AssessmentCount = assessmentCount
                 }; 
 
                 return new OutPutModel<TeacherStatisticsDTO> 
