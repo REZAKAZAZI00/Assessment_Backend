@@ -38,7 +38,7 @@ namespace Assessment_Backend.Core.Services
                     .CountAsync(a => a.Course.CourseEnrollments
                     .Any(ce => ce.StudentId == studentId));
 
-                int countDutyUncompleted = totalAssignments - countDutyDone;
+                int countDutyUncompleted = Math.Max(0, totalAssignments - countDutyDone);
 
                 var StudentStatistics = new StudentStatisticsDTO()
                 {
