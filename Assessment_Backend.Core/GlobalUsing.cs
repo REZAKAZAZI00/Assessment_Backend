@@ -15,6 +15,7 @@ global using AutoMapper;
 global using Assessment_Backend.DataLayer.Context;
 global using Assessment_Backend.Core.DTOs;
 global using Assessment_Backend.Core.Security;
+global using Assessment_Backend.Core.DTOs.Statistics;
 global using Assessment_Backend.DataLayer.Entities.User;
 global using Assessment_Backend.Core.DTOs.Assessment;
 global using Assessment_Backend.Core.DTOs.Account;
