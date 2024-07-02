@@ -14,7 +14,7 @@
 
         #region Relations
 
-        public Course Course { get; set; }
+        public List<Course> Course { get; set; }
 
         #endregion
     }

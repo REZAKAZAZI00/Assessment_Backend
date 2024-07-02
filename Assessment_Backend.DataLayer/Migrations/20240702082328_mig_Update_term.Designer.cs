@@ -4,6 +4,7 @@ using Assessment_Backend.DataLayer.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Assessment_Backend.DataLayer.Migrations
 {
     [DbContext(typeof(AssessmentDbContext))]
-    partial class AssessmentDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240702082328_mig_Update_term")]
+    partial class mig_Update_term
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
