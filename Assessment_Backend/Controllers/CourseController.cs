@@ -34,7 +34,7 @@
             return result;
         }
 
-        [HttpDelete("DeteteCourse")]
+        [HttpPost("DeteteCourse")]
         [Authorize]
         public async Task<ActionResult<OutPutModel<List<CourseDTO>>>> DeleteCourse(DeleteCourseDTO courseDTO)
         {

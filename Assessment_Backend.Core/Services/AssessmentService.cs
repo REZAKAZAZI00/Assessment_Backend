@@ -1,6 +1,7 @@
 ﻿using Amazon.S3;
 using Amazon.S3.Model;
 using Amazon.S3.Util;
+using Assessment_Backend.Core.DTOs.Assessment;
 using System.Reflection;
 
 namespace Assessment_Backend.Core.Services
@@ -48,23 +49,75 @@ namespace Assessment_Backend.Core.Services
                         Message = ""
                     };
                 }
+                var awsCredentials = new Amazon.Runtime.BasicAWSCredentials("7115d73c-b7dc-421d-ab5d-19114c5a7057", "735e892a72adfea1666d7fd644d0eeab84f0b4e12e4ef0d4d488be06d72c90c3");
+                var config = new AmazonS3Config { ServiceURL = "https://s3.ir-thr-at1.arvanstorage.ir" };
+                _s3Client = new AmazonS3Client(awsCredentials, config);
 
-
-
-
-                string fileName = NameGenerator.GenerateName(15);
-                // TODO Save File
-                var newAssessmebt = new AssignmentSubmission
+                if (assessmentSubmissionDTO.File != null)
                 {
-                    CreateDate = DateTime.Now,
-                    AssignmentId = assessmentSubmissionDTO.AssignmentId,
-                    StudentId = studentId,
-                    Text = assessmentSubmissionDTO.Text,
-                    FileName = fileName,
+                    var fileName = Path.Combine("Submission/", NameGenerator.GenerateName()
+                        + Path.GetExtension(assessmentSubmissionDTO.File.FileName));
 
-                };
-                await _context.AssignmentSubmissions.AddAsync(newAssessmebt);
-                await _context.SaveChangesAsync();
+                    bool bucketExists = await AmazonS3Util.DoesS3BucketExistV2Async(_s3Client, BUCKET_NAME);
+                    if (bucketExists)
+                    {
+                        var result = await UploadObjectFromFileAsync(_s3Client, BUCKET_NAME, fileName,assessmentSubmissionDTO.File);
+                        if (result)
+                        {
+                            var newAssessmebt = new AssignmentSubmission
+                            {
+                                CreateDate = DateTime.Now,
+                                AssignmentId = assessmentSubmissionDTO.AssignmentId,
+                                StudentId = studentId,
+                                Text = assessmentSubmissionDTO.Text,
+                                FileName =fileName,
+
+                            };
+                            await _context.AssignmentSubmissions.AddAsync(newAssessmebt);
+                            await _context.SaveChangesAsync();
+
+                            return new OutPutModel<AssessmentDTO>
+                            {
+                                StatusCode = 200,
+                                Message = "",
+                                Result = await GetAssignmentByIdAsync(assessmentSubmissionDTO.AssignmentId),
+                            };
+
+                        }
+                        else
+                        {
+                            return new OutPutModel<AssessmentDTO>
+                            {
+                                StatusCode = 500,
+                                Message = "بارگزاری ناموفق بود. مجدداً تلاش کنید."
+                            };
+                        }
+                    }
+                    else
+                    {
+                        _logger.LogCritical("Bucket in ArvanStorage doesn't exist.");
+                        return new OutPutModel<AssessmentDTO>
+                        {
+                            StatusCode = 500,
+                            Message = "بارگزاری ناموفق بود. مجدداً تلاش کنید."
+                        };
+                    }
+                }
+                else
+                {
+                    var newAssessmebt = new AssignmentSubmission
+                    {
+                        CreateDate = DateTime.Now,
+                        AssignmentId = assessmentSubmissionDTO.AssignmentId,
+                        StudentId = studentId,
+                        Text = assessmentSubmissionDTO.Text,
+                        FileName = "default",
+
+                    };
+                    await _context.AssignmentSubmissions.AddAsync(newAssessmebt);
+                    await _context.SaveChangesAsync();
+                }
+                
 
                 return new OutPutModel<AssessmentDTO>
                 {
@@ -165,7 +218,7 @@ namespace Assessment_Backend.Core.Services
                         StartDate = assessmentDTO.StartDate,
                         PenaltyRule = assessmentDTO.PenaltyRule,
                         CourseId = assessmentDTO.CourseId,
-                        FileName = "",
+                        FileName = "default",
                     };
                     await _context.Assessments.AddAsync(newAssessment);
                     await _context.SaveChangesAsync();
@@ -345,10 +398,10 @@ namespace Assessment_Backend.Core.Services
             try
             {
 
-                var existingAssignmentSubmissions = await _context.AssignmentSubmissions
+                var existingSubmissions = await _context.AssignmentSubmissions
                     .Where(a => a.AS_Id == scoreRegistrationDTO.AS_Id)
                     .SingleOrDefaultAsync();
-                if (existingAssignmentSubmissions is null)
+                if (existingSubmissions is null)
                 {
                     return new OutPutModel<AssessmentDTO>
                     {
@@ -358,28 +411,59 @@ namespace Assessment_Backend.Core.Services
                     };
                 }
 
-                var timeSent = existingAssignmentSubmissions.CreateDate;
+                var timeSent = existingSubmissions.CreateDate;
                
-                var assessment = await _context.Assessments.FindAsync(existingAssignmentSubmissions.AssignmentId);
+                var assessment = await _context.Assessments.FindAsync(existingSubmissions.AssignmentId);
                 var expirationDate = assessment.EndDate;
-                var xa = assessment.PenaltyRule;
-
                 if (timeSent <= expirationDate)
                 {
-                    existingAssignmentSubmissions.LateScore = scoreRegistrationDTO.Score;
+                    existingSubmissions.LateScore = scoreRegistrationDTO.Score;
+                    existingSubmissions.RawScore = scoreRegistrationDTO.Score;
                 }
-                var delayInSeconds = (expirationDate - timeSent).TotalSeconds;
-                var lateScore = 100 - ((30 * delayInSeconds) / 3600);
-                 
-                existingAssignmentSubmissions.RawScore=scoreRegistrationDTO.Score;
-                existingAssignmentSubmissions.LateScore =(int)lateScore;
-                
-                _context.AssignmentSubmissions.Update(existingAssignmentSubmissions);
+                else
+                {
+                    if (assessment.PenaltyRule != "" && assessment.PenaltyRule != "0")
+                    {
+                        var penaltyRule = ParsePenaltyRule(assessment.PenaltyRule);
+
+                        if (penaltyRule is null)
+                        {
+                            return new OutPutModel<AssessmentDTO>
+                            {
+                                 Message="",
+                                 StatusCode=404,
+                                 Result= null,
+                            };
+                        }
+
+                        var delay =(int) (timeSent - expirationDate).TotalDays;
+
+                        foreach (var item in penaltyRule)
+                        {
+                            if (item.days == delay)
+                            {
+                                var penaltyPercentage = item.score / 100.0;
+                                var a = scoreRegistrationDTO.Score * penaltyPercentage;
+                                existingSubmissions.RawScore = scoreRegistrationDTO.Score;
+                                existingSubmissions.LateScore = (int)a;
+
+                                break;
+                            }
+                        }
+
+                        if( delay <= penaltyRule.Last().days )
+                        {
+
+                        }
+                    }
+
+                }
+                _context.AssignmentSubmissions.Update(existingSubmissions);
                 await _context.SaveChangesAsync();
                 return new OutPutModel<AssessmentDTO>
                 {
                     StatusCode = 200,
-                    Result = await GetAssignmentByIdAsync(existingAssignmentSubmissions.AssignmentId),
+                    Result = await GetAssignmentByIdAsync(existingSubmissions.AssignmentId),
                     Message = "",
                 };
             }
@@ -494,6 +578,38 @@ namespace Assessment_Backend.Core.Services
                 return false;
             }
         }
+
+
+
+        public List<(double days, double score)> ParsePenaltyRule(string penaltyRule)
+        {
+            var penalties = new List<(double days, double score)>();
+            var rules = penaltyRule.Split('n');
+            foreach (var rule in rules)
+            {
+                var parts = rule.Split(' ');
+                if (parts.Length == 2)
+                {
+                    var timePart = parts[0];
+                    var scorePart = parts[1];
+
+                    if (timePart.EndsWith("d"))
+                    {
+                        var days = double.Parse(timePart.TrimEnd('d'));
+                        var score = double.Parse(scorePart);
+                        penalties.Add((days, score));
+                    }
+                }
+            }
+
+            if (penalties.Count == 0)
+            {
+                return null;
+            }
+            penalties= penalties.OrderBy(x => x.days).ToList();
+            return penalties;
+        }
+
 
     }
 }
