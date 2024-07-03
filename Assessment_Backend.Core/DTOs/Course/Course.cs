@@ -8,8 +8,7 @@
         public string  TeacherName { get; set; }
 
         public string Term { get; set; }
-
-
+        public int TermId { get; set; }
         public string Title { get; set; }
 
         public string Description { get; set; }
