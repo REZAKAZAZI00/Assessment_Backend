@@ -1,13 +1,13 @@
 ﻿using Amazon.S3;
 using Amazon.S3.Model;
 using Amazon.S3.Util;
-using Assessment_Backend.Core.DTOs.Assessment;
 using System.Reflection;
 
 namespace Assessment_Backend.Core.Services
 {
     public class AssessmentService : IAssessmentService
     {
+        #region Constructor
         private const string BUCKET_NAME = "assessment";
         private static IAmazonS3 _s3Client;
         private readonly AssessmentDbContext _context;
@@ -20,6 +20,8 @@ namespace Assessment_Backend.Core.Services
             _logger = logger;
             _httpContextAccessor = httpContextAccessor;
         }
+        #endregion
+
 
         public async Task<OutPutModel<AssessmentDTO>> AssignmentSubmissionAsync(AssignmentSubmissionDTO assessmentSubmissionDTO)
         {
@@ -61,7 +63,7 @@ namespace Assessment_Backend.Core.Services
                     bool bucketExists = await AmazonS3Util.DoesS3BucketExistV2Async(_s3Client, BUCKET_NAME);
                     if (bucketExists)
                     {
-                        var result = await UploadObjectFromFileAsync(_s3Client, BUCKET_NAME, fileName,assessmentSubmissionDTO.File);
+                        var result = await UploadObjectFromFileAsync(_s3Client, BUCKET_NAME, fileName, assessmentSubmissionDTO.File);
                         if (result)
                         {
                             var newAssessmebt = new AssignmentSubmission
@@ -70,7 +72,7 @@ namespace Assessment_Backend.Core.Services
                                 AssignmentId = assessmentSubmissionDTO.AssignmentId,
                                 StudentId = studentId,
                                 Text = assessmentSubmissionDTO.Text,
-                                FileName =fileName,
+                                FileName = fileName,
 
                             };
                             await _context.AssignmentSubmissions.AddAsync(newAssessmebt);
@@ -79,7 +81,7 @@ namespace Assessment_Backend.Core.Services
                             return new OutPutModel<AssessmentDTO>
                             {
                                 StatusCode = 200,
-                                Message = "",
+                                Message = "تکلیف با موفقیت ثبت شد.",
                                 Result = await GetAssignmentByIdAsync(assessmentSubmissionDTO.AssignmentId),
                             };
 
@@ -117,7 +119,7 @@ namespace Assessment_Backend.Core.Services
                     await _context.AssignmentSubmissions.AddAsync(newAssessmebt);
                     await _context.SaveChangesAsync();
                 }
-                
+
 
                 return new OutPutModel<AssessmentDTO>
                 {
@@ -157,7 +159,7 @@ namespace Assessment_Backend.Core.Services
                 var config = new AmazonS3Config { ServiceURL = "https://s3.ir-thr-at1.arvanstorage.ir" };
                 _s3Client = new AmazonS3Client(awsCredentials, config);
 
-               
+
                 if (assessmentDTO.File != null)
                 {
                     var fileName = Path.Combine("assessment/", NameGenerator.GenerateName() + Path.GetExtension(assessmentDTO.File.FileName));
@@ -185,7 +187,7 @@ namespace Assessment_Backend.Core.Services
                             {
                                 StatusCode = 200,
                                 Result = await GetCourseByIdAsync(assessmentDTO.CourseId),
-                                Message = " با موفقیت بارگزاری شد"
+                                Message = " .تکلیف با موفقیت ثبت شد"
                             };
                         }
                         else
@@ -226,7 +228,7 @@ namespace Assessment_Backend.Core.Services
                     {
                         StatusCode = 200,
                         Result = await GetCourseByIdAsync(assessmentDTO.CourseId),
-                        Message = ""
+                        Message = "تکلیف با موفقیت ثبت شد."
                     };
                 }
             }
@@ -263,7 +265,7 @@ namespace Assessment_Backend.Core.Services
                 return new OutPutModel<CourseDTO>
                 {
                     StatusCode = 200,
-                    Message = "",
+                    Message = "تکلیف با موفقیت حذف شد.",
                     Result = await GetCourseByIdAsync(existing.CourseId)
                 };
             }
@@ -411,8 +413,9 @@ namespace Assessment_Backend.Core.Services
                     };
                 }
 
+
                 var timeSent = existingSubmissions.CreateDate;
-               
+
                 var assessment = await _context.Assessments.FindAsync(existingSubmissions.AssignmentId);
                 var expirationDate = assessment.EndDate;
                 if (timeSent <= expirationDate)
@@ -430,13 +433,13 @@ namespace Assessment_Backend.Core.Services
                         {
                             return new OutPutModel<AssessmentDTO>
                             {
-                                 Message="",
-                                 StatusCode=404,
-                                 Result= null,
+                                Message = "قاعده‌ی اعمال جریمه دارای مشکل است ",
+                                StatusCode = 404,
+                                Result = null,
                             };
                         }
 
-                        var delay =(int) (timeSent - expirationDate).TotalDays;
+                        var delay = (int)(timeSent - expirationDate).TotalDays;
 
                         foreach (var item in penaltyRule)
                         {
@@ -451,10 +454,11 @@ namespace Assessment_Backend.Core.Services
                             }
                         }
 
-                        if( delay <= penaltyRule.Last().days )
-                        {
-
-                        }
+                    }
+                    else
+                    {
+                        existingSubmissions.LateScore = 0;
+                        existingSubmissions.RawScore = scoreRegistrationDTO.Score;
                     }
 
                 }
@@ -464,7 +468,7 @@ namespace Assessment_Backend.Core.Services
                 {
                     StatusCode = 200,
                     Result = await GetAssignmentByIdAsync(existingSubmissions.AssignmentId),
-                    Message = "",
+                    Message = "نمره با موقثیت ثبت شد.",
                 };
             }
             catch (Exception ex)
@@ -521,7 +525,7 @@ namespace Assessment_Backend.Core.Services
                 return new OutPutModel<CourseDTO>
                 {
                     StatusCode = 200,
-                    Message = "",
+                    Message = "با موفقیت بروزرسانی شد.",
                     Result = await GetCourseByIdAsync(assessmentDTO.CourseId),
                 };
             }
@@ -539,9 +543,9 @@ namespace Assessment_Backend.Core.Services
             }
         }
 
-        
 
-   
+
+
         public async Task<bool> UploadObjectFromFileAsync(IAmazonS3 client, string bucketName, string keyName, IFormFile formFile)
         {
             try
@@ -606,7 +610,7 @@ namespace Assessment_Backend.Core.Services
             {
                 return null;
             }
-            penalties= penalties.OrderBy(x => x.days).ToList();
+            penalties = penalties.OrderBy(x => x.days).ToList();
             return penalties;
         }
 

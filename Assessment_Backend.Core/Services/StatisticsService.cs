@@ -3,15 +3,18 @@ namespace Assessment_Backend.Core.Services
 {
     public class StatisticsService: IStatisticsService
     {
+        #region Constructor
         private readonly AssessmentDbContext _context;
         private readonly ILogger<StatisticsService> _logger;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public StatisticsService(AssessmentDbContext context,ILogger<StatisticsService> logger,IHttpContextAccessor httpContextAccessor)
+        public StatisticsService(AssessmentDbContext context, ILogger<StatisticsService> logger, IHttpContextAccessor httpContextAccessor)
         {
-            _context = context;    
+            _context = context;
             _logger = logger;
             _httpContextAccessor = httpContextAccessor;
         }
+        #endregion
+
 
         public async Task<OutPutModel<StudentStatisticsDTO>> GetStudentStatisticsAsync()
         {

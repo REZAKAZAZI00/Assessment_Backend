@@ -2,6 +2,7 @@
 {
     public class UserService : IUserService
     {
+        #region Constructor
         private readonly AssessmentDbContext _context;
         private readonly ITokenHelperService _tokenHelperService;
         private readonly ILogger<UserService> _logger;
@@ -12,6 +13,8 @@
             _logger = logger;
             _tokenHelperService = tokenHelperService;
         }
+
+        #endregion
 
         public async Task<OutPutModel<List<RoleDTO>>> GetAllRolesAsync()
         {
@@ -196,7 +199,7 @@
                 await transaction.CommitAsync();
                 return new OutPutModel<bool>
                 {
-                    Message = "",
+                    Message = "دانشجو گرامی ثبت نام شما با موفقیت انجام شد.",
                     Result = true,
                     StatusCode = 200
 
@@ -270,7 +273,7 @@
                 await transaction.CommitAsync();
                 return new OutPutModel<bool>
                 {
-                    Message = "",
+                    Message = "استاد گرامی ثبت نام شما با موفقیت انجام شد.",
                     Result = true,
                     StatusCode = 200
 

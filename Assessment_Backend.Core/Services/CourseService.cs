@@ -2,6 +2,7 @@
 {
     public class CourseService : ICourseService
     {
+        #region Constructor
         private readonly AssessmentDbContext _context;
         private readonly ILogger<CourseService> _logger;
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -12,6 +13,8 @@
             _logger = logger;
             _httpContextAccessor = httpContextAccessor;
         }
+
+        #endregion
 
         public async Task<OutPutModel<List<CourseDTO>>> CreateCourseAsync(CreateCourseDTO model)
         {
@@ -58,7 +61,7 @@
                 return new OutPutModel<List<CourseDTO>>
                 {
                     StatusCode = 200,
-                    Message = "",
+                    Message = "درس با موفقیت ثبت شد.",
                     Result = await GetCourseAsync()
                 };
             }
@@ -122,7 +125,7 @@
                 return new OutPutModel<List<CourseDTO>>
                 {
                     StatusCode = 200,
-                    Message = "",
+                    Message = " درس با موفقیت حذف شد. ",
                     Result = await GetCourseAsync(),
                 };
             }
@@ -324,7 +327,7 @@
 
                 return new OutPutModel<List<CourseDTO>>
                 {
-                    Message = "",
+                    Message = "عضویت به کلاس با موفقیت انجام شد.",
                     StatusCode = 200,
                     Result = await GetCourseAsync()
                 };
@@ -389,7 +392,7 @@
                 return new OutPutModel<List<CourseDTO>>
                 {
                      StatusCode=200,
-                     Message="",
+                     Message="ترک کلاس با موفقیت  انجام شد.",
                      Result = await GetCourseAsync()
                 };
             }
@@ -452,7 +455,7 @@
                 return new OutPutModel<List<CourseDTO>>
                 {
                     StatusCode = 200,
-                    Message = "",
+                    Message = "بروزرسانی  با موفقیت انجام شد.",
                     Result = await GetCourseAsync()
                 };
             }

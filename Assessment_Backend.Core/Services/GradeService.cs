@@ -2,13 +2,16 @@
 {
     public class GradeService : IGradeService
     {
+        #region Constructor
         private readonly AssessmentDbContext _context;
         private readonly ILogger<GradeService> _logger;
-        public GradeService(AssessmentDbContext context,ILogger<GradeService> logger)
+        public GradeService(AssessmentDbContext context, ILogger<GradeService> logger)
         {
-           _context = context;
+            _context = context;
             _logger = logger;
         }
+        #endregion
+
         public async Task<OutPutModel<List<GradeDTO>>> GetAllGradesAsync()
         {
 			try
