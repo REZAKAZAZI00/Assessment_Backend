@@ -220,6 +220,7 @@
                         Title = c.Title,
                         CourseId = c.CourseId,
                         Term = c.Term.Title,
+                        TermId = c.TermId,
                         TeacherName = c.Teacher.Name + " " + c.Teacher.family,
                          Student = teacherId > 0 ? c.CourseEnrollments.Select(e => new StudentDTO // Add StudentDTO to CourseDTO only if teacherId > 0
                         {
