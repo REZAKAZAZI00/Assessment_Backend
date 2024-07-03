@@ -4,14 +4,17 @@
     [ApiController]
     public class AssessmentController : ControllerBase
     {
+        #region Constructor
         private readonly IAssessmentService _assessmentService;
         public AssessmentController(IAssessmentService assessmentService)
         {
             _assessmentService = assessmentService;
         }
+        #endregion
+
 
         [HttpPost("CreateAssessment")]
-      
+
         public async Task<ActionResult<OutPutModel<CourseDTO>>> CreateAssessment(CreateAssessmentDTO assessmentDTO)
         {
             var result = await _assessmentService.CreateAssessmentAsync(assessmentDTO);
@@ -37,12 +40,12 @@
         [HttpPost("AssignmentSubmission")]
         public async Task<ActionResult<OutPutModel<AssessmentDTO>>> AssignmentSubmission(AssignmentSubmissionDTO submissionDTO)
         {
-            var result=await _assessmentService.AssignmentSubmissionAsync(submissionDTO);
+            var result = await _assessmentService.AssignmentSubmissionAsync(submissionDTO);
             return result;
         }
 
         [HttpPost("ScoreRegistration")]
-        public async Task<ActionResult<OutPutModel<AssessmentDTO>>> ScoreRegistration(ScoreRegistrationDTO  scoreRegistrationDTO)
+        public async Task<ActionResult<OutPutModel<AssessmentDTO>>> ScoreRegistration(ScoreRegistrationDTO scoreRegistrationDTO)
         {
             var result = await _assessmentService.ScoreRegistrationAsync(scoreRegistrationDTO);
             return result;
@@ -51,8 +54,8 @@
         [HttpGet("GetAssignments/{assignmentId}")]
         public async Task<ActionResult<OutPutModel<List<SubmittedAssignmentDTO>>>> GetAssignments(int assignmentId)
         {
-            var result=await _assessmentService.GetAssignmentSubmissionsByIdAsync(assignmentId);
-            return result;    
+            var result = await _assessmentService.GetAssignmentSubmissionsByIdAsync(assignmentId);
+            return result;
         }
 
 

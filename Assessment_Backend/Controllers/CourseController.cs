@@ -4,11 +4,15 @@
     [ApiController]
     public class CourseController : ControllerBase
     {
+
+        #region Constructor
         private readonly ICourseService _courseServies;
         public CourseController(ICourseService courseServies)
         {
             _courseServies = courseServies;
         }
+        #endregion
+
 
         [HttpGet("Terms")]
         public async Task<ActionResult<OutPutModel<List<TermDTO>>>> GetAllTerm()

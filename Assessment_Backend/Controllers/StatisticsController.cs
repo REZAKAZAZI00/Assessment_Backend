@@ -1,16 +1,17 @@
-﻿using Assessment_Backend.Core.DTOs.Statistics;
-
-namespace Assessment_Backend.Controllers
+﻿namespace Assessment_Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class StatisticsController : ControllerBase
     {
+        #region Constructor
         private readonly IStatisticsService _statisticsService;
-        public StatisticsController(IStatisticsService  statisticsService)
+        public StatisticsController(IStatisticsService statisticsService)
         {
-             _statisticsService = statisticsService;
+            _statisticsService = statisticsService;
         }
+        #endregion
+
 
         [HttpGet("StudentStatistics")]
         [Authorize]

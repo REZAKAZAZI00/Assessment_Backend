@@ -4,11 +4,14 @@
     [ApiController]
     public class AccountController : ControllerBase
     {
+        #region Constructor
         private readonly IUserService _userServies;
         public AccountController(IUserService userServies)
         {
             _userServies = userServies;
         }
+        #endregion
+
 
 
         [HttpPost("Login")]
