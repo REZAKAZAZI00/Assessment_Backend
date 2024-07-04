@@ -21,6 +21,8 @@
 
         Task<OutPutModel<List<CourseDTO>>> GetAllCourseAsync();
 
+        Task<OutPutModel<CourseDTO>> GetCourseByCourseIdAsync(int courseId);
+
         Task<OutPutModel<List<CourseDTO>>> JoinClassAsync(JoinClassDTO model);
         Task<OutPutModel<List<CourseDTO>>> LeavingClassAsync(LeavingClassDTO model);
 

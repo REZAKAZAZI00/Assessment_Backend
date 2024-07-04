@@ -253,6 +253,79 @@
             }
         }
 
+        public async Task<OutPutModel<CourseDTO>> GetCourseByCourseIdAsync(int courseId)
+        {
+            try
+            {
+                int teacherId = _httpContextAccessor.GetTeacherId();
+                int studentId = _httpContextAccessor.GetStudentId();
+                if (courseId == null||courseId==0)
+                {
+                    return new OutPutModel<CourseDTO>
+                    {
+                        Result=null,
+                        Message="شناسه درس نمیتواند خالی باشد.",
+                        StatusCode=404
+                    };
+                }
+                var query = _context.Courses
+                    .Where(c=> c.CourseId==courseId)
+                    .Include(c => c.Term)
+                    .Include(c => c.Teacher)
+                    .Include(c => c.Assessments)
+                    .Include(c => c.CourseEnrollments).ThenInclude(e => e.Student) // Include Student information
+                    .Where(c =>teacherId != 0 ? c.TeacherId == teacherId : c.CourseEnrollments.Any(e => e.StudentId == studentId))
+                    .Select(c => new CourseDTO
+                    {
+                        CountMembers = c.CountMembers,
+                        Description = c.Description,
+                        Link = c.Link,
+                        Title = c.Title,
+                        CourseId = c.CourseId,
+                        Term = c.Term.Title,
+                        TermId = c.TermId,
+                        TeacherName = c.Teacher.Name + " " + c.Teacher.family,
+                        Student = teacherId > 0 ? c.CourseEnrollments.Select(e => new StudentDTO // Add StudentDTO to CourseDTO only if teacherId > 0
+                        {
+                            StudentId = e.StudentId,
+                            Name = e.Student.Name,
+                            family = e.Student.family,
+                            PhoneNumber = e.Student.PhoneNumber,
+                            Email = e.Student.Email
+                        }).ToList() : null,
+                        Assessments = c.Assessments
+                            .Select(a => new AssessmentDTO
+                            {
+                                AssessmentId = a.AssessmentId,
+                                StartDate = a.StartDate,
+                                CourseId = a.CourseId,
+                                Description = a.Description,
+                                EndDate = a.EndDate,
+                                Title = a.Title,
+                                PenaltyRule = a.PenaltyRule
+                            })
+                            .ToList()
+                    });
+
+
+                return new OutPutModel<CourseDTO>
+                {
+                     Message="",
+                     StatusCode=200,
+                     Result =await query.SingleOrDefaultAsync()
+
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message,ex);
+                return new OutPutModel<CourseDTO>
+                {
+                    StatusCode = 500,
+                    Message = "خطای غیرمنتظره ای رخ داد مجدد تلاش کنید",
+                };
+            }
+        }
 
         public async Task<OutPutModel<List<CourseDTO>>> JoinClassAsync(JoinClassDTO model)
         {
