@@ -14,6 +14,8 @@
         public DateTime EndDate { get; set; }
 
         public string PenaltyRule { get; set; }
+
+        public string? FileName { get; set; }
     }
 
     public class CreateAssessmentDTO

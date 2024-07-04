@@ -381,7 +381,7 @@ namespace Assessment_Backend.Core.Services
                                 Title = a.Title,
                                 PenaltyRule = a.PenaltyRule,
                                 StartDate = a.StartDate,
-
+                                FileName = a.FileName,
                             })
                             .ToList()
                     }).SingleAsync();
@@ -509,25 +509,77 @@ namespace Assessment_Backend.Core.Services
                         Message = "تکلیف پیدا نشد ."
                     };
                 }
+                var awsCredentials = new Amazon.Runtime.BasicAWSCredentials("7115d73c-b7dc-421d-ab5d-19114c5a7057", "735e892a72adfea1666d7fd644d0eeab84f0b4e12e4ef0d4d488be06d72c90c3");
+                var config = new AmazonS3Config { ServiceURL = "https://s3.ir-thr-at1.arvanstorage.ir" };
+                _s3Client = new AmazonS3Client(awsCredentials, config);
 
-                var config = new MapperConfiguration(cfg =>
+                if (assessmentDTO.File != null)
                 {
-                    cfg.CreateMap<UpdateAssessmentDTO, Assessment>()
-                        .ForMember(dest => dest.AssessmentId, opt => opt.Ignore()) // برای جلوگیری از بروزرسانی ایدی
-                        .ForAllMembers(opt => opt.Condition((src, dest, srcMember) => srcMember != null));
-                });
-                var mapper = config.CreateMapper();
+                    var fileName = Path.Combine("assessment/", NameGenerator.GenerateName() + Path.GetExtension(assessmentDTO.File.FileName));
 
-                mapper.Map(assessmentDTO, assessment);
+                    bool bucketExists = await AmazonS3Util.DoesS3BucketExistV2Async(_s3Client, BUCKET_NAME);
+                    if (bucketExists)
+                    {
+                        var result = await UploadObjectFromFileAsync(_s3Client, BUCKET_NAME, fileName, assessmentDTO.File);
+                        if (result)
+                        {
+                            assessment.StartDate = assessmentDTO.StartDate;
+                            assessment.EndDate = assessmentDTO.EndDate;
+                            assessment.Description = assessmentDTO.Description;
+                            assessment.CourseId = assessmentDTO.CourseId;
+                            assessment.FileName = fileName;
+                            assessment.PenaltyRule = assessmentDTO.PenaltyRule;
+                            assessment.Title = assessmentDTO.Title;
 
-                _context.Assessments.Update(assessment);
-                await _context.SaveChangesAsync();
-                return new OutPutModel<CourseDTO>
+                            _context.Assessments.Update(assessment);
+                            await _context.SaveChangesAsync();
+                            return new OutPutModel<CourseDTO>
+                            {
+                                StatusCode = 200,
+                                Result = await GetCourseByIdAsync(assessmentDTO.CourseId),
+                                Message = " .تکلیف با موفقیت بروزرسانی شد"
+                            };
+                        }
+                        else
+                        {
+                            return new OutPutModel<CourseDTO>
+                            {
+                                StatusCode = 500,
+                                Message = "بارگزاری ناموفق بود. مجدداً تلاش کنید."
+                            };
+                        }
+                    }
+                    else
+                    {
+                        _logger.LogCritical("Bucket in ArvanStorage doesn't exist.");
+                        return new OutPutModel<CourseDTO>
+                        {
+                            StatusCode = 500,
+                            Message = "بارگزاری ناموفق بود. مجدداً تلاش کنید."
+                        };
+                    }
+                }
+                else
                 {
-                    StatusCode = 200,
-                    Message = "با موفقیت بروزرسانی شد.",
-                    Result = await GetCourseByIdAsync(assessmentDTO.CourseId),
-                };
+                    assessment.StartDate = assessmentDTO.StartDate;
+                    assessment.EndDate = assessmentDTO.EndDate;
+                    assessment.Description = assessmentDTO.Description;
+                    assessment.CourseId = assessmentDTO.CourseId;
+                    assessment.FileName = assessmentDTO.FileName;
+                    assessment.PenaltyRule = assessmentDTO.PenaltyRule;
+                    assessment.Title = assessmentDTO.Title;
+
+                    _context.Assessments.Update(assessment);
+                    await _context.SaveChangesAsync();
+
+                    return new OutPutModel<CourseDTO>
+                    {
+                        StatusCode = 200,
+                        Message = "با موفقیت بروزرسانی شد.",
+                        Result = await GetCourseByIdAsync(assessmentDTO.CourseId),
+                    };
+                }
+
             }
             catch (Exception ex)
             {
