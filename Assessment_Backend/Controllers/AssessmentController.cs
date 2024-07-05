@@ -23,7 +23,7 @@
 
         [HttpPost("testforFile")]
 
-        public async Task<ActionResult<OutPutModel<CourseDTO>>> test(CreateAssessmentDTO assessmentDTO,IFormFile file)
+        public async Task<ActionResult<OutPutModel<CourseDTO>>> test(TestCreateAssessmentDTO assessmentDTO,IFormFile file)
         {
             if (file!=null)
             {
