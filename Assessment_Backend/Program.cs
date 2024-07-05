@@ -75,20 +75,23 @@ internal class Program
         builder.Services.AddSwaggerGen();
 
         #region Confing Swagger
-        builder.Services.AddSwaggerGen(c =>
+        if (builder.Environment.IsDevelopment())
         {
-
-            c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+            builder.Services.AddSwaggerGen(c =>
             {
-                In = Microsoft.OpenApi.Models.ParameterLocation.Header,
-                Description = "Plese insert token",
-                Name = "Authorization",
-                Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http,
-                BearerFormat = "JWT",
-                Scheme = "bearer",
+                c.IncludeXmlComments(Path.Combine(Directory.GetCurrentDirectory(), @"bin\Debug\net8.0", "Assessment_Backend.xml"));
 
-            });
-            c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+                {
+                    In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+                    Description = "Plese insert token",
+                    Name = "Authorization",
+                    Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http,
+                    BearerFormat = "JWT",
+                    Scheme = "bearer",
+
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
             {
                 {
                     new OpenApiSecurityScheme
@@ -102,7 +105,42 @@ internal class Program
                     new string[]{}
                 }
             });
-        });
+            });
+        }
+        else
+        {
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.IncludeXmlComments(Path.Combine(Directory.GetCurrentDirectory(), "Assessment_Backend.xml"));
+
+
+                c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+                {
+                    In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+                    Description = "Plese insert token",
+                    Name = "Authorization",
+                    Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http,
+                    BearerFormat = "JWT",
+                    Scheme = "bearer",
+
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+            {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference=new OpenApiReference
+                        {
+                            Type=ReferenceType.SecurityScheme,
+                             Id="Bearer"
+                        }
+                    },
+                    new string[]{}
+                }
+            });
+            });
+        }
+            
         #endregion
         var app = builder.Build();
 

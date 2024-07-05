@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Assessment_Backend.Controllers
+﻿namespace Assessment_Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -64,7 +62,11 @@ namespace Assessment_Backend.Controllers
 
             return result;
         }
-
+        /// <summary>
+        /// برای ارسال تمرین 
+        /// </summary>
+        /// <param name="submissionDTO"></param>
+        /// <returns></returns>
         [HttpPost("AssignmentSubmission")]
         public async Task<ActionResult<OutPutModel<AssessmentDTO>>> AssignmentSubmission(AssignmentSubmissionDTO submissionDTO)
         {
@@ -72,6 +74,11 @@ namespace Assessment_Backend.Controllers
             return result;
         }
 
+        /// <summary>
+        /// برای ثبت نمره
+        /// </summary>
+        /// <param name="scoreRegistrationDTO"></param>
+        /// <returns></returns>
         [HttpPost("ScoreRegistration")]
         public async Task<ActionResult<OutPutModel<AssessmentDTO>>> ScoreRegistration(ScoreRegistrationDTO scoreRegistrationDTO)
         {
@@ -79,7 +86,7 @@ namespace Assessment_Backend.Controllers
             return result;
         }
         /// <summary>
-        /// برای دریافت تمرین های ارسال شده
+        /// برای دریافت تمرین های ارسال شده 
         /// </summary>
         /// <param name="assignmentId"></param>
         /// <returns></returns>
@@ -91,7 +98,10 @@ namespace Assessment_Backend.Controllers
             return result;
         }
 
-
+        /// <summary>
+        /// گرفتن همه تکلیف  ها
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("GetAllAssignments")]
         [Authorize]
         public async Task<ActionResult<OutPutModel<List<AssessmentDTO>>>> GetAssignments()

@@ -6,6 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>09b0ac71-885f-4493-b812-11c79b7970e1</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>C:\Users\rezak\OneDrive\Desktop\assessment\a\Assessment_Backend\Assessment_Backend\bin\Debug\net8.0\Assessment_Backend.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
