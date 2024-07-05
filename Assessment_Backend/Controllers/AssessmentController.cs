@@ -21,6 +21,18 @@
             return result;
         }
 
+        [HttpPost("testforFile")]
+
+        public async Task<ActionResult<OutPutModel<CourseDTO>>> test(CreateAssessmentDTO assessmentDTO,IFormFile file)
+        {
+            if (file!=null)
+            {
+                return Ok("file upload shod");
+            }
+            //var result = await _assessmentService.CreateAssessmentAsync(assessmentDTO);
+            return BadRequest();
+        }
+
         [HttpPut("UpdateAssessment")]
 
         public async Task<ActionResult<OutPutModel<CourseDTO>>> UpdateAssessment(UpdateAssessmentDTO assessmentDTO)
