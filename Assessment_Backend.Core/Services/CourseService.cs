@@ -301,6 +301,7 @@
                                 AssessmentId = a.AssessmentId,
                                 StartDate = a.StartDate,
                                 CourseId = a.CourseId,
+                                FileName = a.FileName,
                                 Description = a.Description,
                                 EndDate = a.EndDate,
                                 Title = a.Title,
