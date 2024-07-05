@@ -16,6 +16,8 @@
 
         public int CountMembers { get; set; }
 
+        public int? extant { get; set; }
+
         public List<StudentDTO>? Student { get; set; }
 
         public List<AssessmentDTO> Assessments { get; set; }

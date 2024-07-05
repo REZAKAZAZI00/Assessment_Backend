@@ -222,7 +222,7 @@
                         Term = c.Term.Title,
                         TermId = c.TermId,
                         TeacherName = c.Teacher.Name + " " + c.Teacher.family,
-                         Student = teacherId > 0 ? c.CourseEnrollments.Select(e => new StudentDTO // Add StudentDTO to CourseDTO only if teacherId > 0
+                        Student = teacherId > 0 ? c.CourseEnrollments.Select(e => new StudentDTO // Add StudentDTO to CourseDTO only if teacherId > 0
                         {
                             StudentId = e.StudentId,
                             Name = e.Student.Name,
@@ -259,22 +259,22 @@
             {
                 int teacherId = _httpContextAccessor.GetTeacherId();
                 int studentId = _httpContextAccessor.GetStudentId();
-                if (courseId == null||courseId==0)
+                if (courseId == null || courseId == 0)
                 {
                     return new OutPutModel<CourseDTO>
                     {
-                        Result=null,
-                        Message="شناسه درس نمیتواند خالی باشد.",
-                        StatusCode=404
+                        Result = null,
+                        Message = "شناسه درس نمیتواند خالی باشد.",
+                        StatusCode = 404
                     };
                 }
                 var query = _context.Courses
-                    .Where(c=> c.CourseId==courseId)
+                    .Where(c => c.CourseId == courseId)
                     .Include(c => c.Term)
                     .Include(c => c.Teacher)
                     .Include(c => c.Assessments)
                     .Include(c => c.CourseEnrollments).ThenInclude(e => e.Student) // Include Student information
-                    .Where(c =>teacherId != 0 ? c.TeacherId == teacherId : c.CourseEnrollments.Any(e => e.StudentId == studentId))
+                    .Where(c => teacherId != 0 ? c.TeacherId == teacherId : c.CourseEnrollments.Any(e => e.StudentId == studentId))
                     .Select(c => new CourseDTO
                     {
                         CountMembers = c.CountMembers,
@@ -310,15 +310,65 @@
 
                 return new OutPutModel<CourseDTO>
                 {
-                     Message="",
-                     StatusCode=200,
-                     Result =await query.SingleOrDefaultAsync()
+                    Message = "",
+                    StatusCode = 200,
+                    Result = await query.SingleOrDefaultAsync()
 
                 };
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message,ex);
+                _logger.LogError(ex.Message, ex);
+                return new OutPutModel<CourseDTO>
+                {
+                    StatusCode = 500,
+                    Message = "خطای غیرمنتظره ای رخ داد مجدد تلاش کنید",
+                };
+            }
+        }
+
+        public async Task<OutPutModel<CourseDTO>> GetCourseByCourseLinkAsync(string link)
+        {
+            try
+            {
+                if (link is null)
+                {
+                    return new OutPutModel<CourseDTO>
+                    {
+                        StatusCode = 404,
+                        Message = "کلاس مورد نظر پیدا نشد.",
+                        Result = null
+                    };
+                }
+                var course = await _context.Courses
+                    .Where(c => c.Link == link)
+                    .Include(t => t.Teacher)
+                    .Include(t => t.Term)
+                    .Select(c => new CourseDTO
+                    {
+                        Link = c.Link,
+                        CourseId = c.CourseId,
+                        Term = c.Term.Title,
+                        TeacherName = c.Teacher.Name + "" + c.Teacher.family,
+                        Description = c.Description,
+                        CountMembers = c.CountMembers,
+                        Title = c.Title,
+                        TermId = c.TermId,
+
+                    })
+                    .SingleOrDefaultAsync();
+
+                return new OutPutModel<CourseDTO>
+                {
+                    StatusCode = 200,
+                    Message = "",
+                     Result = course
+                };
+            }
+            catch (Exception ex)
+            {
+
+                _logger.LogError(ex.Message, ex);
                 return new OutPutModel<CourseDTO>
                 {
                     StatusCode = 500,
@@ -367,7 +417,7 @@
                 }
                 var existingEnrollment = await _context.CourseEnrollments
                           .SingleOrDefaultAsync(ce =>
-                          ce.CourseId == course.CourseId 
+                          ce.CourseId == course.CourseId
                           && ce.StudentId == studentId);
 
                 if (existingEnrollment != null)
@@ -380,8 +430,8 @@
                     };
                 }
 
-                var count=_context.CourseEnrollments
-                    .Where(ce=> ce.CourseId==course.CourseId).Count();
+                var count = _context.CourseEnrollments
+                    .Where(ce => ce.CourseId == course.CourseId).Count();
                 if (count >= course.CountMembers)
                 {
                     return new OutPutModel<List<CourseDTO>>
@@ -448,15 +498,15 @@
                 }
 
                 var existingEnrollment = await _context.CourseEnrollments
-                    .SingleOrDefaultAsync(c=> c.CourseId==model.CourseId&&c.StudentId==studentId);
+                    .SingleOrDefaultAsync(c => c.CourseId == model.CourseId && c.StudentId == studentId);
 
                 if (existingEnrollment is null)
                 {
                     return new OutPutModel<List<CourseDTO>>
                     {
-                         Result= await GetCourseAsync(),
-                         Message="خطای در حذف کلاس به وجود امد است مجدد تلاش کنید.",
-                         StatusCode=404
+                        Result = await GetCourseAsync(),
+                        Message = "خطای در حذف کلاس به وجود امد است مجدد تلاش کنید.",
+                        StatusCode = 404
                     };
                 }
                 _context.CourseEnrollments.Remove(existingEnrollment);
@@ -465,9 +515,9 @@
 
                 return new OutPutModel<List<CourseDTO>>
                 {
-                     StatusCode=200,
-                     Message="ترک کلاس با موفقیت  انجام شد.",
-                     Result = await GetCourseAsync()
+                    StatusCode = 200,
+                    Message = "ترک کلاس با موفقیت  انجام شد.",
+                    Result = await GetCourseAsync()
                 };
             }
             catch (Exception ex)
@@ -512,8 +562,8 @@
                 course.Description = model.Description;
                 course.Title = model.Title;
                 course.TermId = model.TermId;
-                course.CountMembers = model.CountMembers;   
-                
+                course.CountMembers = model.CountMembers;
+
 
                 if (model.ChangeLink)
                 {

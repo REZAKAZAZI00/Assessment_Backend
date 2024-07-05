@@ -37,6 +37,13 @@
             return await _courseServies.GetCourseByCourseIdAsync(courseId);
         }
 
+        [HttpGet("GetCourseBy{link}")]
+        public async Task<ActionResult<OutPutModel<CourseDTO>>> GetCourseBy(string link)
+        {
+            return await _courseServies.GetCourseByCourseLinkAsync(link);
+        }
+
+
         [HttpPost("CreateCourse")]
         [Authorize]
         public async Task<ActionResult<OutPutModel<List<CourseDTO>>>> CreateCourse(CreateCourseDTO courseDTO)

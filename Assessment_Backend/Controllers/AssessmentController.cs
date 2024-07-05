@@ -78,9 +78,14 @@ namespace Assessment_Backend.Controllers
             var result = await _assessmentService.ScoreRegistrationAsync(scoreRegistrationDTO);
             return result;
         }
+        /// <summary>
+        /// برای دریافت تمرین های ارسال شده
+        /// </summary>
+        /// <param name="assignmentId"></param>
+        /// <returns></returns>
 
-        [HttpGet("GetAssignments/{assignmentId}")]
-        public async Task<ActionResult<OutPutModel<List<SubmittedAssignmentDTO>>>> GetAssignments(int assignmentId)
+        [HttpGet("AssignmentSubmissions/{assignmentId}")]
+        public async Task<ActionResult<OutPutModel<List<SubmittedAssignmentDTO>>>> AssignmentSubmissions(int assignmentId)
         {
             var result = await _assessmentService.GetAssignmentSubmissionsByIdAsync(assignmentId);
             return result;
