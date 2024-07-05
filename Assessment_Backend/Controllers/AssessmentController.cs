@@ -1,4 +1,6 @@
-﻿namespace Assessment_Backend.Controllers
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Assessment_Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -23,7 +25,7 @@
 
         [HttpPost("testforFile")]
 
-        public async Task<ActionResult<OutPutModel<CourseDTO>>> test(TestCreateAssessmentDTO assessmentDTO,IFormFile file)
+        public async Task<ActionResult<OutPutModel<CourseDTO>>> test([FromForm ] TestCreateAssessmentDTO assessmentDTO, IFormFile file)
         {
             if (file!=null)
             {
