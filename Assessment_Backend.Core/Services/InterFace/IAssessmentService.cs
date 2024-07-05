@@ -13,6 +13,9 @@
         Task<CourseDTO> GetCourseByIdAsync(int courseId);
 
         Task<AssessmentDTO> GetAssignmentByIdAsync(int assessmentId);
+        Task<OutPutModel<List<AssessmentDTO>>> GetAllAssignmentAsync();
+
+
 
         Task<OutPutModel<List<SubmittedAssignmentDTO>>> GetAssignmentSubmissionsByIdAsync(int assignmentId);
 

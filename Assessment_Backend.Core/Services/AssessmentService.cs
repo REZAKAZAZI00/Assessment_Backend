@@ -1,6 +1,7 @@
 ﻿using Amazon.S3;
 using Amazon.S3.Model;
 using Amazon.S3.Util;
+using Assessment_Backend.DataLayer.Entities.duty;
 using System.Reflection;
 
 namespace Assessment_Backend.Core.Services
@@ -666,6 +667,54 @@ namespace Assessment_Backend.Core.Services
             return penalties;
         }
 
+        public async Task<OutPutModel<List<AssessmentDTO>>> GetAllAssignmentAsync()
+        {
+            try
+            {
+                int teacherId = _httpContextAccessor.GetTeacherId();
+                int studentId = _httpContextAccessor.GetStudentId();
 
+
+                var assessments = _context.Courses
+                    .Include(c => c.Teacher)
+                    .Include(c => c.Assessments)
+                    .Include(c => c.CourseEnrollments).ThenInclude(e => e.Student)
+                    .Where(c => teacherId > 0 ? c.TeacherId == teacherId : c.CourseEnrollments.Any(e => e.StudentId == studentId))
+                    .SelectMany(c => c.Assessments)
+                    .Select(a => new AssessmentDTO
+                    {
+                        AssessmentId = a.AssessmentId,
+                        StartDate = a.StartDate,
+                        CourseId = a.Course.CourseId,
+                        Description = a.Description,
+                        EndDate = a.EndDate,
+                        Title = a.Title,
+                        PenaltyRule = a.PenaltyRule,
+                        FileName = a.FileName,
+                    })
+                    .OrderBy(a=> a.CourseId)
+                    .ThenBy(a=> a.AssessmentId)
+                    .ToList();
+
+
+
+                return new OutPutModel<List<AssessmentDTO>>
+                {
+                     StatusCode = 200,
+                     Message=""
+                     , Result= assessments,
+                };
+            }
+            catch (Exception ex)
+            {
+
+                _logger.LogError(ex.Message, ex);
+                return new OutPutModel<List<AssessmentDTO>>
+                {
+                    Message = "خطای غیرمنتظره‌ای رخ داد. مجدداً تلاش کنید.",
+                    StatusCode = 500,
+                };
+            }
+        }
     }
 }

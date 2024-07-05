@@ -59,5 +59,13 @@
         }
 
 
+        [HttpGet("GetAllAssignments")]
+        [Authorize]
+        public async Task<ActionResult<OutPutModel<List<AssessmentDTO>>>> GetAssignments()
+        {
+            var result = await _assessmentService.GetAllAssignmentAsync();
+            return result;
+        }
+
     }
 }
