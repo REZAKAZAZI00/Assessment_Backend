@@ -217,6 +217,7 @@
                         CountMembers = c.CountMembers,
                         Description = c.Description,
                         Link = c.Link,
+                        extant = (c.CountMembers - _context.CourseEnrollments.Count(ce => ce.CourseId == c.CourseId)),
                         Title = c.Title,
                         CourseId = c.CourseId,
                         Term = c.Term.Title,
@@ -277,6 +278,7 @@
                     .Where(c => teacherId != 0 ? c.TeacherId == teacherId : c.CourseEnrollments.Any(e => e.StudentId == studentId))
                     .Select(c => new CourseDTO
                     {
+                        extant = (c.CountMembers - _context.CourseEnrollments.Count(ce => ce.CourseId == c.CourseId)),
                         CountMembers = c.CountMembers,
                         Description = c.Description,
                         Link = c.Link,
@@ -291,7 +293,7 @@
                             Name = e.Student.Name,
                             family = e.Student.family,
                             PhoneNumber = e.Student.PhoneNumber,
-                            Email = e.Student.Email
+                            Email = e.Student.Email 
                         }).ToList() : null,
                         Assessments = c.Assessments
                             .Select(a => new AssessmentDTO
@@ -354,7 +356,7 @@
                         CountMembers = c.CountMembers,
                         Title = c.Title,
                         TermId = c.TermId,
-
+                        extant =(c.CountMembers - _context.CourseEnrollments.Count(ce => ce.CourseId == c.CourseId))
                     })
                     .SingleOrDefaultAsync();
 
