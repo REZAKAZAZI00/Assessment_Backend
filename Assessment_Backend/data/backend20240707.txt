@@ -248,3 +248,300 @@ WHERE [a].[StudentId] = @__studentId_0
 2024-07-07 00:41:54.148 +03:30 [INF] Request finished HTTP/2 GET https://localhost:7005/api/Assessment/GetReport - 200 null application/json; charset=utf-8 3706.549ms
 2024-07-07 00:42:20.083 +03:30 [DBG] Connection id "0HN4U00RBEDDF" received FIN.
 2024-07-07 00:42:20.114 +03:30 [DBG] Connection id "0HN4U00RBEDDF" is closed. The last processed stream ID was 1.
+2024-07-07 01:14:15.570 +03:30 [DBG] Registered model binder providers, in the following order: ["Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BinderTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ServicesModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.HeaderModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FloatingPointTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.EnumTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DateTimeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.TryParseModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CancellationTokenModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ByteArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormFileModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormCollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.KeyValuePairModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DictionaryModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ComplexObjectModelBinderProvider"]
+2024-07-07 01:14:15.658 +03:30 [DBG] Hosting starting
+2024-07-07 01:14:15.695 +03:30 [INF] User profile is available. Using 'C:\Users\rezak\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-07-07 01:14:15.702 +03:30 [DBG] Reading data from file 'C:\Users\rezak\AppData\Local\ASP.NET\DataProtection-Keys\key-2afc5c31-70f2-4593-8c95-5521f204c386.xml'.
+2024-07-07 01:14:15.708 +03:30 [DBG] Reading data from file 'C:\Users\rezak\AppData\Local\ASP.NET\DataProtection-Keys\key-a8e29bd3-d5ad-42cf-9cb6-92ce63901067.xml'.
+2024-07-07 01:14:15.709 +03:30 [DBG] Reading data from file 'C:\Users\rezak\AppData\Local\ASP.NET\DataProtection-Keys\key-ab7da6d7-0c87-4da0-8099-5864cb86239e.xml'.
+2024-07-07 01:14:15.710 +03:30 [DBG] Reading data from file 'C:\Users\rezak\AppData\Local\ASP.NET\DataProtection-Keys\key-b8a01d7c-4918-4f00-afba-1d71a3f67ea5.xml'.
+2024-07-07 01:14:15.710 +03:30 [DBG] Reading data from file 'C:\Users\rezak\AppData\Local\ASP.NET\DataProtection-Keys\key-c38bd368-8778-496f-977d-efd467e8f7ce.xml'.
+2024-07-07 01:14:15.711 +03:30 [DBG] Reading data from file 'C:\Users\rezak\AppData\Local\ASP.NET\DataProtection-Keys\key-d0f018e5-1db4-4816-9b5a-8ea812f01aaf.xml'.
+2024-07-07 01:14:15.712 +03:30 [DBG] Reading data from file 'C:\Users\rezak\AppData\Local\ASP.NET\DataProtection-Keys\key-df943432-fe4b-469c-aac5-af6388aae7f9.xml'.
+2024-07-07 01:14:15.712 +03:30 [DBG] Reading data from file 'C:\Users\rezak\AppData\Local\ASP.NET\DataProtection-Keys\key-ea1f83d5-e4bf-49eb-85e1-83edb47299f6.xml'.
+2024-07-07 01:14:15.714 +03:30 [DBG] Reading data from file 'C:\Users\rezak\AppData\Local\ASP.NET\DataProtection-Keys\key-efe863b5-bb4c-4c9d-8779-22b642eba318.xml'.
+2024-07-07 01:14:15.717 +03:30 [DBG] Found key {2afc5c31-70f2-4593-8c95-5521f204c386}.
+2024-07-07 01:14:15.721 +03:30 [DBG] Found key {a8e29bd3-d5ad-42cf-9cb6-92ce63901067}.
+2024-07-07 01:14:15.722 +03:30 [DBG] Found key {ab7da6d7-0c87-4da0-8099-5864cb86239e}.
+2024-07-07 01:14:15.722 +03:30 [DBG] Found key {b8a01d7c-4918-4f00-afba-1d71a3f67ea5}.
+2024-07-07 01:14:15.723 +03:30 [DBG] Found key {c38bd368-8778-496f-977d-efd467e8f7ce}.
+2024-07-07 01:14:15.723 +03:30 [DBG] Found key {d0f018e5-1db4-4816-9b5a-8ea812f01aaf}.
+2024-07-07 01:14:15.724 +03:30 [DBG] Found key {df943432-fe4b-469c-aac5-af6388aae7f9}.
+2024-07-07 01:14:15.725 +03:30 [DBG] Found key {ea1f83d5-e4bf-49eb-85e1-83edb47299f6}.
+2024-07-07 01:14:15.725 +03:30 [DBG] Found key {efe863b5-bb4c-4c9d-8779-22b642eba318}.
+2024-07-07 01:14:15.729 +03:30 [DBG] Considering key {2afc5c31-70f2-4593-8c95-5521f204c386} with expiration date 2024-09-28 19:40:00Z as default key.
+2024-07-07 01:14:15.731 +03:30 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2024-07-07 01:14:15.733 +03:30 [DBG] Decrypting secret element using Windows DPAPI.
+2024-07-07 01:14:15.734 +03:30 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2024-07-07 01:14:15.739 +03:30 [DBG] Opening CNG algorithm 'AES' from provider 'null' with chaining mode CBC.
+2024-07-07 01:14:15.741 +03:30 [DBG] Opening CNG algorithm 'SHA256' from provider 'null' with HMAC.
+2024-07-07 01:14:15.744 +03:30 [DBG] Using key {2afc5c31-70f2-4593-8c95-5521f204c386} as the default key.
+2024-07-07 01:14:15.745 +03:30 [DBG] Key ring with default key {2afc5c31-70f2-4593-8c95-5521f204c386} was loaded during application startup.
+2024-07-07 01:14:15.956 +03:30 [DBG] Connection id "0HN4U0J46UCIO" accepted.
+2024-07-07 01:14:15.956 +03:30 [DBG] Connection id "0HN4U0J46UCIN" accepted.
+2024-07-07 01:14:15.958 +03:30 [INF] Now listening on: https://localhost:7005
+2024-07-07 01:14:15.958 +03:30 [DBG] Connection id "0HN4U0J46UCIN" started.
+2024-07-07 01:14:15.959 +03:30 [DBG] Connection id "0HN4U0J46UCIO" started.
+2024-07-07 01:14:15.959 +03:30 [INF] Now listening on: http://localhost:5243
+2024-07-07 01:14:15.961 +03:30 [DBG] Loaded hosting startup assembly Assessment_Backend
+2024-07-07 01:14:15.962 +03:30 [DBG] Loaded hosting startup assembly Microsoft.AspNetCore.Watch.BrowserRefresh
+2024-07-07 01:14:15.963 +03:30 [DBG] Loaded hosting startup assembly Microsoft.WebTools.BrowserLink.Net
+2024-07-07 01:14:15.963 +03:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-07-07 01:14:15.964 +03:30 [INF] Hosting environment: Development
+2024-07-07 01:14:15.965 +03:30 [INF] Content root path: C:\Users\rezak\OneDrive\Desktop\assessment\a\Assessment_Backend\Assessment_Backend
+2024-07-07 01:14:15.971 +03:30 [DBG] Hosting started
+2024-07-07 01:14:15.985 +03:30 [DBG] Connection id "0HN4U0J46UCIN" received FIN.
+2024-07-07 01:14:15.985 +03:30 [DBG] Connection id "0HN4U0J46UCIO" received FIN.
+2024-07-07 01:14:15.997 +03:30 [DBG] Failed to authenticate HTTPS connection.
+System.IO.IOException: Received an unexpected EOF or 0 bytes from the transport stream.
+   at System.Net.Security.SslStream.ReceiveHandshakeFrameAsync[TIOAdapter](CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ProcessAuthenticationWithTelemetryAsync(Boolean isAsync, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware.OnConnectionAsync(ConnectionContext context)
+2024-07-07 01:14:15.997 +03:30 [DBG] Failed to authenticate HTTPS connection.
+System.IO.IOException: Received an unexpected EOF or 0 bytes from the transport stream.
+   at System.Net.Security.SslStream.ReceiveHandshakeFrameAsync[TIOAdapter](CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ProcessAuthenticationWithTelemetryAsync(Boolean isAsync, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware.OnConnectionAsync(ConnectionContext context)
+2024-07-07 01:14:16.032 +03:30 [DBG] Connection id "0HN4U0J46UCIO" stopped.
+2024-07-07 01:14:16.032 +03:30 [DBG] Connection id "0HN4U0J46UCIN" stopped.
+2024-07-07 01:14:16.035 +03:30 [DBG] Connection id "0HN4U0J46UCIO" sending FIN because: "The Socket transport's send loop completed gracefully."
+2024-07-07 01:14:16.035 +03:30 [DBG] Connection id "0HN4U0J46UCIN" sending FIN because: "The Socket transport's send loop completed gracefully."
+2024-07-07 01:14:16.861 +03:30 [DBG] Connection id "0HN4U0J46UCIP" accepted.
+2024-07-07 01:14:16.862 +03:30 [DBG] Connection id "0HN4U0J46UCIP" started.
+2024-07-07 01:14:16.891 +03:30 [DBG] Connection 0HN4U0J46UCIP established using the following protocol: "Tls13"
+2024-07-07 01:14:16.942 +03:30 [INF] Request starting HTTP/2 GET https://localhost:7005/swagger/index.html - null null
+2024-07-07 01:14:17.064 +03:30 [DBG] Wildcard detected, all requests with hosts will be allowed.
+2024-07-07 01:14:17.081 +03:30 [DBG] No candidates found for the request path '/swagger/index.html'
+2024-07-07 01:14:17.084 +03:30 [DBG] Request did not match any endpoints
+2024-07-07 01:14:17.142 +03:30 [DBG] AuthenticationScheme: Bearer was not authenticated.
+2024-07-07 01:14:17.217 +03:30 [DBG] Response markup is scheduled to include Browser Link script injection.
+2024-07-07 01:14:17.219 +03:30 [DBG] Response markup is scheduled to include browser refresh script injection.
+2024-07-07 01:14:17.233 +03:30 [DBG] Response markup was updated to include Browser Link script injection.
+2024-07-07 01:14:17.234 +03:30 [DBG] Response markup was updated to include browser refresh script injection.
+2024-07-07 01:14:17.237 +03:30 [INF] Request finished HTTP/2 GET https://localhost:7005/swagger/index.html - 200 null text/html;charset=utf-8 300.142ms
+2024-07-07 01:14:17.267 +03:30 [INF] Request starting HTTP/2 GET https://localhost:7005/_framework/aspnetcore-browser-refresh.js - null null
+2024-07-07 01:14:17.267 +03:30 [INF] Request starting HTTP/2 GET https://localhost:7005/_vs/browserLink - null null
+2024-07-07 01:14:17.278 +03:30 [INF] Request finished HTTP/2 GET https://localhost:7005/_framework/aspnetcore-browser-refresh.js - 200 13772 application/javascript; charset=utf-8 11.226ms
+2024-07-07 01:14:17.315 +03:30 [INF] Request finished HTTP/2 GET https://localhost:7005/_vs/browserLink - 200 null text/javascript; charset=UTF-8 48.1964ms
+2024-07-07 01:14:17.360 +03:30 [INF] Request starting HTTP/2 GET https://localhost:7005/swagger/v1/swagger.json - null null
+2024-07-07 01:14:17.362 +03:30 [DBG] No candidates found for the request path '/swagger/v1/swagger.json'
+2024-07-07 01:14:17.363 +03:30 [DBG] Request did not match any endpoints
+2024-07-07 01:14:17.365 +03:30 [DBG] AuthenticationScheme: Bearer was not authenticated.
+2024-07-07 01:14:17.505 +03:30 [INF] Request finished HTTP/2 GET https://localhost:7005/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 144.7336ms
+2024-07-07 01:14:19.939 +03:30 [DBG] Connection id "0HN4U0J46UCIP" received FIN.
+2024-07-07 01:14:19.944 +03:30 [DBG] The connection queue processing loop for 0HN4U0J46UCIP completed.
+2024-07-07 01:14:19.945 +03:30 [DBG] Connection id "0HN4U0J46UCIP" is closed. The last processed stream ID was 7.
+2024-07-07 01:14:19.946 +03:30 [DBG] Connection id "0HN4U0J46UCIP" sending FIN because: "The Socket transport's send loop completed gracefully."
+2024-07-07 01:14:19.955 +03:30 [DBG] Connection id "0HN4U0J46UCIP" stopped.
+2024-07-07 01:14:50.455 +03:30 [DBG] Connection id "0HN4U0J46UCIQ" accepted.
+2024-07-07 01:14:50.457 +03:30 [DBG] Connection id "0HN4U0J46UCIQ" started.
+2024-07-07 01:14:50.466 +03:30 [DBG] Connection 0HN4U0J46UCIQ established using the following protocol: "Tls13"
+2024-07-07 01:14:50.474 +03:30 [INF] Request starting HTTP/2 GET https://localhost:7005/api/Assessment/GetAllAssignments - null null
+2024-07-07 01:14:50.493 +03:30 [DBG] 1 candidate(s) found for the request path '/api/Assessment/GetAllAssignments'
+2024-07-07 01:14:50.499 +03:30 [DBG] Endpoint 'Assessment_Backend.Controllers.AssessmentController.GetAssignments (Assessment_Backend)' with route pattern 'api/Assessment/GetAllAssignments' is valid for the request path '/api/Assessment/GetAllAssignments'
+2024-07-07 01:14:50.502 +03:30 [DBG] Request matched endpoint 'Assessment_Backend.Controllers.AssessmentController.GetAssignments (Assessment_Backend)'
+2024-07-07 01:14:50.684 +03:30 [DBG] Successfully validated the token.
+2024-07-07 01:14:50.686 +03:30 [DBG] AuthenticationScheme: Bearer was successfully authenticated.
+2024-07-07 01:14:50.692 +03:30 [DBG] Authorization was successful.
+2024-07-07 01:14:50.694 +03:30 [DBG] Static files was skipped as the request already matched an endpoint.
+2024-07-07 01:14:50.696 +03:30 [INF] Executing endpoint 'Assessment_Backend.Controllers.AssessmentController.GetAssignments (Assessment_Backend)'
+2024-07-07 01:14:50.722 +03:30 [INF] Route matched with {action = "GetAssignments", controller = "Assessment"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[Assessment_Backend.Core.DTOs.OutPutModel`1[System.Collections.Generic.List`1[Assessment_Backend.Core.DTOs.Assessment.AssessmentDTO]]]] GetAssignments() on controller Assessment_Backend.Controllers.AssessmentController (Assessment_Backend).
+2024-07-07 01:14:50.727 +03:30 [DBG] Execution plan of authorization filters (in the following order): ["None"]
+2024-07-07 01:14:50.729 +03:30 [DBG] Execution plan of resource filters (in the following order): ["None"]
+2024-07-07 01:14:50.732 +03:30 [DBG] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)","Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter (Order: -2000)"]
+2024-07-07 01:14:50.736 +03:30 [DBG] Execution plan of exception filters (in the following order): ["None"]
+2024-07-07 01:14:50.738 +03:30 [DBG] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter (Order: -2000)"]
+2024-07-07 01:14:50.743 +03:30 [DBG] Executing controller factory for controller Assessment_Backend.Controllers.AssessmentController (Assessment_Backend)
+2024-07-07 01:14:50.927 +03:30 [DBG] An 'IServiceProvider' was created for internal use by Entity Framework.
+2024-07-07 01:14:50.961 +03:30 [DBG] Executed controller factory for controller Assessment_Backend.Controllers.AssessmentController (Assessment_Backend)
+2024-07-07 01:14:51.013 +03:30 [INF] Executing action method Assessment_Backend.Controllers.AssessmentController.GetAssignments (Assessment_Backend) - Validation state: "Valid"
+2024-07-07 01:14:51.889 +03:30 [WRN] Entity 'SubType' has a global query filter defined and is the required end of a relationship with the entity 'Sub'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2024-07-07 01:14:51.894 +03:30 [WRN] Entity 'Teacher' has a global query filter defined and is the required end of a relationship with the entity 'TeacherSub'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2024-07-07 01:14:51.897 +03:30 [WRN] Entity 'Role' has a global query filter defined and is the required end of a relationship with the entity 'User'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2024-07-07 01:14:51.900 +03:30 [WRN] Entity 'Assessment' has a global query filter defined and is the required end of a relationship with the entity 'AssignmentSubmission'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2024-07-07 01:14:51.904 +03:30 [WRN] Entity 'Course' has a global query filter defined and is the required end of a relationship with the entity 'CourseEnrollment'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2024-07-07 01:14:51.941 +03:30 [WRN] The foreign key property 'TeacherSub.SubsId1' was created in shadow state because a conflicting property with the simple name 'SubsId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+2024-07-07 01:14:52.164 +03:30 [DBG] Entity Framework Core 8.0.4 initialized 'AssessmentDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:8.0.4' with options: None
+2024-07-07 01:14:52.324 +03:30 [DBG] Compiling query expression: 
+'DbSet<Course>()
+    .Include(c => c.Teacher)
+    .Include(c => c.Assessments)
+    .Include(c => c.CourseEnrollments)
+    .ThenInclude(e => e.Student)
+    .Where(c => c.CourseEnrollments
+        .Any(e => e.StudentId == __studentId_0))
+    .SelectMany(c => c.Assessments)
+    .Select(a => new AssessmentDTO{ 
+        CourseTitle = a.Course.Title, 
+        AssessmentId = a.AssessmentId, 
+        StartDate = a.StartDate, 
+        CourseId = a.Course.CourseId, 
+        Description = a.Description, 
+        EndDate = a.EndDate, 
+        Title = a.Title, 
+        PenaltyRule = a.PenaltyRule, 
+        FileName = a.FileName, 
+        submitted = DbSet<AssignmentSubmission>()
+            .Where(s => s.StudentId == __studentId_0 && s.AssignmentId == a.AssessmentId)
+            .Select(s => new SubmittedAssignmentDTO{ 
+                AssignmentId = s.AssignmentId, 
+                CreateDate = s.CreateDate, 
+                LateScore = s.LateScore, 
+                AS_Id = s.AS_Id, 
+                FileName = s.FileName, 
+                RawScore = s.RawScore, 
+                ReviewedDate = s.ReviewedDate, 
+                Text = s.Text 
+            }
+            )
+            .SingleOrDefault() 
+    }
+    )
+    .OrderBy(a => a.CourseId)
+    .ThenBy(a => a.AssessmentId)'
+2024-07-07 01:14:52.800 +03:30 [DBG] Generated query execution expression: 
+'queryContext => new SingleQueryingEnumerable<AssessmentDTO>(
+    (RelationalQueryContext)queryContext, 
+    RelationalCommandCache.QueryExpression(
+        Client Projections:
+            0 -> 0
+            1 -> 1
+            2 -> 2
+            3 -> 3
+            4 -> 4
+            5 -> 5
+            6 -> 6
+            7 -> 7
+            8 -> 8
+            9 -> 9
+            10 -> 10
+            11 -> 11
+            12 -> 12
+            13 -> 13
+            14 -> 14
+            15 -> 15
+            16 -> 16
+            17 -> 17
+        SELECT t0.Title, t.AssessmentId, t.StartDate, t0.CourseId, t.Description, t.EndDate, t.Title, t.PenaltyRule, t.FileName, t1.AssignmentId, t1.CreateDate, t1.LateScore, t1.AS_Id, t1.FileName, t1.RawScore, t1.ReviewedDate, t1.Text, t1.c
+        FROM duty.Course AS c
+        INNER JOIN 
+        (
+            SELECT a.AssessmentId, a.CourseId, a.Description, a.EndDate, a.FileName, a.PenaltyRule, a.StartDate, a.Title
+            FROM duty.Assessment AS a
+            WHERE Not(a.IsDelete)
+        ) AS t ON c.CourseId == t.CourseId
+        INNER JOIN 
+        (
+            SELECT c1.CourseId, c1.Title
+            FROM duty.Course AS c1
+            WHERE Not(c1.IsDelete)
+        ) AS t0 ON t.CourseId == t0.CourseId
+        LEFT JOIN 
+        (
+            SELECT t2.AssignmentId, t2.CreateDate, t2.LateScore, t2.AS_Id, t2.FileName, t2.RawScore, t2.ReviewedDate, t2.Text, t2.c
+            FROM 
+            (
+                SELECT a0.AssignmentId, a0.CreateDate, a0.LateScore, a0.AS_Id, a0.FileName, a0.RawScore, a0.ReviewedDate, a0.Text, 1 AS c, ROW_NUMBER() OVER(PARTITION BY a0.AssignmentId ORDER BY a0.AS_Id ASC) AS row
+                FROM duty.AssignmentSubmission AS a0
+                WHERE a0.StudentId == @__studentId_0
+            ) AS t2
+            WHERE t2.row <= 1
+        ) AS t1 ON t.AssessmentId == t1.AssignmentId
+        WHERE Not(c.IsDelete) && EXISTS (
+            SELECT 1
+            FROM duty.CourseEnrollment AS c0
+            WHERE ((c.CourseId != NULL) && (c.CourseId == c0.CourseId)) && (c0.StudentId == @__studentId_0))
+        ORDER BY t0.CourseId ASC, t.AssessmentId ASC), 
+    null, 
+    Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, AssessmentDTO>, 
+    Assessment_Backend.DataLayer.Context.AssessmentDbContext, 
+    False, 
+    False, 
+    True
+)'
+2024-07-07 01:14:52.872 +03:30 [DBG] Creating DbConnection.
+2024-07-07 01:14:52.915 +03:30 [DBG] Created DbConnection. (33ms).
+2024-07-07 01:14:52.921 +03:30 [DBG] Opening connection to database 'Assessmentdb' on server '4378c8e6-7fb4-473d-bd8b-c4753a7cc0de.hsvc.ir,31716'.
+2024-07-07 01:14:54.100 +03:30 [DBG] Opened connection to database 'Assessmentdb' on server '4378c8e6-7fb4-473d-bd8b-c4753a7cc0de.hsvc.ir,31716'.
+2024-07-07 01:14:54.106 +03:30 [DBG] Creating DbCommand for 'ExecuteReader'.
+2024-07-07 01:14:54.114 +03:30 [DBG] Created DbCommand for 'ExecuteReader' (6ms).
+2024-07-07 01:14:54.126 +03:30 [DBG] Initialized DbCommand for 'ExecuteReader' (20ms).
+2024-07-07 01:14:54.143 +03:30 [DBG] Executing DbCommand [Parameters=[@__studentId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t0].[Title], [t].[AssessmentId], [t].[StartDate], [t0].[CourseId], [t].[Description], [t].[EndDate], [t].[Title], [t].[PenaltyRule], [t].[FileName], [t1].[AssignmentId], [t1].[CreateDate], [t1].[LateScore], [t1].[AS_Id], [t1].[FileName], [t1].[RawScore], [t1].[ReviewedDate], [t1].[Text], [t1].[c]
+FROM [duty].[Course] AS [c]
+INNER JOIN (
+    SELECT [a].[AssessmentId], [a].[CourseId], [a].[Description], [a].[EndDate], [a].[FileName], [a].[PenaltyRule], [a].[StartDate], [a].[Title]
+    FROM [duty].[Assessment] AS [a]
+    WHERE [a].[IsDelete] = CAST(0 AS bit)
+) AS [t] ON [c].[CourseId] = [t].[CourseId]
+INNER JOIN (
+    SELECT [c1].[CourseId], [c1].[Title]
+    FROM [duty].[Course] AS [c1]
+    WHERE [c1].[IsDelete] = CAST(0 AS bit)
+) AS [t0] ON [t].[CourseId] = [t0].[CourseId]
+LEFT JOIN (
+    SELECT [t2].[AssignmentId], [t2].[CreateDate], [t2].[LateScore], [t2].[AS_Id], [t2].[FileName], [t2].[RawScore], [t2].[ReviewedDate], [t2].[Text], [t2].[c]
+    FROM (
+        SELECT [a0].[AssignmentId], [a0].[CreateDate], [a0].[LateScore], [a0].[AS_Id], [a0].[FileName], [a0].[RawScore], [a0].[ReviewedDate], [a0].[Text], 1 AS [c], ROW_NUMBER() OVER(PARTITION BY [a0].[AssignmentId] ORDER BY [a0].[AS_Id]) AS [row]
+        FROM [duty].[AssignmentSubmission] AS [a0]
+        WHERE [a0].[StudentId] = @__studentId_0
+    ) AS [t2]
+    WHERE [t2].[row] <= 1
+) AS [t1] ON [t].[AssessmentId] = [t1].[AssignmentId]
+WHERE [c].[IsDelete] = CAST(0 AS bit) AND EXISTS (
+    SELECT 1
+    FROM [duty].[CourseEnrollment] AS [c0]
+    WHERE [c].[CourseId] = [c0].[CourseId] AND [c0].[StudentId] = @__studentId_0)
+ORDER BY [t0].[CourseId], [t].[AssessmentId]
+2024-07-07 01:14:54.705 +03:30 [INF] Executed DbCommand (563ms) [Parameters=[@__studentId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t0].[Title], [t].[AssessmentId], [t].[StartDate], [t0].[CourseId], [t].[Description], [t].[EndDate], [t].[Title], [t].[PenaltyRule], [t].[FileName], [t1].[AssignmentId], [t1].[CreateDate], [t1].[LateScore], [t1].[AS_Id], [t1].[FileName], [t1].[RawScore], [t1].[ReviewedDate], [t1].[Text], [t1].[c]
+FROM [duty].[Course] AS [c]
+INNER JOIN (
+    SELECT [a].[AssessmentId], [a].[CourseId], [a].[Description], [a].[EndDate], [a].[FileName], [a].[PenaltyRule], [a].[StartDate], [a].[Title]
+    FROM [duty].[Assessment] AS [a]
+    WHERE [a].[IsDelete] = CAST(0 AS bit)
+) AS [t] ON [c].[CourseId] = [t].[CourseId]
+INNER JOIN (
+    SELECT [c1].[CourseId], [c1].[Title]
+    FROM [duty].[Course] AS [c1]
+    WHERE [c1].[IsDelete] = CAST(0 AS bit)
+) AS [t0] ON [t].[CourseId] = [t0].[CourseId]
+LEFT JOIN (
+    SELECT [t2].[AssignmentId], [t2].[CreateDate], [t2].[LateScore], [t2].[AS_Id], [t2].[FileName], [t2].[RawScore], [t2].[ReviewedDate], [t2].[Text], [t2].[c]
+    FROM (
+        SELECT [a0].[AssignmentId], [a0].[CreateDate], [a0].[LateScore], [a0].[AS_Id], [a0].[FileName], [a0].[RawScore], [a0].[ReviewedDate], [a0].[Text], 1 AS [c], ROW_NUMBER() OVER(PARTITION BY [a0].[AssignmentId] ORDER BY [a0].[AS_Id]) AS [row]
+        FROM [duty].[AssignmentSubmission] AS [a0]
+        WHERE [a0].[StudentId] = @__studentId_0
+    ) AS [t2]
+    WHERE [t2].[row] <= 1
+) AS [t1] ON [t].[AssessmentId] = [t1].[AssignmentId]
+WHERE [c].[IsDelete] = CAST(0 AS bit) AND EXISTS (
+    SELECT 1
+    FROM [duty].[CourseEnrollment] AS [c0]
+    WHERE [c].[CourseId] = [c0].[CourseId] AND [c0].[StudentId] = @__studentId_0)
+ORDER BY [t0].[CourseId], [t].[AssessmentId]
+2024-07-07 01:14:54.735 +03:30 [DBG] Closing data reader to 'Assessmentdb' on server '4378c8e6-7fb4-473d-bd8b-c4753a7cc0de.hsvc.ir,31716'.
+2024-07-07 01:14:54.754 +03:30 [DBG] A data reader for 'Assessmentdb' on server '4378c8e6-7fb4-473d-bd8b-c4753a7cc0de.hsvc.ir,31716' is being disposed after spending 31ms reading results.
+2024-07-07 01:14:54.760 +03:30 [DBG] Closing connection to database 'Assessmentdb' on server '4378c8e6-7fb4-473d-bd8b-c4753a7cc0de.hsvc.ir,31716'.
+2024-07-07 01:14:54.773 +03:30 [DBG] Closed connection to database 'Assessmentdb' on server '4378c8e6-7fb4-473d-bd8b-c4753a7cc0de.hsvc.ir,31716' (9ms).
+2024-07-07 01:14:54.782 +03:30 [INF] Executed action method Assessment_Backend.Controllers.AssessmentController.GetAssignments (Assessment_Backend), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 3764.5582ms.
+2024-07-07 01:14:54.796 +03:30 [DBG] List of registered output formatters, in the following order: ["Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StreamOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter"]
+2024-07-07 01:14:54.807 +03:30 [DBG] Attempting to select an output formatter based on Accept header '["text/plain"]'.
+2024-07-07 01:14:54.813 +03:30 [DBG] Could not find an output formatter based on content negotiation. Accepted types were (["text/plain"])
+2024-07-07 01:14:54.820 +03:30 [DBG] Attempting to select an output formatter without using a content type as no explicit content types were specified for the response.
+2024-07-07 01:14:54.822 +03:30 [DBG] Attempting to select the first formatter in the output formatters list which can write the result.
+2024-07-07 01:14:54.825 +03:30 [DBG] Selected output formatter 'Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter' and content type 'application/json' to write the response.
+2024-07-07 01:14:54.827 +03:30 [INF] Executing ObjectResult, writing value of type 'Assessment_Backend.Core.DTOs.OutPutModel`1[[System.Collections.Generic.List`1[[Assessment_Backend.Core.DTOs.Assessment.AssessmentDTO, Assessment_Backend.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2024-07-07 01:14:54.852 +03:30 [INF] Executed action Assessment_Backend.Controllers.AssessmentController.GetAssignments (Assessment_Backend) in 4106.8679ms
+2024-07-07 01:14:54.856 +03:30 [INF] Executed endpoint 'Assessment_Backend.Controllers.AssessmentController.GetAssignments (Assessment_Backend)'
+2024-07-07 01:14:54.858 +03:30 [DBG] 'AssessmentDbContext' disposed.
+2024-07-07 01:14:54.863 +03:30 [DBG] Disposing connection to database 'Assessmentdb' on server '4378c8e6-7fb4-473d-bd8b-c4753a7cc0de.hsvc.ir,31716'.
+2024-07-07 01:14:54.871 +03:30 [DBG] Disposed connection to database '' on server '' (7ms).
+2024-07-07 01:14:54.874 +03:30 [INF] Request finished HTTP/2 GET https://localhost:7005/api/Assessment/GetAllAssignments - 200 null application/json; charset=utf-8 4400.6817ms
+2024-07-07 01:15:01.704 +03:30 [DBG] Connection id "0HN4U0J46UCIQ" received FIN.
+2024-07-07 01:15:01.708 +03:30 [DBG] Connection id "0HN4U0J46UCIQ" is closed. The last processed stream ID was 1.
+2024-07-07 01:15:01.708 +03:30 [DBG] The connection queue processing loop for 0HN4U0J46UCIQ completed.
+2024-07-07 01:15:01.712 +03:30 [DBG] Connection id "0HN4U0J46UCIQ" sending FIN because: "The Socket transport's send loop completed gracefully."
+2024-07-07 01:15:01.740 +03:30 [DBG] Connection id "0HN4U0J46UCIQ" stopped.

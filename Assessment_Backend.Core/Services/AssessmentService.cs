@@ -697,6 +697,7 @@ namespace Assessment_Backend.Core.Services
                     .SelectMany(c => c.Assessments)
                     .Select(a => new AssessmentDTO
                     {
+                        CourseTitle=a.Course.Title,
                         AssessmentId = a.AssessmentId,
                         StartDate = a.StartDate,
                         CourseId = a.Course.CourseId,
