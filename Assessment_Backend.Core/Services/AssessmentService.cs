@@ -48,47 +48,63 @@ namespace Assessment_Backend.Core.Services
                     {
 
                         Result = null,
-                        StatusCode = 403,
-                        Message = ""
+                        StatusCode = 401,
+                        Message = "لطفاً مجدداً وارد حساب کاربری خود شوید."
+
                     };
                 }
-                var awsCredentials = new Amazon.Runtime.BasicAWSCredentials("7115d73c-b7dc-421d-ab5d-19114c5a7057", "735e892a72adfea1666d7fd644d0eeab84f0b4e12e4ef0d4d488be06d72c90c3");
-                var config = new AmazonS3Config { ServiceURL = "https://s3.ir-thr-at1.arvanstorage.ir" };
-                _s3Client = new AmazonS3Client(awsCredentials, config);
 
-                if (assessmentSubmissionDTO.File != null)
+                var assessment=await _context.AssignmentSubmissions
+                    .SingleOrDefaultAsync(a=> a.StudentId == studentId&&a.AssignmentId==assessmentSubmissionDTO.AssignmentId);
+                if (assessment is null)
                 {
-                    var fileName = Path.Combine("Submission/", NameGenerator.GenerateName()
-                        + Path.GetExtension(assessmentSubmissionDTO.File.FileName));
+                    var awsCredentials = new Amazon.Runtime.BasicAWSCredentials("7115d73c-b7dc-421d-ab5d-19114c5a7057", "735e892a72adfea1666d7fd644d0eeab84f0b4e12e4ef0d4d488be06d72c90c3");
+                    var config = new AmazonS3Config { ServiceURL = "https://s3.ir-thr-at1.arvanstorage.ir" };
+                    _s3Client = new AmazonS3Client(awsCredentials, config);
 
-                    bool bucketExists = await AmazonS3Util.DoesS3BucketExistV2Async(_s3Client, BUCKET_NAME);
-                    if (bucketExists)
+                    if (assessmentSubmissionDTO.File != null)
                     {
-                        var result = await UploadObjectFromFileAsync(_s3Client, BUCKET_NAME, fileName, assessmentSubmissionDTO.File);
-                        if (result)
+                        var fileName = Path.Combine("Submission/", NameGenerator.GenerateName()
+                            + Path.GetExtension(assessmentSubmissionDTO.File.FileName));
+
+                        bool bucketExists = await AmazonS3Util.DoesS3BucketExistV2Async(_s3Client, BUCKET_NAME);
+                        if (bucketExists)
                         {
-                            var newAssessmebt = new AssignmentSubmission
+                            var result = await UploadObjectFromFileAsync(_s3Client, BUCKET_NAME, fileName, assessmentSubmissionDTO.File);
+                            if (result)
                             {
-                                CreateDate = DateTime.Now,
-                                AssignmentId = assessmentSubmissionDTO.AssignmentId,
-                                StudentId = studentId,
-                                Text = assessmentSubmissionDTO.Text,
-                                FileName = fileName,
+                                var newAssessmebt = new AssignmentSubmission
+                                {
+                                    CreateDate = DateTime.Now,
+                                    AssignmentId = assessmentSubmissionDTO.AssignmentId,
+                                    StudentId = studentId,
+                                    Text = assessmentSubmissionDTO.Text,
+                                    FileName = fileName,
 
-                            };
-                            await _context.AssignmentSubmissions.AddAsync(newAssessmebt);
-                            await _context.SaveChangesAsync();
+                                };
+                                await _context.AssignmentSubmissions.AddAsync(newAssessmebt);
+                                await _context.SaveChangesAsync();
 
-                            return new OutPutModel<AssessmentDTO>
+                                return new OutPutModel<AssessmentDTO>
+                                {
+                                    StatusCode = 200,
+                                    Message = "تکلیف با موفقیت ثبت شد.",
+                                    Result = await GetAssignmentByIdAsync(assessmentSubmissionDTO.AssignmentId),
+                                };
+
+                            }
+                            else
                             {
-                                StatusCode = 200,
-                                Message = "تکلیف با موفقیت ثبت شد.",
-                                Result = await GetAssignmentByIdAsync(assessmentSubmissionDTO.AssignmentId),
-                            };
-
+                                return new OutPutModel<AssessmentDTO>
+                                {
+                                    StatusCode = 500,
+                                    Message = "بارگزاری ناموفق بود. مجدداً تلاش کنید."
+                                };
+                            }
                         }
                         else
                         {
+                            _logger.LogCritical("Bucket in ArvanStorage doesn't exist.");
                             return new OutPutModel<AssessmentDTO>
                             {
                                 StatusCode = 500,
@@ -98,35 +114,25 @@ namespace Assessment_Backend.Core.Services
                     }
                     else
                     {
-                        _logger.LogCritical("Bucket in ArvanStorage doesn't exist.");
-                        return new OutPutModel<AssessmentDTO>
+                        var newAssessmebt = new AssignmentSubmission
                         {
-                            StatusCode = 500,
-                            Message = "بارگزاری ناموفق بود. مجدداً تلاش کنید."
+                            CreateDate = DateTime.Now,
+                            AssignmentId = assessmentSubmissionDTO.AssignmentId,
+                            StudentId = studentId,
+                            Text = assessmentSubmissionDTO.Text,
+                            FileName = "default",
+
                         };
+                        await _context.AssignmentSubmissions.AddAsync(newAssessmebt);
+                        await _context.SaveChangesAsync();
                     }
                 }
-                else
-                {
-                    var newAssessmebt = new AssignmentSubmission
-                    {
-                        CreateDate = DateTime.Now,
-                        AssignmentId = assessmentSubmissionDTO.AssignmentId,
-                        StudentId = studentId,
-                        Text = assessmentSubmissionDTO.Text,
-                        FileName = "default",
-
-                    };
-                    await _context.AssignmentSubmissions.AddAsync(newAssessmebt);
-                    await _context.SaveChangesAsync();
-                }
-
-
+                
                 return new OutPutModel<AssessmentDTO>
                 {
-                    StatusCode = 200,
-                    Message = "",
-                    Result = await GetAssignmentByIdAsync(assessmentSubmissionDTO.AssignmentId),
+                    StatusCode = 404,
+                    Message = "دانشجوایی گرامی شما قبلا تکلیف خود را ارسال کردید.",
+                    Result = null,
                 };
             }
             catch (Exception ex)
@@ -700,6 +706,17 @@ namespace Assessment_Backend.Core.Services
                         Title = a.Title,
                         PenaltyRule = a.PenaltyRule,
                         FileName = a.FileName,
+                        submitted=_context.AssignmentSubmissions.Select(s=> new SubmittedAssignmentDTO
+                        {
+                             AssignmentId = s.AssignmentId,
+                             CreateDate = s.CreateDate,
+                             LateScore=s.LateScore, 
+                             AS_Id= s.AS_Id,
+                             FileName = s.FileName,
+                             RawScore=s.RawScore,
+                             ReviewedDate = s.ReviewedDate,
+                             Text = s.Text,
+                        }).SingleOrDefault(s=> s.AssignmentId==a.AssessmentId),
                     })
                     .OrderBy(a => a.CourseId)
                     .ThenBy(a => a.AssessmentId)

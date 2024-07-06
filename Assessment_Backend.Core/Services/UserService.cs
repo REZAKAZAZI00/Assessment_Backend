@@ -168,7 +168,7 @@
                     return new OutPutModel<bool>
                     {
                          Result=false,
-                         StatusCode=400,
+                         StatusCode=403,
                          Message="دانشجو گرامی شما قبلا ثبت نام کردید"
                     };
                 }
@@ -243,7 +243,7 @@
                     return new OutPutModel<bool>
                     {
                         Result = false,
-                        StatusCode = 400,
+                        StatusCode = 403,
                         Message = "استاد گرامی شما قبلا ثبت نام کردید."
                     };
                 }
