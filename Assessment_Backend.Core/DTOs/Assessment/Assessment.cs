@@ -91,6 +91,8 @@
 
         public string CourseTitle { get; set; }
 
+        public string TermId { get; set; }
+
     }
 
     public class ReportDTO

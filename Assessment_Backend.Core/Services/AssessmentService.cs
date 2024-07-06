@@ -778,10 +778,11 @@ namespace Assessment_Backend.Core.Services
                 var scores = await _context.AssignmentSubmissions
                     .Where(a => a.StudentId == studentId)
                     .Include(a => a.Assessment)
-                    .ThenInclude(c => c.Course)
+                    .ThenInclude(c => c.Course).ThenInclude(t=> t.Term)
                     .Select(s => new ScoreDTO
                     {
                         LastScore = s.LateScore,
+                        TermId=s.Assessment.Course.Term.Title,
                         CourseTitle = s.Assessment.Course.Title
                     }).ToListAsync();
                 int avrage = 0;
