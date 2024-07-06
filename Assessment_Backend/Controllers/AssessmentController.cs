@@ -21,31 +21,9 @@
             return result;
         }
 
-        [HttpPost("testforFile")]
+     
 
-        public async Task<ActionResult<OutPutModel<CourseDTO>>> test([FromForm ] TestCreateAssessmentDTO assessmentDTO, IFormFile file)
-        {
-            if (file!=null)
-            {
-                return Ok("file upload shod");
-            }
-            //var result = await _assessmentService.CreateAssessmentAsync(assessmentDTO);
-            return BadRequest();
-        }
-
-        [HttpPost("testforFile2")]
-
-        public async Task<ActionResult<OutPutModel<CourseDTO>>> test1(int CourseId,
-
-        string Title, string Description, DateTime StartDate , DateTime EndDate, string PenaltyRule, IFormFile file)
-        {
-            if (file != null)
-            {
-                return Ok("file upload shod");
-            }
-            //var result = await _assessmentService.CreateAssessmentAsync(assessmentDTO);
-            return BadRequest();
-        }
+       
 
         [HttpPut("UpdateAssessment")]
 

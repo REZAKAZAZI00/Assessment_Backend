@@ -155,7 +155,15 @@ namespace Assessment_Backend.Core.Services
                         StatusCode = 400
                     };
                 }
-
+                if (assessmentDTO.EndDate <= assessmentDTO.StartDate)
+                {
+                    return new OutPutModel<CourseDTO>
+                    {
+                        Result = null,
+                        Message="تاریخ پایان نمیتواند قبل از تاریخ شروع باشد.",
+                        StatusCode=403
+                    };
+                }
                 var awsCredentials = new Amazon.Runtime.BasicAWSCredentials("7115d73c-b7dc-421d-ab5d-19114c5a7057", "735e892a72adfea1666d7fd644d0eeab84f0b4e12e4ef0d4d488be06d72c90c3");
                 var config = new AmazonS3Config { ServiceURL = "https://s3.ir-thr-at1.arvanstorage.ir" };
                 _s3Client = new AmazonS3Client(awsCredentials, config);

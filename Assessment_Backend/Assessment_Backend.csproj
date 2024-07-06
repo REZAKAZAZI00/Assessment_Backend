@@ -8,6 +8,7 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <DocumentationFile>C:\Users\rezak\OneDrive\Desktop\assessment\a\Assessment_Backend\Assessment_Backend\bin\Debug\net8.0\Assessment_Backend.xml</DocumentationFile>
+    <PublishAot>False</PublishAot>
   </PropertyGroup>
 
   <ItemGroup>
