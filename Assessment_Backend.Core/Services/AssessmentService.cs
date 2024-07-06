@@ -1,7 +1,6 @@
 ﻿using Amazon.S3;
 using Amazon.S3.Model;
 using Amazon.S3.Util;
-using Assessment_Backend.DataLayer.Entities.duty;
 using System.Reflection;
 
 namespace Assessment_Backend.Core.Services
@@ -54,8 +53,8 @@ namespace Assessment_Backend.Core.Services
                     };
                 }
 
-                var assessment=await _context.AssignmentSubmissions
-                    .SingleOrDefaultAsync(a=> a.StudentId == studentId&&a.AssignmentId==assessmentSubmissionDTO.AssignmentId);
+                var assessment = await _context.AssignmentSubmissions
+                    .SingleOrDefaultAsync(a => a.StudentId == studentId && a.AssignmentId == assessmentSubmissionDTO.AssignmentId);
                 if (assessment is null)
                 {
                     var awsCredentials = new Amazon.Runtime.BasicAWSCredentials("7115d73c-b7dc-421d-ab5d-19114c5a7057", "735e892a72adfea1666d7fd644d0eeab84f0b4e12e4ef0d4d488be06d72c90c3");
@@ -127,7 +126,7 @@ namespace Assessment_Backend.Core.Services
                         await _context.SaveChangesAsync();
                     }
                 }
-                
+
                 return new OutPutModel<AssessmentDTO>
                 {
                     StatusCode = 404,
@@ -166,8 +165,8 @@ namespace Assessment_Backend.Core.Services
                     return new OutPutModel<CourseDTO>
                     {
                         Result = null,
-                        Message="تاریخ پایان نمیتواند قبل از تاریخ شروع باشد.",
-                        StatusCode=403
+                        Message = "تاریخ پایان نمیتواند قبل از تاریخ شروع باشد.",
+                        StatusCode = 403
                     };
                 }
                 var awsCredentials = new Amazon.Runtime.BasicAWSCredentials("7115d73c-b7dc-421d-ab5d-19114c5a7057", "735e892a72adfea1666d7fd644d0eeab84f0b4e12e4ef0d4d488be06d72c90c3");
@@ -706,17 +705,17 @@ namespace Assessment_Backend.Core.Services
                         Title = a.Title,
                         PenaltyRule = a.PenaltyRule,
                         FileName = a.FileName,
-                        submitted=_context.AssignmentSubmissions.Select(s=> new SubmittedAssignmentDTO
+                        submitted = _context.AssignmentSubmissions.Select(s => new SubmittedAssignmentDTO
                         {
-                             AssignmentId = s.AssignmentId,
-                             CreateDate = s.CreateDate,
-                             LateScore=s.LateScore, 
-                             AS_Id= s.AS_Id,
-                             FileName = s.FileName,
-                             RawScore=s.RawScore,
-                             ReviewedDate = s.ReviewedDate,
-                             Text = s.Text,
-                        }).SingleOrDefault(s=> s.AssignmentId==a.AssessmentId),
+                            AssignmentId = s.AssignmentId,
+                            CreateDate = s.CreateDate,
+                            LateScore = s.LateScore,
+                            AS_Id = s.AS_Id,
+                            FileName = s.FileName,
+                            RawScore = s.RawScore,
+                            ReviewedDate = s.ReviewedDate,
+                            Text = s.Text,
+                        }).SingleOrDefault(s => s.AssignmentId == a.AssessmentId),
                     })
                     .OrderBy(a => a.CourseId)
                     .ThenBy(a => a.AssessmentId)
@@ -737,6 +736,78 @@ namespace Assessment_Backend.Core.Services
 
                 _logger.LogError(ex.Message, ex);
                 return new OutPutModel<List<AssessmentDTO>>
+                {
+                    Message = "خطای غیرمنتظره‌ای رخ داد. مجدداً تلاش کنید.",
+                    StatusCode = 500,
+                };
+            }
+        }
+
+        public async Task<OutPutModel<ReportDTO>> GetReportAsync()
+        {
+            try
+            {
+                var studentId = _httpContextAccessor.GetStudentId();
+
+                if (studentId is 0)
+                {
+                    return new OutPutModel<ReportDTO>
+                    {
+
+                        Result = null,
+                        StatusCode = 401,
+                        Message = "لطفاً مجدداً وارد حساب کاربری خود شوید."
+
+                    };
+                }
+
+                var student = await _context.Students
+                    .Where(s => s.StudentId == studentId)
+                    .Select(s => new StudentDTO
+                    {
+                        StudentId = s.StudentId,
+                        Email = s.Email,
+                        Name = s.Name,
+                        PhoneNumber = s.PhoneNumber,
+                        family = s.family,
+                    })
+                    .SingleOrDefaultAsync();
+                var scores = await _context.AssignmentSubmissions
+                    .Where(a => a.StudentId == studentId)
+                    .Include(a => a.Assessment)
+                    .ThenInclude(c => c.Course)
+                    .Select(s => new ScoreDTO
+                    {
+                        LastScore = s.LateScore,
+                        CourseTitle = s.Assessment.Course.Title
+                    }).ToListAsync();
+                int avrage = 0;
+                foreach (var score in scores)
+                {
+                    avrage += score.LastScore;
+                }
+                avrage = (int)avrage / scores.Count();
+                var report = new ReportDTO
+                {
+                    Student = student,
+                    scores = scores,
+                    ScoreAvrge = avrage
+
+                };
+
+
+                return new OutPutModel<ReportDTO>
+                {
+                    Result = report,
+                    StatusCode = 200,
+                    Message = ""
+                };
+            }
+            catch (Exception ex)
+            {
+
+                _logger.LogError(ex.Message, ex);
+                return new OutPutModel<ReportDTO>
                 {
                     Message = "خطای غیرمنتظره‌ای رخ داد. مجدداً تلاش کنید.",
                     StatusCode = 500,

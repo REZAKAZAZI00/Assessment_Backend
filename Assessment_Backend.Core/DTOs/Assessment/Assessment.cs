@@ -83,4 +83,22 @@
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         public int AssessmentId { get; set; }
     }
+
+    public class ScoreDTO
+    {
+        public int LastScore { get; set; }
+
+        public string CourseTitle { get; set; }
+
+    }
+
+    public class ReportDTO
+    {
+        public StudentDTO Student { get; set; }
+        public List<ScoreDTO> scores { get; set; }
+
+        public int ScoreAvrge { get; set; }
+    }
+
+
 }

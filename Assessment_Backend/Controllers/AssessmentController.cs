@@ -93,5 +93,17 @@
             return result;
         }
 
+
+        /// <summary>
+        /// برای کارنامه  
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetReport")]
+        [Authorize]
+        public async Task<ActionResult<OutPutModel<ReportDTO>>> GetReport()
+        {
+            var result = await _assessmentService.GetReportAsync();
+            return result;
+        }
     }
 }

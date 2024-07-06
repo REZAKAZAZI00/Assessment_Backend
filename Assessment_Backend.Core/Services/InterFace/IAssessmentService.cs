@@ -23,6 +23,6 @@
 
         Task<OutPutModel<AssessmentDTO>> ScoreRegistrationAsync(ScoreRegistrationDTO scoreRegistrationDTO);
 
-
+        Task<OutPutModel<ReportDTO>> GetReportAsync();
     }
 }
