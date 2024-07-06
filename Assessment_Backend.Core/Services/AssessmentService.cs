@@ -705,7 +705,9 @@ namespace Assessment_Backend.Core.Services
                         Title = a.Title,
                         PenaltyRule = a.PenaltyRule,
                         FileName = a.FileName,
-                        submitted = _context.AssignmentSubmissions.Select(s => new SubmittedAssignmentDTO
+                        submitted =studentId>0? _context.AssignmentSubmissions
+                        .Where(s=> s.StudentId==studentId&& s.AssignmentId == a.AssessmentId)
+                        .Select(s => new SubmittedAssignmentDTO
                         {
                             AssignmentId = s.AssignmentId,
                             CreateDate = s.CreateDate,
@@ -715,7 +717,7 @@ namespace Assessment_Backend.Core.Services
                             RawScore = s.RawScore,
                             ReviewedDate = s.ReviewedDate,
                             Text = s.Text,
-                        }).SingleOrDefault(s => s.AssignmentId == a.AssessmentId),
+                        }).SingleOrDefault():null
                     })
                     .OrderBy(a => a.CourseId)
                     .ThenBy(a => a.AssessmentId)
