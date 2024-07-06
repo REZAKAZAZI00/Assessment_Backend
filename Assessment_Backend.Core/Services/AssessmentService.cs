@@ -297,6 +297,7 @@ namespace Assessment_Backend.Core.Services
                         Title = a.Title,
                         StartDate = a.StartDate,
                         PenaltyRule = a.PenaltyRule,
+                        FileName = a.FileName
                     }).SingleOrDefaultAsync();
 
                 return assessment;
@@ -692,17 +693,18 @@ namespace Assessment_Backend.Core.Services
                         PenaltyRule = a.PenaltyRule,
                         FileName = a.FileName,
                     })
-                    .OrderBy(a=> a.CourseId)
-                    .ThenBy(a=> a.AssessmentId)
+                    .OrderBy(a => a.CourseId)
+                    .ThenBy(a => a.AssessmentId)
                     .ToList();
 
 
 
                 return new OutPutModel<List<AssessmentDTO>>
                 {
-                     StatusCode = 200,
-                     Message=""
-                     , Result= assessments,
+                    StatusCode = 200,
+                    Message = ""
+                     ,
+                    Result = assessments,
                 };
             }
             catch (Exception ex)
