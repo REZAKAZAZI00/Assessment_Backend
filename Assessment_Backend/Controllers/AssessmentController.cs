@@ -18,6 +18,11 @@
         public async Task<ActionResult<OutPutModel<CourseDTO>>> CreateAssessment(CreateAssessmentDTO assessmentDTO)
         {
             var result = await _assessmentService.CreateAssessmentAsync(assessmentDTO);
+
+            if(result.StatusCode == 403){
+
+                return Forbid();
+            }
             return result;
         }
 
