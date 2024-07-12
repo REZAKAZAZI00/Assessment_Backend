@@ -22,7 +22,7 @@ namespace Assessment_Backend.Core.Services
         }
         #endregion
 
-
+        
         public async Task<OutPutModel<AssessmentDTO>> AssignmentSubmissionAsync(AssignmentSubmissionDTO assessmentSubmissionDTO)
         {
             try
@@ -785,12 +785,8 @@ namespace Assessment_Backend.Core.Services
                         TermId=s.Assessment.Course.Term.Title,
                         CourseTitle = s.Assessment.Course.Title
                     }).ToListAsync();
-                int avrage = 0;
-                foreach (var score in scores)
-                {
-                    avrage += score.LastScore;
-                }
-                avrage = (int)avrage / scores.Count();
+                int avrage = (int)scores.Average(s=> s.LastScore);
+             
                 var report = new ReportDTO
                 {
                     Student = student,
