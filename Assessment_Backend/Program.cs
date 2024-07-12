@@ -42,7 +42,7 @@ internal class Program
         var options=new DbContextOptionsBuilder<AssessmentDbContext>()
             .UseSqlServer(connectionString).Options;
         using AssessmentDbContext context=new AssessmentDbContext(options);
-        b
+        
         if (context.Database.GetPendingMigrations().Count()>0)
         {
             context.Database.Migrate();
