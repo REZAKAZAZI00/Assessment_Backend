@@ -20,8 +20,9 @@
         {
             try
             {
-                var roles = await _context.Roles.
-                    Select(r => new RoleDTO()
+                var roles = await _context.Roles
+                    .AsNoTracking()
+                    .Select(r => new RoleDTO()
                     {
                         RoleId = r.RoleId,
                         Title = r.Title,
@@ -53,7 +54,9 @@
 
         public async Task<bool> IsExistCodeMelliAsync(string code)
         {
-            return await _context.Users.AnyAsync(u => u.CodeMelli == code);
+            return await _context.Users
+                .AsNoTracking()
+                .AnyAsync(u => u.CodeMelli == code);
         }
 
         public async Task<OutPutModel<UserProfileDTO>> LoginAsync(LoginDTO model)
@@ -75,6 +78,7 @@
                 string password = PasswordHelper.EncodePasswordSHA1(model.Password);
 
                 var existingUser = await _context.Users
+                   .AsNoTracking()
                    .SingleOrDefaultAsync(u => u.CodeMelli == model.CodeMelli && u.Password == password);
 
                 if (existingUser is null)
@@ -94,6 +98,7 @@
                     Token=""
                 };
                 var student = await _context.Students
+                    .AsNoTracking()
                     .Include(g=> g.Grade)
                     .SingleOrDefaultAsync(s => s.UserId == existingUser.UserId);
                 if (student != null)
@@ -108,7 +113,9 @@
                 }
                 else
                 {
-                    var teacher = await _context.Teachers.SingleOrDefaultAsync(t => t.UserId == existingUser.UserId);
+                    var teacher = await _context.Teachers
+                        .AsNoTracking()
+                        .SingleOrDefaultAsync(t => t.UserId == existingUser.UserId);
                     if (teacher != null)
                     {
                         userProfile.TeacherId=teacher.TeacherId;

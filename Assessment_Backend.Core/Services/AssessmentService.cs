@@ -299,6 +299,7 @@ namespace Assessment_Backend.Core.Services
             try
             {
                 var assessment = await _context.Assessments
+                    .AsTracking()
                     .Where(a => a.AssessmentId == assessmentId)
                     .Select(a => new AssessmentDTO
 
@@ -327,6 +328,7 @@ namespace Assessment_Backend.Core.Services
             try
             {
                 var assessments = await _context.AssignmentSubmissions
+                     .AsTracking()
                      .Include(s => s.Student)
                      .Where(a => a.AssignmentId == assignmentId)
                      .Select(a => new SubmittedAssignmentDTO
@@ -690,6 +692,7 @@ namespace Assessment_Backend.Core.Services
 
 
                 var assessments = _context.Courses
+                    .AsTracking()
                     .Include(c => c.Teacher)
                     .Include(c => c.Assessments)
                     .Include(c => c.CourseEnrollments).ThenInclude(e => e.Student)
@@ -765,6 +768,7 @@ namespace Assessment_Backend.Core.Services
                 }
 
                 var student = await _context.Students
+                    .AsTracking()
                     .Where(s => s.StudentId == studentId)
                     .Select(s => new StudentDTO
                     {
@@ -776,6 +780,7 @@ namespace Assessment_Backend.Core.Services
                     })
                     .SingleOrDefaultAsync();
                 var scores = await _context.AssignmentSubmissions
+                    .AsTracking()
                     .Where(a => a.StudentId == studentId)
                     .Include(a => a.Assessment)
                     .ThenInclude(c => c.Course).ThenInclude(t=> t.Term)

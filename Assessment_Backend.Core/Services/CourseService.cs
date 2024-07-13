@@ -170,12 +170,13 @@
             try
             {
                 var term = await _context.Terms
-                           .Select(t => new TermDTO
-                           {
-                               TermId = t.TermId,
-                               Title = t.Title,
-                           })
-                           .ToListAsync();
+                    .AsNoTracking()
+                    .Select(t => new TermDTO
+                    {
+                        TermId = t.TermId,
+                        Title = t.Title,
+                    })
+                    .ToListAsync();
 
                 return new OutPutModel<List<TermDTO>>
                 {
@@ -207,10 +208,12 @@
                 int studentId = _httpContextAccessor.GetStudentId();
 
                 var query = _context.Courses
+                    .AsNoTracking()
                     .Include(c => c.Term)
                     .Include(c => c.Teacher)
                     .Include(c => c.Assessments)
-                    .Include(c => c.CourseEnrollments).ThenInclude(e => e.Student) // Include Student information
+                    .Include(c => c.CourseEnrollments)
+                    .ThenInclude(e => e.Student)
                     .Where(c => teacherId != 0 ? c.TeacherId == teacherId : c.CourseEnrollments.Any(e => e.StudentId == studentId))
                     .Select(c => new CourseDTO
                     {
@@ -293,7 +296,7 @@
                             Name = e.Student.Name,
                             family = e.Student.family,
                             PhoneNumber = e.Student.PhoneNumber,
-                            Email = e.Student.Email 
+                            Email = e.Student.Email
                         }).ToList() : null,
                         Assessments = c.Assessments
                             .Select(a => new AssessmentDTO
@@ -357,7 +360,7 @@
                         CountMembers = c.CountMembers,
                         Title = c.Title,
                         TermId = c.TermId,
-                        extant =(c.CountMembers - _context.CourseEnrollments.Count(ce => ce.CourseId == c.CourseId))
+                        extant = (c.CountMembers - _context.CourseEnrollments.Count(ce => ce.CourseId == c.CourseId))
                     })
                     .SingleOrDefaultAsync();
 
@@ -365,7 +368,7 @@
                 {
                     StatusCode = 200,
                     Message = "",
-                     Result = course
+                    Result = course
                 };
             }
             catch (Exception ex)

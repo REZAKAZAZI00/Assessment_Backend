@@ -34,10 +34,14 @@ namespace Assessment_Backend.Core.Services
                 }
 
                 int countJoinClass=await _context.CourseEnrollments
+                    .AsNoTracking()
                     .CountAsync(ce=> ce.StudentId==studentId);
                 int countDutyDone = await _context.AssignmentSubmissions
+                    .AsNoTracking()
                     .CountAsync(a=> a.StudentId==studentId);
+
                 int totalAssignments = await _context.Assessments
+                    .AsNoTracking()
                     .CountAsync(a => a.Course.CourseEnrollments
                     .Any(ce => ce.StudentId == studentId));
 
@@ -90,10 +94,13 @@ namespace Assessment_Backend.Core.Services
                     };
                 }
 
-                int classCount=_context.Courses.Count(c=>c.TeacherId==teacherId);
+                int classCount=_context.Courses
+                    .AsNoTracking()
+                    .Count(c=>c.TeacherId==teacherId);
                 
                 int assessmentCount = await _context.Assessments
-                          .CountAsync(a => a.Course.TeacherId == teacherId);
+                                             .AsNoTracking()
+                                             .CountAsync(a => a.Course.TeacherId == teacherId);
 
 
                 var TeacherStatistics = new TeacherStatisticsDTO

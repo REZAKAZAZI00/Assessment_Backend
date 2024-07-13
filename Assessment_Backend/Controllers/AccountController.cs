@@ -13,7 +13,11 @@
         #endregion
 
 
-
+        /// <summary>
+        /// login student and teacher
+        /// </summary>
+        /// <param name="model">codemille and password</param>
+        /// <returns></returns>
         [HttpPost("Login")]
         public async Task<ActionResult<OutPutModel<UserProfileDTO>>> Login(LoginDTO model)
         {
@@ -21,7 +25,11 @@
             return result;
         }
 
-
+        /// <summary>
+        /// ثبت نام استاد
+        /// </summary>
+        /// <param name="model">شامل مشخصات استاد</param>
+        /// <returns></returns>
         [HttpPost("RegisterTeacher")]
         public async Task<ActionResult<OutPutModel<bool>>> RegisterTeacher(RegisterTeacherDTO model)
         {
@@ -30,7 +38,11 @@
             return result;
         }
 
-
+        /// <summary>
+        /// ثبت نام دانشجو 
+        /// </summary>
+        /// <param name="register">مشخصات دانشجو</param>
+        /// <returns></returns>
         [HttpPost("RegisterStudent")]
         public async Task<ActionResult<OutPutModel<bool>>> RegisterStudent(RegisterStudentDTO register)
         {

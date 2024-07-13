@@ -17,6 +17,7 @@
 			try
 			{
 				var grades=await _context.Grades
+                    .AsNoTracking()
                     .Select(g=> new GradeDTO
                     {
                          GradeId=g.GradeId,
