@@ -1,6 +1,6 @@
 ﻿namespace Assessment_Backend.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/grades")]
     [ApiController]
     public class GradeController : ControllerBase
     {
@@ -13,8 +13,11 @@
 
         #endregion
 
-
-        [HttpGet("GetAllGrade")]
+        /// <summary>
+        /// گرفتن همه 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("grades")]
         public async Task<ActionResult<OutPutModel<List<GradeDTO>>>> GetAllGrade()
         {
             var result=await _gradesServies.GetAllGradesAsync();

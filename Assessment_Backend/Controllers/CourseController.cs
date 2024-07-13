@@ -1,6 +1,6 @@
 ﻿namespace Assessment_Backend.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/courses")]
     [ApiController]
     public class CourseController : ControllerBase
     {
@@ -13,8 +13,11 @@
         }
         #endregion
 
-
-        [HttpGet("Terms")]
+        /// <summary>
+        /// گرفتن ترم
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("terms")]
         public async Task<ActionResult<OutPutModel<List<TermDTO>>>> GetAllTerm()
         {
             var result = await _courseServies.GetAllTermAsync();
@@ -22,29 +25,41 @@
             return result;
         }
 
-
-        [HttpGet("Course")]
+        /// <summary>
+        /// گرفتن کلاس های من 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("course")]
         [Authorize]
         public async Task<ActionResult<OutPutModel<List<CourseDTO>>>> GetAllCourse() 
         {
             return await _courseServies.GetAllCourseAsync();
         }
 
-        [HttpGet("CourseBy{courseId}")]
+        /// <summary>
+        /// گرفتن درس با استفاده از شناسه کلاس
+        /// </summary>
+        /// <param name="courseId"></param>
+        /// <returns></returns>
+        [HttpGet("course/{courseId}")]
         [Authorize]
         public async Task<ActionResult<OutPutModel<CourseDTO>>> GetCourseById(int courseId)
         {
             return await _courseServies.GetCourseByCourseIdAsync(courseId);
         }
 
-        [HttpGet("GetCourseBy{link}")]
+        [HttpGet("course/{link}")]
         public async Task<ActionResult<OutPutModel<CourseDTO>>> GetCourseBy(string link)
         {
             return await _courseServies.GetCourseByCourseLinkAsync(link);
         }
 
-
-        [HttpPost("CreateCourse")]
+        /// <summary>
+        /// ایجاد کلاس توسط استاد
+        /// </summary>
+        /// <param name="courseDTO"></param>
+        /// <returns></returns>
+        [HttpPost("course")]
         [Authorize]
         public async Task<ActionResult<OutPutModel<List<CourseDTO>>>> CreateCourse(CreateCourseDTO courseDTO)
         {
@@ -52,7 +67,12 @@
             return result;
         }
 
-        [HttpPost("DeteteCourse")]
+        /// <summary>
+        /// حذف کلاس توسط استاد
+        /// </summary>
+        /// <param name="courseDTO"></param>
+        /// <returns></returns>
+        [HttpPost("deletecourse")]
         [Authorize]
         public async Task<ActionResult<OutPutModel<List<CourseDTO>>>> DeleteCourse(DeleteCourseDTO courseDTO)
         {
@@ -60,14 +80,26 @@
             return result;
         }
 
-        [HttpPut("UpdateCourse")]
+
+        /// <summary>
+        /// ویرایش کردن اطلاعات کلاس توسط استاد
+        /// </summary>
+        /// <param name="courseDTO"></param>
+        /// <returns></returns>
+        [HttpPut("course")]
         [Authorize]
         public async Task<ActionResult<OutPutModel<List<CourseDTO>>>> UpdateCourse(UpdateCourseDTO courseDTO)
         {
             var result = await _courseServies.UpdateCourseAsync(courseDTO);
             return result;
         }
-        [HttpPost("JoinClass")]
+
+        /// <summary>
+        /// عضو شدن دانشجو به کلاس
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost("joinclass")]
         [Authorize]
         public async Task<ActionResult<OutPutModel<List<CourseDTO>>>> JoinClass(JoinClassDTO model)
         {
@@ -76,8 +108,12 @@
             return result;
         }
 
-
-        [HttpDelete("LeavingClass")]
+        /// <summary>
+        /// ترک کلاس توسط دانشجو
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpDelete("leavingclass")]
         [Authorize]
         public async Task<ActionResult<OutPutModel<List<CourseDTO>>>> LeavingClass(LeavingClassDTO model)
         {

@@ -1,6 +1,6 @@
 ﻿namespace Assessment_Backend.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/statistics")]
     [ApiController]
     public class StatisticsController : ControllerBase
     {
@@ -12,8 +12,11 @@
         }
         #endregion
 
-
-        [HttpGet("StudentStatistics")]
+        /// <summary>
+        /// گرفتن امار استاد
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("studentstatistics")]
         [Authorize]
         public async  Task<ActionResult<OutPutModel<StudentStatisticsDTO >>> GetStudentStatistics() 
         {
@@ -22,8 +25,13 @@
 
             return result;
         }
-
-        [HttpGet("TeacherStatistics")]
+        
+        
+        /// <summary>
+        /// گرفتن امار استاد
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("teacherstatistics")]
         [Authorize] 
         public async Task<ActionResult<OutPutModel<TeacherStatisticsDTO>>> GetTeacherStatistics()
         {

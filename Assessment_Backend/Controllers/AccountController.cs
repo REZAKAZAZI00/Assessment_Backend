@@ -1,6 +1,6 @@
 ﻿namespace Assessment_Backend.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/accounts")]
     [ApiController]
     public class AccountController : ControllerBase
     {
@@ -14,11 +14,11 @@
 
 
         /// <summary>
-        /// login student and teacher
+        /// لاگین استاد و دانشجو
         /// </summary>
-        /// <param name="model">codemille and password</param>
+        /// <param name="model">شامل کدملی و کلمه عبور</param>
         /// <returns></returns>
-        [HttpPost("Login")]
+        [HttpPost("login")]
         public async Task<ActionResult<OutPutModel<UserProfileDTO>>> Login(LoginDTO model)
         {
             var result= await _userServies.LoginAsync(model);    
@@ -30,7 +30,7 @@
         /// </summary>
         /// <param name="model">شامل مشخصات استاد</param>
         /// <returns></returns>
-        [HttpPost("RegisterTeacher")]
+        [HttpPost("teacher")]
         public async Task<ActionResult<OutPutModel<bool>>> RegisterTeacher(RegisterTeacherDTO model)
         {
             var result=await _userServies.RegisterTeacherAsync(model);
@@ -43,14 +43,18 @@
         /// </summary>
         /// <param name="register">مشخصات دانشجو</param>
         /// <returns></returns>
-        [HttpPost("RegisterStudent")]
+        [HttpPost("student")]
         public async Task<ActionResult<OutPutModel<bool>>> RegisterStudent(RegisterStudentDTO register)
         {
            var result=await _userServies.RegisterStudentAsync(register);
             return result;
         }
 
-        [HttpGet("GetRoles")]
+        /// <summary>
+        /// گرفتن نقش ها
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("roles")]
         public async Task<ActionResult<OutPutModel<List<RoleDTO>>>> GetRoles()
         {
             var result=await _userServies.GetAllRolesAsync();
