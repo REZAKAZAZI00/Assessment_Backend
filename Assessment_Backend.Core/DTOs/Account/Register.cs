@@ -51,10 +51,15 @@
         [Display(Name = "نقش")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
 
-        public int RoleId { get; set; }
+        public RoleDTO Role { get; set; }
 
     }
 
+    public enum RoleDTO : byte
+    {
+        Teacher,
+        Student,
+    }
     public class RegisterStudentDTO
     {
 
@@ -102,7 +107,6 @@
 
         [Display(Name = "نقش")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
-
-        public int RoleId { get; set; }
+        public RoleDTO Role { get; set; }
     }
 }

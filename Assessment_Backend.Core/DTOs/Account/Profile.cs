@@ -8,7 +8,7 @@
 
         public int StudentId { get; set; }
 
-        public int RoleId { get; set; }
+        public RoleDTO Role { get; set; }
         public int TeacherId { get; set; }
 
         public int UserId { get; set; }
