@@ -16,7 +16,7 @@
             var claimsForToken = new List<Claim>
             {
                 new Claim("userId", user.UserId.ToString()),
-                new Claim("RoleId", user.RoleId.ToString()),
+                new Claim("RoleId", user.Role.ToString()),
                 new Claim("CodeMelli",user.CodeMelli)
 
             };

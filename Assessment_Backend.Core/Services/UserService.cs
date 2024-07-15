@@ -16,41 +16,7 @@
 
         #endregion
 
-        public async Task<OutPutModel<List<RoleDTO>>> GetAllRolesAsync()
-        {
-            try
-            {
-                var roles = await _context.Roles
-                    .AsNoTracking()
-                    .Select(r => new RoleDTO()
-                    {
-                        RoleId = r.RoleId,
-                        Title = r.Title,
-                    }).ToListAsync();
-
-                return new OutPutModel<List<RoleDTO>>
-                {
-                    Message = "",
-                    Result = roles,
-                    StatusCode = 200
-
-
-                };
-
-            }
-            catch (Exception ex)
-            {
-                var errorMessage = "خطای غیرمنتظره ای رخ داد مجدد تلاش کنید";
-                _logger.LogError(errorMessage, ex);
-                return new OutPutModel<List<RoleDTO>>
-                {
-                    Message = errorMessage,
-                    Result = null,
-                    StatusCode = 500
-
-                };
-            }
-        }
+       
 
         public async Task<bool> IsExistCodeMelliAsync(string code)
         {
@@ -94,7 +60,7 @@
                 {
                     UserId = existingUser.UserId,
                     CodeMelli = existingUser.CodeMelli,
-                    RoleId = existingUser.RoleId,
+                    Role = (DTOs.Account.RoleDTO)existingUser.Role,
                     Token=""
                 };
                 var student = await _context.Students
@@ -184,7 +150,7 @@
                 {
                     CodeMelli = model.CodeMelli,
                     Password = PasswordHelper.EncodePasswordSHA1(model.Password),
-                    RoleId = model.RoleId
+                    Role=(Role)model.Role  
                 };
                 await _context.Users.AddAsync(newUser);
                 await _context.SaveChangesAsync();
@@ -258,7 +224,7 @@
                 {
                     CodeMelli = model.CodeMelli,
                     Password = PasswordHelper.EncodePasswordSHA1(model.Password),
-                    RoleId = model.RoleId
+                    Role= (Role)model.Role
                 };
                 await _context.Users.AddAsync(newUser);
                 await _context.SaveChangesAsync();

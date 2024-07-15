@@ -2,11 +2,7 @@
 {
     public interface IUserService
     {
-        #region Role
-
-        Task<OutPutModel<List<RoleDTO>>> GetAllRolesAsync();
-
-        #endregion
+       
 
         Task<OutPutModel<UserProfileDTO>> LoginAsync(LoginDTO model);
 
