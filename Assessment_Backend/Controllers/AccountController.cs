@@ -50,15 +50,6 @@
             return result;
         }
 
-        /// <summary>
-        /// گرفتن نقش ها
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet("roles")]
-        public async Task<ActionResult<OutPutModel<List<RoleDTO>>>> GetRoles()
-        {
-            var result=await _userServies.GetAllRolesAsync();
-            return result;
-        }
+      
     }
 }
