@@ -9,7 +9,7 @@
 
 
         #region User
-        public DbSet<Role> Roles { get; set; }
+       
         public DbSet<User> Users { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<TeacherSub> TeacherSubs { get; set; }
@@ -47,9 +47,6 @@
             modelBuilder.Entity<Course>()
                 .HasQueryFilter(a => !a.IsDelete);
 
-            modelBuilder.Entity<Role>()
-                .HasQueryFilter(r => !r.IsDelete);
-
             modelBuilder.Entity<Teacher>()
                 .HasQueryFilter(t => !t.IsDelete);
 
@@ -69,6 +66,15 @@
             modelBuilder.Entity<Teacher>()
                 .HasIndex(t => t.UserId)
                 .IsUnique();
+
+            modelBuilder.Entity<User>()
+                .HasIndex(u=> u.CodeMelli)
+                .IsUnique();    
+
+            modelBuilder.Entity<User>()
+                .Property(u=>u.CodeMelli)
+                .IsRequired()
+                .HasMaxLength(10);
 
             // اضافه کردن محدودیت unique برای UserId در جدول Students
             modelBuilder.Entity<Student>()
