@@ -39,6 +39,7 @@ internal class Program
         var connectionString = builder.Configuration.GetConnectionString("AssessmentConnection");
         builder.Services.AddDbContext<AssessmentDbContext>(options => options.UseSqlServer(connectionString));
         #endregion
+
         var options=new DbContextOptionsBuilder<AssessmentDbContext>()
             .UseSqlServer(connectionString).Options;
         using AssessmentDbContext context=new AssessmentDbContext(options);
