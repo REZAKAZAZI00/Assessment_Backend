@@ -1,4 +1,6 @@
-﻿namespace Assessment_Backend.DataLayer.Context
+﻿using Assessment_Backend.DataLayer.Entities.Log;
+
+namespace Assessment_Backend.DataLayer.Context
 {
     public class AssessmentDbContext : DbContext
     {
@@ -31,6 +33,10 @@
         public DbSet<Course>  Courses { get; set; }
         public DbSet<AssignmentSubmission> AssignmentSubmissions  { get; set; }
         public DbSet<CourseEnrollment> CourseEnrollments   { get; set; }
+        #endregion
+
+        #region Log
+        public DbSet<RequestLog> RequestLog { get; set; }
         #endregion
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -113,7 +119,12 @@
                .HasForeignKey(s => s.AssignmentId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            #region Log
 
+            modelBuilder.Entity<RequestLog>()
+                .HasKey(e => e.Id);
+                
+            #endregion
 
 
             base.OnModelCreating(modelBuilder);

@@ -10,6 +10,8 @@ global using Assessment_Backend.DataLayer.Entities.User;
 global using Assessment_Backend.DataLayer.Entities.Subs;
 global using System.ComponentModel.DataAnnotations.Schema;
 global using Assessment_Backend.DataLayer.Entities.duty;
+global using Assessment_Backend.DataLayer.Enum;
+
 
 
 

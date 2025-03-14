@@ -1,0 +1,157 @@
+2025-03-14 15:35:13.735 +03:30 [DBG] An additional 'IServiceProvider' was created for internal use by Entity Framework. An existing service provider was not used due to the following configuration changes: .
+2025-03-14 15:35:13.801 +03:30 [WRN] Entity 'SubType' has a global query filter defined and is the required end of a relationship with the entity 'Sub'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2025-03-14 15:35:13.801 +03:30 [WRN] Entity 'Teacher' has a global query filter defined and is the required end of a relationship with the entity 'TeacherSub'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2025-03-14 15:35:13.801 +03:30 [WRN] Entity 'Assessment' has a global query filter defined and is the required end of a relationship with the entity 'AssignmentSubmission'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2025-03-14 15:35:13.801 +03:30 [WRN] Entity 'Course' has a global query filter defined and is the required end of a relationship with the entity 'CourseEnrollment'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2025-03-14 15:35:13.803 +03:30 [WRN] The foreign key property 'TeacherSub.SubsId1' was created in shadow state because a conflicting property with the simple name 'SubsId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+2025-03-14 15:35:13.825 +03:30 [DBG] Entity Framework Core 8.0.4 initialized 'AssessmentDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:8.0.4' with options: None
+2025-03-14 15:35:13.868 +03:30 [WRN] Entity 'SubType' has a global query filter defined and is the required end of a relationship with the entity 'Sub'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2025-03-14 15:35:13.868 +03:30 [WRN] Entity 'Teacher' has a global query filter defined and is the required end of a relationship with the entity 'TeacherSub'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2025-03-14 15:35:13.868 +03:30 [WRN] Entity 'Assessment' has a global query filter defined and is the required end of a relationship with the entity 'AssignmentSubmission'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2025-03-14 15:35:13.868 +03:30 [WRN] Entity 'Course' has a global query filter defined and is the required end of a relationship with the entity 'CourseEnrollment'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2025-03-14 15:35:13.868 +03:30 [WRN] The foreign key property 'TeacherSub.SubsId1' was created in shadow state because a conflicting property with the simple name 'SubsId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+2025-03-14 15:35:14.243 +03:30 [DBG] 'AssessmentDbContext' disposed.
+2025-03-14 15:36:22.149 +03:30 [DBG] An additional 'IServiceProvider' was created for internal use by Entity Framework. An existing service provider was not used due to the following configuration changes: .
+2025-03-14 15:36:22.207 +03:30 [WRN] Entity 'SubType' has a global query filter defined and is the required end of a relationship with the entity 'Sub'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2025-03-14 15:36:22.208 +03:30 [WRN] Entity 'Teacher' has a global query filter defined and is the required end of a relationship with the entity 'TeacherSub'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2025-03-14 15:36:22.208 +03:30 [WRN] Entity 'Assessment' has a global query filter defined and is the required end of a relationship with the entity 'AssignmentSubmission'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2025-03-14 15:36:22.208 +03:30 [WRN] Entity 'Course' has a global query filter defined and is the required end of a relationship with the entity 'CourseEnrollment'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2025-03-14 15:36:22.210 +03:30 [WRN] The foreign key property 'TeacherSub.SubsId1' was created in shadow state because a conflicting property with the simple name 'SubsId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+2025-03-14 15:36:22.228 +03:30 [DBG] Entity Framework Core 8.0.4 initialized 'AssessmentDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:8.0.4' with options: None
+2025-03-14 15:36:22.263 +03:30 [WRN] Entity 'SubType' has a global query filter defined and is the required end of a relationship with the entity 'Sub'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2025-03-14 15:36:22.263 +03:30 [WRN] Entity 'Teacher' has a global query filter defined and is the required end of a relationship with the entity 'TeacherSub'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2025-03-14 15:36:22.263 +03:30 [WRN] Entity 'Assessment' has a global query filter defined and is the required end of a relationship with the entity 'AssignmentSubmission'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2025-03-14 15:36:22.263 +03:30 [WRN] Entity 'Course' has a global query filter defined and is the required end of a relationship with the entity 'CourseEnrollment'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2025-03-14 15:36:22.263 +03:30 [WRN] The foreign key property 'TeacherSub.SubsId1' was created in shadow state because a conflicting property with the simple name 'SubsId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+2025-03-14 15:36:22.488 +03:30 [DBG] Creating DbConnection.
+2025-03-14 15:36:22.490 +03:30 [DBG] Created DbConnection. (0ms).
+2025-03-14 15:36:22.492 +03:30 [DBG] Opening connection to database 'AssessmentDb' on server 'localhost\MSSQLSERVER01'.
+2025-03-14 15:36:22.492 +03:30 [DBG] Opened connection to database 'AssessmentDb' on server 'localhost\MSSQLSERVER01'.
+2025-03-14 15:36:22.492 +03:30 [DBG] Creating DbCommand for 'ExecuteNonQuery'.
+2025-03-14 15:36:22.494 +03:30 [DBG] Created DbCommand for 'ExecuteNonQuery' (0ms).
+2025-03-14 15:36:22.494 +03:30 [DBG] Initialized DbCommand for 'ExecuteNonQuery' (2ms).
+2025-03-14 15:36:22.497 +03:30 [DBG] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-03-14 15:36:22.503 +03:30 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-03-14 15:36:22.504 +03:30 [DBG] Closing connection to database 'AssessmentDb' on server 'localhost\MSSQLSERVER01'.
+2025-03-14 15:36:22.506 +03:30 [DBG] Closed connection to database 'AssessmentDb' on server 'localhost\MSSQLSERVER01' (0ms).
+2025-03-14 15:36:22.506 +03:30 [DBG] Creating DbCommand for 'ExecuteScalar'.
+2025-03-14 15:36:22.506 +03:30 [DBG] Created DbCommand for 'ExecuteScalar' (0ms).
+2025-03-14 15:36:22.506 +03:30 [DBG] Initialized DbCommand for 'ExecuteScalar' (0ms).
+2025-03-14 15:36:22.506 +03:30 [DBG] Opening connection to database 'AssessmentDb' on server 'localhost\MSSQLSERVER01'.
+2025-03-14 15:36:22.506 +03:30 [DBG] Opened connection to database 'AssessmentDb' on server 'localhost\MSSQLSERVER01'.
+2025-03-14 15:36:22.506 +03:30 [DBG] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2025-03-14 15:36:22.507 +03:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2025-03-14 15:36:22.507 +03:30 [DBG] Closing connection to database 'AssessmentDb' on server 'localhost\MSSQLSERVER01'.
+2025-03-14 15:36:22.507 +03:30 [DBG] Closed connection to database 'AssessmentDb' on server 'localhost\MSSQLSERVER01' (0ms).
+2025-03-14 15:36:22.509 +03:30 [DBG] Opening connection to database 'AssessmentDb' on server 'localhost\MSSQLSERVER01'.
+2025-03-14 15:36:22.509 +03:30 [DBG] Opened connection to database 'AssessmentDb' on server 'localhost\MSSQLSERVER01'.
+2025-03-14 15:36:22.509 +03:30 [DBG] Creating DbCommand for 'ExecuteReader'.
+2025-03-14 15:36:22.509 +03:30 [DBG] Created DbCommand for 'ExecuteReader' (0ms).
+2025-03-14 15:36:22.509 +03:30 [DBG] Initialized DbCommand for 'ExecuteReader' (0ms).
+2025-03-14 15:36:22.509 +03:30 [DBG] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2025-03-14 15:36:22.510 +03:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2025-03-14 15:36:22.510 +03:30 [DBG] Closing data reader to 'AssessmentDb' on server 'localhost\MSSQLSERVER01'.
+2025-03-14 15:36:22.510 +03:30 [DBG] A data reader for 'AssessmentDb' on server 'localhost\MSSQLSERVER01' is being disposed after spending 0ms reading results.
+2025-03-14 15:36:22.510 +03:30 [DBG] Closing connection to database 'AssessmentDb' on server 'localhost\MSSQLSERVER01'.
+2025-03-14 15:36:22.510 +03:30 [DBG] Closed connection to database 'AssessmentDb' on server 'localhost\MSSQLSERVER01' (0ms).
+2025-03-14 15:36:22.511 +03:30 [DBG] 'AssessmentDbContext' disposed.
+2025-03-14 15:36:22.511 +03:30 [DBG] Disposing connection to database 'AssessmentDb' on server 'localhost\MSSQLSERVER01'.
+2025-03-14 15:36:22.511 +03:30 [DBG] Disposed connection to database '' on server '' (0ms).
+2025-03-14 15:41:02.527 +03:30 [DBG] An additional 'IServiceProvider' was created for internal use by Entity Framework. An existing service provider was not used due to the following configuration changes: .
+2025-03-14 15:41:02.589 +03:30 [WRN] Entity 'SubType' has a global query filter defined and is the required end of a relationship with the entity 'Sub'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2025-03-14 15:41:02.590 +03:30 [WRN] Entity 'Teacher' has a global query filter defined and is the required end of a relationship with the entity 'TeacherSub'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2025-03-14 15:41:02.590 +03:30 [WRN] Entity 'Assessment' has a global query filter defined and is the required end of a relationship with the entity 'AssignmentSubmission'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2025-03-14 15:41:02.590 +03:30 [WRN] Entity 'Course' has a global query filter defined and is the required end of a relationship with the entity 'CourseEnrollment'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2025-03-14 15:41:02.592 +03:30 [WRN] The foreign key property 'TeacherSub.SubsId1' was created in shadow state because a conflicting property with the simple name 'SubsId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+2025-03-14 15:41:02.612 +03:30 [DBG] Entity Framework Core 8.0.4 initialized 'AssessmentDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:8.0.4' with options: None
+2025-03-14 15:41:02.650 +03:30 [WRN] Entity 'SubType' has a global query filter defined and is the required end of a relationship with the entity 'Sub'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2025-03-14 15:41:02.650 +03:30 [WRN] Entity 'Teacher' has a global query filter defined and is the required end of a relationship with the entity 'TeacherSub'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2025-03-14 15:41:02.650 +03:30 [WRN] Entity 'Assessment' has a global query filter defined and is the required end of a relationship with the entity 'AssignmentSubmission'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2025-03-14 15:41:02.650 +03:30 [WRN] Entity 'Course' has a global query filter defined and is the required end of a relationship with the entity 'CourseEnrollment'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2025-03-14 15:41:02.650 +03:30 [WRN] The foreign key property 'TeacherSub.SubsId1' was created in shadow state because a conflicting property with the simple name 'SubsId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+2025-03-14 15:41:03.010 +03:30 [DBG] 'AssessmentDbContext' disposed.
+2025-03-14 15:41:13.448 +03:30 [DBG] An additional 'IServiceProvider' was created for internal use by Entity Framework. An existing service provider was not used due to the following configuration changes: .
+2025-03-14 15:41:13.524 +03:30 [WRN] Entity 'SubType' has a global query filter defined and is the required end of a relationship with the entity 'Sub'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2025-03-14 15:41:13.524 +03:30 [WRN] Entity 'Teacher' has a global query filter defined and is the required end of a relationship with the entity 'TeacherSub'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2025-03-14 15:41:13.524 +03:30 [WRN] Entity 'Assessment' has a global query filter defined and is the required end of a relationship with the entity 'AssignmentSubmission'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2025-03-14 15:41:13.524 +03:30 [WRN] Entity 'Course' has a global query filter defined and is the required end of a relationship with the entity 'CourseEnrollment'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2025-03-14 15:41:13.528 +03:30 [WRN] The foreign key property 'TeacherSub.SubsId1' was created in shadow state because a conflicting property with the simple name 'SubsId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+2025-03-14 15:41:13.553 +03:30 [DBG] Entity Framework Core 8.0.4 initialized 'AssessmentDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:8.0.4' with options: None
+2025-03-14 15:41:13.564 +03:30 [DBG] Creating DbConnection.
+2025-03-14 15:41:13.566 +03:30 [DBG] Created DbConnection. (1ms).
+2025-03-14 15:41:13.567 +03:30 [DBG] Migrating using database 'AssessmentDb' on server 'localhost\MSSQLSERVER01'.
+2025-03-14 15:41:13.567 +03:30 [DBG] Opening connection to database 'AssessmentDb' on server 'localhost\MSSQLSERVER01'.
+2025-03-14 15:41:13.567 +03:30 [DBG] Opened connection to database 'AssessmentDb' on server 'localhost\MSSQLSERVER01'.
+2025-03-14 15:41:13.568 +03:30 [DBG] Creating DbCommand for 'ExecuteNonQuery'.
+2025-03-14 15:41:13.570 +03:30 [DBG] Created DbCommand for 'ExecuteNonQuery' (0ms).
+2025-03-14 15:41:13.570 +03:30 [DBG] Initialized DbCommand for 'ExecuteNonQuery' (2ms).
+2025-03-14 15:41:13.573 +03:30 [DBG] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-03-14 15:41:13.578 +03:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-03-14 15:41:13.578 +03:30 [DBG] Closing connection to database 'AssessmentDb' on server 'localhost\MSSQLSERVER01'.
+2025-03-14 15:41:13.580 +03:30 [DBG] Closed connection to database 'AssessmentDb' on server 'localhost\MSSQLSERVER01' (0ms).
+2025-03-14 15:41:13.580 +03:30 [DBG] Creating DbCommand for 'ExecuteScalar'.
+2025-03-14 15:41:13.580 +03:30 [DBG] Created DbCommand for 'ExecuteScalar' (0ms).
+2025-03-14 15:41:13.580 +03:30 [DBG] Initialized DbCommand for 'ExecuteScalar' (0ms).
+2025-03-14 15:41:13.580 +03:30 [DBG] Opening connection to database 'AssessmentDb' on server 'localhost\MSSQLSERVER01'.
+2025-03-14 15:41:13.580 +03:30 [DBG] Opened connection to database 'AssessmentDb' on server 'localhost\MSSQLSERVER01'.
+2025-03-14 15:41:13.580 +03:30 [DBG] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2025-03-14 15:41:13.582 +03:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2025-03-14 15:41:13.582 +03:30 [DBG] Closing connection to database 'AssessmentDb' on server 'localhost\MSSQLSERVER01'.
+2025-03-14 15:41:13.582 +03:30 [DBG] Closed connection to database 'AssessmentDb' on server 'localhost\MSSQLSERVER01' (0ms).
+2025-03-14 15:41:13.582 +03:30 [DBG] Opening connection to database 'AssessmentDb' on server 'localhost\MSSQLSERVER01'.
+2025-03-14 15:41:13.582 +03:30 [DBG] Opened connection to database 'AssessmentDb' on server 'localhost\MSSQLSERVER01'.
+2025-03-14 15:41:13.582 +03:30 [DBG] Creating DbCommand for 'ExecuteNonQuery'.
+2025-03-14 15:41:13.582 +03:30 [DBG] Created DbCommand for 'ExecuteNonQuery' (0ms).
+2025-03-14 15:41:13.582 +03:30 [DBG] Initialized DbCommand for 'ExecuteNonQuery' (0ms).
+2025-03-14 15:41:13.582 +03:30 [DBG] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-03-14 15:41:13.583 +03:30 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-03-14 15:41:13.583 +03:30 [DBG] Closing connection to database 'AssessmentDb' on server 'localhost\MSSQLSERVER01'.
+2025-03-14 15:41:13.583 +03:30 [DBG] Closed connection to database 'AssessmentDb' on server 'localhost\MSSQLSERVER01' (0ms).
+2025-03-14 15:41:13.583 +03:30 [DBG] Creating DbCommand for 'ExecuteScalar'.
+2025-03-14 15:41:13.583 +03:30 [DBG] Created DbCommand for 'ExecuteScalar' (0ms).
+2025-03-14 15:41:13.583 +03:30 [DBG] Initialized DbCommand for 'ExecuteScalar' (0ms).
+2025-03-14 15:41:13.583 +03:30 [DBG] Opening connection to database 'AssessmentDb' on server 'localhost\MSSQLSERVER01'.
+2025-03-14 15:41:13.583 +03:30 [DBG] Opened connection to database 'AssessmentDb' on server 'localhost\MSSQLSERVER01'.
+2025-03-14 15:41:13.583 +03:30 [DBG] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2025-03-14 15:41:13.584 +03:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2025-03-14 15:41:13.584 +03:30 [DBG] Closing connection to database 'AssessmentDb' on server 'localhost\MSSQLSERVER01'.
+2025-03-14 15:41:13.584 +03:30 [DBG] Closed connection to database 'AssessmentDb' on server 'localhost\MSSQLSERVER01' (0ms).
+2025-03-14 15:41:13.585 +03:30 [DBG] Opening connection to database 'AssessmentDb' on server 'localhost\MSSQLSERVER01'.
+2025-03-14 15:41:13.585 +03:30 [DBG] Opened connection to database 'AssessmentDb' on server 'localhost\MSSQLSERVER01'.
+2025-03-14 15:41:13.585 +03:30 [DBG] Creating DbCommand for 'ExecuteReader'.
+2025-03-14 15:41:13.585 +03:30 [DBG] Created DbCommand for 'ExecuteReader' (0ms).
+2025-03-14 15:41:13.585 +03:30 [DBG] Initialized DbCommand for 'ExecuteReader' (0ms).
+2025-03-14 15:41:13.586 +03:30 [DBG] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2025-03-14 15:41:13.587 +03:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2025-03-14 15:41:13.587 +03:30 [DBG] Closing data reader to 'AssessmentDb' on server 'localhost\MSSQLSERVER01'.
+2025-03-14 15:41:13.588 +03:30 [DBG] A data reader for 'AssessmentDb' on server 'localhost\MSSQLSERVER01' is being disposed after spending 0ms reading results.
+2025-03-14 15:41:13.588 +03:30 [DBG] Closing connection to database 'AssessmentDb' on server 'localhost\MSSQLSERVER01'.
+2025-03-14 15:41:13.590 +03:30 [DBG] Closed connection to database 'AssessmentDb' on server 'localhost\MSSQLSERVER01' (1ms).
+2025-03-14 15:41:13.590 +03:30 [INF] No migrations were applied. The database is already up to date.
+2025-03-14 15:41:13.590 +03:30 [DBG] 'AssessmentDbContext' disposed.
+2025-03-14 15:41:13.590 +03:30 [DBG] Disposing connection to database 'AssessmentDb' on server 'localhost\MSSQLSERVER01'.
+2025-03-14 15:41:13.591 +03:30 [DBG] Disposed connection to database '' on server '' (0ms).
