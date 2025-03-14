@@ -1,6 +1,4 @@
-﻿using Assessment_Backend.DataLayer.Entities.Log;
-
-namespace Assessment_Backend.DataLayer.Context
+﻿namespace Assessment_Backend.DataLayer.Context
 {
     public class AssessmentDbContext : DbContext
     {
@@ -11,7 +9,7 @@ namespace Assessment_Backend.DataLayer.Context
 
 
         #region User
-       
+
         public DbSet<User> Users { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<TeacherSub> TeacherSubs { get; set; }
@@ -30,14 +28,12 @@ namespace Assessment_Backend.DataLayer.Context
         public DbSet<Grade> Grades { get; set; }
 
         public DbSet<Assessment> Assessments { get; set; }
-        public DbSet<Course>  Courses { get; set; }
-        public DbSet<AssignmentSubmission> AssignmentSubmissions  { get; set; }
-        public DbSet<CourseEnrollment> CourseEnrollments   { get; set; }
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<AssignmentSubmission> AssignmentSubmissions { get; set; }
+        public DbSet<CourseEnrollment> CourseEnrollments { get; set; }
         #endregion
 
-        #region Log
-        public DbSet<RequestLog> RequestLog { get; set; }
-        #endregion
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             var cascadeFKs = modelBuilder.Model.GetEntityTypes()
@@ -48,7 +44,7 @@ namespace Assessment_Backend.DataLayer.Context
                 fk.DeleteBehavior = DeleteBehavior.Restrict;
 
             modelBuilder.Entity<Assessment>()
-                .HasQueryFilter(a=> !a.IsDelete);
+                .HasQueryFilter(a => !a.IsDelete);
 
             modelBuilder.Entity<Course>()
                 .HasQueryFilter(a => !a.IsDelete);
@@ -66,7 +62,7 @@ namespace Assessment_Backend.DataLayer.Context
                 .HasQueryFilter(g => !g.IsDelete);
 
             modelBuilder.Entity<SubType>()
-                .HasQueryFilter(s=> !s.IsDelete);
+                .HasQueryFilter(s => !s.IsDelete);
 
             // اضافه کردن محدودیت unique برای UserId در جدول Teachers
             modelBuilder.Entity<Teacher>()
@@ -74,11 +70,11 @@ namespace Assessment_Backend.DataLayer.Context
                 .IsUnique();
 
             modelBuilder.Entity<User>()
-                .HasIndex(u=> u.CodeMelli)
-                .IsUnique();    
+                .HasIndex(u => u.CodeMelli)
+                .IsUnique();
 
             modelBuilder.Entity<User>()
-                .Property(u=>u.CodeMelli)
+                .Property(u => u.CodeMelli)
                 .IsRequired()
                 .HasMaxLength(10);
 
@@ -119,12 +115,7 @@ namespace Assessment_Backend.DataLayer.Context
                .HasForeignKey(s => s.AssignmentId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            #region Log
-
-            modelBuilder.Entity<RequestLog>()
-                .HasKey(e => e.Id);
-                
-            #endregion
+           
 
 
             base.OnModelCreating(modelBuilder);
