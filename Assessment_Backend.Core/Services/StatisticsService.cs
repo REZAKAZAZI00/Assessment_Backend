@@ -57,9 +57,9 @@ namespace Assessment_Backend.Core.Services
             if (teacherId is 0)
                 throw new UnauthorizedAppException("لطفاً مجدداً وارد حساب کاربری خود شوید.");
 
-            int classCount = _context.Courses
+            int classCount = await _context.Courses
                 .AsNoTracking()
-                .Count(c => c.TeacherId == teacherId);
+                .CountAsync(c => c.TeacherId == teacherId);
 
             int assessmentCount = await _context.Assessments
                 .AsNoTracking()

@@ -1,6 +1,7 @@
 using Amazon.S3;
 using Amazon.S3.Model;
 using Amazon.S3.Util;
+using System.Globalization;
 
 namespace Assessment_Backend.Core.Services;
 
@@ -22,17 +23,19 @@ public class AssessmentService : IAssessmentService
 {
     #region Constructor
     private readonly S3StorageOptions _s3Options;
-    private IAmazonS3? _s3Client;
+    private readonly IAmazonS3 _s3Client;
     private readonly AssessmentDbContext _context;
     private readonly ILogger<AssessmentService> _logger;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
     public AssessmentService(AssessmentDbContext context, ILogger<AssessmentService> logger,
-        IHttpContextAccessor httpContextAccessor, IConfiguration configuration)
+        IHttpContextAccessor httpContextAccessor, IConfiguration configuration, IAmazonS3 s3Client)
     {
         _context = context;
         _logger = logger;
         _httpContextAccessor = httpContextAccessor;
+        _s3Client = s3Client;
+
         var section = configuration.GetSection(S3StorageOptions.SectionName);
         _s3Options = new S3StorageOptions
         {
@@ -44,10 +47,6 @@ public class AssessmentService : IAssessmentService
     }
     #endregion
 
-    private IAmazonS3 S3Client => _s3Client ??= new AmazonS3Client(
-        new Amazon.Runtime.BasicAWSCredentials(_s3Options.AccessKey, _s3Options.SecretKey),
-        new AmazonS3Config { ServiceURL = _s3Options.ServiceUrl });
-
     public async Task<OutPutModel<AssessmentDTO>> AssignmentSubmissionAsync(AssignmentSubmissionDTO assessmentSubmissionDTO)
     {
         ValidateModel.ValidateOrThrow(assessmentSubmissionDTO);
@@ -56,45 +55,48 @@ public class AssessmentService : IAssessmentService
         if (studentId is 0)
             throw new UnauthorizedAppException();
 
-        var assessment = await _context.AssignmentSubmissions
-            .SingleOrDefaultAsync(a => a.StudentId == studentId && a.AssignmentId == assessmentSubmissionDTO.AssignmentId);
+        // دانشجو فقط می‌تواند برای تکلیفی که عضو کلاس آن است ارسال کند
+        bool hasAccess = await _context.Assessments
+            .AsNoTracking()
+            .AnyAsync(a => a.AssessmentId == assessmentSubmissionDTO.AssignmentId
+                && a.Course.CourseEnrollments.Any(e => e.StudentId == studentId));
 
-        if (assessment is not null)
-            throw new BusinessException("دانشجوی گرامی شما قبلا تکلیف خود را ارسال کردید.", 409);
+        if (!hasAccess)
+            throw new NotFoundAppException("تکلیف پیدا نشد.");
 
-        if (assessmentSubmissionDTO.File == null)
+        var assessment = await _context.Assessments
+            .AsNoTracking()
+            .SingleOrDefaultAsync(a => a.AssessmentId == assessmentSubmissionDTO.AssignmentId)
+            ?? throw new NotFoundAppException("تکلیف پیدا نشد.");
+
+        bool alreadySubmitted = await _context.AssignmentSubmissions
+            .AsNoTracking()
+            .AnyAsync(a => a.StudentId == studentId && a.AssignmentId == assessmentSubmissionDTO.AssignmentId);
+
+        if (alreadySubmitted)
+            throw new ConflictAppException("دانشجوی گرامی شما قبلا تکلیف خود را ارسال کردید.");
+
+        string fileName = "default";
+        if (assessmentSubmissionDTO.File is not null)
         {
-            var newTextSubmission = new AssignmentSubmission
-            {
-                CreateDate = DateTime.Now,
-                AssignmentId = assessmentSubmissionDTO.AssignmentId,
-                StudentId = studentId,
-                Text = assessmentSubmissionDTO.Text,
-                FileName = "default",
-            };
-            await _context.AssignmentSubmissions.AddAsync(newTextSubmission);
-            await _context.SaveChangesAsync();
-        }
-        else
-        {
-            var fileName = Path.Combine("Submission/", NameGenerator.GenerateName()
-                + Path.GetExtension(assessmentSubmissionDTO.File.FileName));
+            fileName = "Submission/" + NameGenerator.GenerateName()
+                + Path.GetExtension(assessmentSubmissionDTO.File.FileName);
 
             bool uploaded = await UploadWithBucketCheckAsync(fileName, assessmentSubmissionDTO.File);
             if (!uploaded)
                 throw new BusinessException("بارگزاری ناموفق بود. مجدداً تلاش کنید.", 500);
-
-            var newSubmission = new AssignmentSubmission
-            {
-                CreateDate = DateTime.Now,
-                AssignmentId = assessmentSubmissionDTO.AssignmentId,
-                StudentId = studentId,
-                Text = assessmentSubmissionDTO.Text,
-                FileName = fileName,
-            };
-            await _context.AssignmentSubmissions.AddAsync(newSubmission);
-            await _context.SaveChangesAsync();
         }
+
+        var newSubmission = new AssignmentSubmission
+        {
+            CreateDate = DateTime.Now,
+            AssignmentId = assessmentSubmissionDTO.AssignmentId,
+            StudentId = studentId,
+            Text = assessmentSubmissionDTO.Text,
+            FileName = fileName,
+        };
+        await _context.AssignmentSubmissions.AddAsync(newSubmission);
+        await _context.SaveChangesAsync();
 
         return new OutPutModel<AssessmentDTO>
         {
@@ -111,45 +113,42 @@ public class AssessmentService : IAssessmentService
         if (assessmentDTO.EndDate <= assessmentDTO.StartDate)
             throw new BusinessException("تاریخ پایان نمی‌تواند قبل از تاریخ شروع باشد.", 400);
 
-        if (assessmentDTO.File == null)
+        int teacherId = _httpContextAccessor.GetTeacherId();
+        if (teacherId is 0)
+            throw new UnauthorizedAppException();
+
+        // استاد فقط می‌تواند برای کلاس خودش تکلیف بسازد
+        bool ownsCourse = await _context.Courses
+            .AsNoTracking()
+            .AnyAsync(c => c.CourseId == assessmentDTO.CourseId && c.TeacherId == teacherId);
+
+        if (!ownsCourse)
+            throw new NotFoundAppException("کلاس مورد نظر پیدا نشد.");
+
+        var fileName = "default";
+        if (assessmentDTO.File is not null)
         {
-            var newAssessment = new Assessment()
-            {
-                Description = assessmentDTO.Description,
-                EndDate = assessmentDTO.EndDate,
-                Title = assessmentDTO.Title,
-                IsDelete = false,
-                StartDate = assessmentDTO.StartDate,
-                PenaltyRule = assessmentDTO.PenaltyRule,
-                CourseId = assessmentDTO.CourseId,
-                FileName = "default",
-            };
-            await _context.Assessments.AddAsync(newAssessment);
-            await _context.SaveChangesAsync();
-        }
-        else
-        {
-            var fileName = Path.Combine("assessment/", NameGenerator.GenerateName()
-                + Path.GetExtension(assessmentDTO.File.FileName));
+            fileName = "assessment/" + NameGenerator.GenerateName()
+                + Path.GetExtension(assessmentDTO.File.FileName);
 
             bool uploaded = await UploadWithBucketCheckAsync(fileName, assessmentDTO.File);
             if (!uploaded)
                 throw new BusinessException("بارگزاری ناموفق بود. مجدداً تلاش کنید.", 500);
-
-            var newAssessment = new Assessment()
-            {
-                Description = assessmentDTO.Description,
-                EndDate = assessmentDTO.EndDate,
-                Title = assessmentDTO.Title,
-                IsDelete = false,
-                StartDate = assessmentDTO.StartDate,
-                PenaltyRule = assessmentDTO.PenaltyRule,
-                CourseId = assessmentDTO.CourseId,
-                FileName = fileName,
-            };
-            await _context.Assessments.AddAsync(newAssessment);
-            await _context.SaveChangesAsync();
         }
+
+        var newAssessment = new Assessment()
+        {
+            Description = assessmentDTO.Description,
+            EndDate = assessmentDTO.EndDate,
+            Title = assessmentDTO.Title,
+            IsDelete = false,
+            StartDate = assessmentDTO.StartDate,
+            PenaltyRule = assessmentDTO.PenaltyRule,
+            CourseId = assessmentDTO.CourseId,
+            FileName = fileName,
+        };
+        await _context.Assessments.AddAsync(newAssessment);
+        await _context.SaveChangesAsync();
 
         return new OutPutModel<CourseDTO>
         {
@@ -163,14 +162,22 @@ public class AssessmentService : IAssessmentService
     {
         ValidateModel.ValidateOrThrow(assessmentDTO);
 
-        var assessment = await _context.Assessments.FindAsync(assessmentDTO.AssessmentId);
+        int teacherId = _httpContextAccessor.GetTeacherId();
+        if (teacherId is 0)
+            throw new UnauthorizedAppException();
+
+        // استاد فقط تکلیف کلاس خودش را می‌تواند ویرایش کند
+        var assessment = await _context.Assessments
+            .SingleOrDefaultAsync(a => a.AssessmentId == assessmentDTO.AssessmentId
+                && a.Course.TeacherId == teacherId);
+
         if (assessment is null)
             throw new NotFoundAppException("تکلیف پیدا نشد.");
 
         if (assessmentDTO.File != null)
         {
-            var fileName = Path.Combine("assessment/", NameGenerator.GenerateName()
-                + Path.GetExtension(assessmentDTO.File.FileName));
+            var fileName = "assessment/" + NameGenerator.GenerateName()
+                + Path.GetExtension(assessmentDTO.File.FileName);
 
             bool uploaded = await UploadWithBucketCheckAsync(fileName, assessmentDTO.File);
             if (!uploaded)
@@ -190,7 +197,6 @@ public class AssessmentService : IAssessmentService
         assessment.PenaltyRule = assessmentDTO.PenaltyRule;
         assessment.Title = assessmentDTO.Title;
 
-        _context.Assessments.Update(assessment);
         await _context.SaveChangesAsync();
 
         return new OutPutModel<CourseDTO>
@@ -203,8 +209,14 @@ public class AssessmentService : IAssessmentService
 
     public async Task<OutPutModel<CourseDTO>> DeleteAssessmentAsync(DeleteAssessmentDTO assessmentDTO)
     {
+        int teacherId = _httpContextAccessor.GetTeacherId();
+        if (teacherId is 0)
+            throw new UnauthorizedAppException();
+
+        // استاد فقط تکلیف کلاس خودش را می‌تواند حذف کند
         var existing = await _context.Assessments
-            .SingleOrDefaultAsync(a => a.AssessmentId == assessmentDTO.AssessmentId);
+            .SingleOrDefaultAsync(a => a.AssessmentId == assessmentDTO.AssessmentId
+                && a.Course.TeacherId == teacherId);
 
         if (existing is null)
             throw new NotFoundAppException("تکلیف پیدا نشد.");
@@ -223,7 +235,7 @@ public class AssessmentService : IAssessmentService
     public async Task<AssessmentDTO> GetAssignmentByIdAsync(int assessmentId)
     {
         var assessment = await _context.Assessments
-            .AsTracking()
+            .AsNoTracking()
             .Where(a => a.AssessmentId == assessmentId)
             .Select(a => new AssessmentDTO
             {
@@ -246,8 +258,7 @@ public class AssessmentService : IAssessmentService
     public async Task<OutPutModel<List<SubmittedAssignmentDTO>>> GetAssignmentSubmissionsByIdAsync(int assignmentId)
     {
         var submissions = await _context.AssignmentSubmissions
-             .AsTracking()
-             .Include(s => s.Student)
+             .AsNoTracking()
              .Where(a => a.AssignmentId == assignmentId)
              .Select(a => new SubmittedAssignmentDTO
              {
@@ -281,10 +292,8 @@ public class AssessmentService : IAssessmentService
     public async Task<CourseDTO> GetCourseByIdAsync(int courseId)
     {
         var course = await _context.Courses
-            .Include(t => t.Term)
-            .Include(t => t.Teacher)
-            .Include(a => a.Assessments)
-            .Where(a => a.CourseId == courseId)
+            .AsNoTracking()
+            .Where(c => c.CourseId == courseId)
             .Select(c => new CourseDTO
             {
                 Title = c.Title,
@@ -307,23 +316,33 @@ public class AssessmentService : IAssessmentService
                         FileName = a.FileName,
                     })
                     .ToList()
-            }).SingleAsync();
+            }).SingleOrDefaultAsync();
+
+        if (course is null)
+            throw new NotFoundAppException("درس پیدا نشد.");
 
         return course;
     }
 
     public async Task<OutPutModel<AssessmentDTO>> ScoreRegistrationAsync(ScoreRegistrationDTO scoreRegistrationDTO)
     {
+        int teacherId = _httpContextAccessor.GetTeacherId();
+        if (teacherId is 0)
+            throw new UnauthorizedAppException();
+
+        // استاد فقط نمره ارسال‌های تکلیف کلاس خودش را می‌تواند ثبت کند
         var existingSubmissions = await _context.AssignmentSubmissions
-            .Where(a => a.AS_Id == scoreRegistrationDTO.AS_Id)
-            .SingleOrDefaultAsync();
+            .SingleOrDefaultAsync(a => a.AS_Id == scoreRegistrationDTO.AS_Id
+                && a.Assessment.Course.TeacherId == teacherId);
 
         if (existingSubmissions is null)
             throw new NotFoundAppException("در ثبت نمره مشکل به وجود اومد مجدد تلاش کنید.");
 
         var timeSent = existingSubmissions.CreateDate;
 
-        var assessment = await _context.Assessments.FindAsync(existingSubmissions.AssignmentId)
+        var assessment = await _context.Assessments
+            .AsNoTracking()
+            .SingleOrDefaultAsync(a => a.AssessmentId == existingSubmissions.AssignmentId)
             ?? throw new NotFoundAppException("تکلیف پیدا نشد.");
 
         var expirationDate = assessment.EndDate;
@@ -339,22 +358,20 @@ public class AssessmentService : IAssessmentService
                 var penaltyRule = ParsePenaltyRule(assessment.PenaltyRule);
 
                 if (penaltyRule.Count == 0)
-                    throw new BusinessException("قاعده‌ی اعمال جریمه دارای مشکل است", 404);
+                    throw new BusinessException("قاعده‌ی اعمال جریمه دارای مشکل است", 400);
 
-                var delay = (int)(timeSent - expirationDate).TotalDays;
+                // تعداد روزهای تأخیر (بخش اعشاری = ساعات تأخیر)
+                var delay = (timeSent - expirationDate).TotalDays;
 
-                foreach (var item in penaltyRule)
-                {
-                    if (item.days == delay)
-                    {
-                        var penaltyPercentage = item.score / 100.0;
-                        var scoreWithPenalty = scoreRegistrationDTO.Score * penaltyPercentage;
-                        existingSubmissions.RawScore = scoreRegistrationDTO.Score;
-                        existingSubmissions.LateScore = (int)scoreWithPenalty;
+                // بزرگ‌ترین پله‌ای که هنوز به آن نرسیده‌ایم؛ اگر از همه پله‌ها بگذرد، بیشترین جریمه اعمال می‌شود
+                var applicable = penaltyRule.FirstOrDefault(p => delay < p.days);
+                if (applicable == default)
+                    applicable = penaltyRule.Last();
 
-                        break;
-                    }
-                }
+                var penaltyPercentage = applicable.score / 100.0;
+                var scoreWithPenalty = scoreRegistrationDTO.Score * penaltyPercentage;
+                existingSubmissions.RawScore = scoreRegistrationDTO.Score;
+                existingSubmissions.LateScore = (int)Math.Round(scoreWithPenalty);
             }
             else
             {
@@ -363,7 +380,6 @@ public class AssessmentService : IAssessmentService
             }
         }
 
-        _context.AssignmentSubmissions.Update(existingSubmissions);
         await _context.SaveChangesAsync();
 
         return new OutPutModel<AssessmentDTO>
@@ -382,11 +398,8 @@ public class AssessmentService : IAssessmentService
         if (teacherId is 0 && studentId is 0)
             throw new UnauthorizedAppException();
 
-        var assessments = _context.Courses
-            .AsTracking()
-            .Include(c => c.Teacher)
-            .Include(c => c.Assessments)
-            .Include(c => c.CourseEnrollments).ThenInclude(e => e.Student)
+        var assessments = await _context.Courses
+            .AsNoTracking()
             .Where(c => teacherId > 0 ? c.TeacherId == teacherId : c.CourseEnrollments.Any(e => e.StudentId == studentId))
             .SelectMany(c => c.Assessments)
             .Select(a => new AssessmentDTO
@@ -400,23 +413,23 @@ public class AssessmentService : IAssessmentService
                 Title = a.Title,
                 PenaltyRule = a.PenaltyRule,
                 FileName = a.FileName,
-                submitted = studentId > 0 ? _context.AssignmentSubmissions
-                .Where(s => s.StudentId == studentId && s.AssignmentId == a.AssessmentId)
-                .Select(s => new SubmittedAssignmentDTO
-                {
-                    AssignmentId = s.AssignmentId,
-                    CreateDate = s.CreateDate,
-                    LateScore = s.LateScore,
-                    AS_Id = s.AS_Id,
-                    FileName = s.FileName,
-                    RawScore = s.RawScore,
-                    ReviewedDate = s.ReviewedDate,
-                    Text = s.Text,
-                }).SingleOrDefault() : null
+                submitted = studentId > 0 ? a.AssignmentSubmissions
+                    .Where(s => s.StudentId == studentId)
+                    .Select(s => new SubmittedAssignmentDTO
+                    {
+                        AssignmentId = s.AssignmentId,
+                        CreateDate = s.CreateDate,
+                        LateScore = s.LateScore,
+                        AS_Id = s.AS_Id,
+                        FileName = s.FileName,
+                        RawScore = s.RawScore,
+                        ReviewedDate = s.ReviewedDate,
+                        Text = s.Text,
+                    }).SingleOrDefault() : null
             })
             .OrderBy(a => a.CourseId)
             .ThenBy(a => a.AssessmentId)
-            .ToList();
+            .ToListAsync();
 
         return new OutPutModel<List<AssessmentDTO>>
         {
@@ -433,7 +446,7 @@ public class AssessmentService : IAssessmentService
             throw new UnauthorizedAppException();
 
         var student = await _context.Students
-            .AsTracking()
+            .AsNoTracking()
             .Where(s => s.StudentId == studentId)
             .Select(s => new StudentDTO
             {
@@ -447,10 +460,8 @@ public class AssessmentService : IAssessmentService
             ?? throw new NotFoundAppException("دانشجو پیدا نشد.");
 
         var scores = await _context.AssignmentSubmissions
-            .AsTracking()
+            .AsNoTracking()
             .Where(a => a.StudentId == studentId)
-            .Include(a => a.Assessment)
-            .ThenInclude(c => c.Course).ThenInclude(t => t.Term)
             .Select(s => new ScoreDTO
             {
                 LastScore = s.LateScore,
@@ -461,7 +472,7 @@ public class AssessmentService : IAssessmentService
         if (scores.Count == 0)
             throw new BusinessException("هنوز نمره‌ای برای شما ثبت نشده است.", 404);
 
-        int average = (int)scores.Average(s => s.LastScore);
+        int average = (int)Math.Round(scores.Average(s => (double)s.LastScore));
 
         var report = new ReportDTO
         {
@@ -486,30 +497,28 @@ public class AssessmentService : IAssessmentService
     /// </summary>
     private async Task<bool> UploadWithBucketCheckAsync(string fileName, IFormFile formFile)
     {
-        bool bucketExists = await AmazonS3Util.DoesS3BucketExistV2Async(S3Client, _s3Options.BucketName);
+        bool bucketExists = await AmazonS3Util.DoesS3BucketExistV2Async(_s3Client, _s3Options.BucketName);
         if (!bucketExists)
         {
             _logger.LogCritical("Bucket {Bucket} in ArvanStorage doesn't exist.", _s3Options.BucketName);
             return false;
         }
 
-        return await UploadObjectFromFileAsync(S3Client, _s3Options.BucketName, fileName, formFile);
+        return await UploadObjectFromFileAsync(_s3Client, _s3Options.BucketName, fileName, formFile);
     }
 
-    public async Task<bool> UploadObjectFromFileAsync(IAmazonS3 client, string bucketName, string keyName, IFormFile formFile)
+    private async Task<bool> UploadObjectFromFileAsync(IAmazonS3 client, string bucketName, string keyName, IFormFile formFile)
     {
         try
         {
-            using Stream inputStream = formFile.OpenReadStream();
-            using MemoryStream memoryStream = new MemoryStream();
-            await inputStream.CopyToAsync(memoryStream);
-            memoryStream.Position = 0;
+            // استریم مستقیم از IFormFile به S3 - بدون بافر کردن کل فایل در حافظه
+            await using Stream inputStream = formFile.OpenReadStream();
 
             var putRequest = new PutObjectRequest
             {
                 BucketName = bucketName,
                 Key = keyName,
-                InputStream = memoryStream,
+                InputStream = inputStream,
                 ContentType = formFile.ContentType,
                 CannedACL = S3CannedACL.PublicRead,
             };
@@ -529,6 +538,9 @@ public class AssessmentService : IAssessmentService
         }
     }
 
+    /// <summary>
+    /// پارس قاعده جریمه به شکل "1d 90n2d 50n3d 0" یعنی بعد از ۱ روز نمره ۹۰٪، بعد از ۲ روز ۵۰٪ و بعد از ۳ روز صفر.
+    /// </summary>
     public List<(double days, double score)> ParsePenaltyRule(string penaltyRule)
     {
         var penalties = new List<(double days, double score)>();
@@ -543,18 +555,16 @@ public class AssessmentService : IAssessmentService
 
                 if (timePart.EndsWith("d"))
                 {
-                    var days = double.Parse(timePart.TrimEnd('d'));
-                    var score = double.Parse(scorePart);
-                    penalties.Add((days, score));
+                    if (double.TryParse(timePart.TrimEnd('d'), NumberStyles.Float, CultureInfo.InvariantCulture, out var days) &&
+                        double.TryParse(scorePart, NumberStyles.Float, CultureInfo.InvariantCulture, out var score))
+                    {
+                        penalties.Add((days, score));
+                    }
                 }
             }
         }
 
-        if (penalties.Count == 0)
-            return new List<(double days, double score)>();
-
-        penalties = penalties.OrderBy(x => x.days).ToList();
-        return penalties;
+        return penalties.OrderBy(x => x.days).ToList();
     }
 
     #endregion
