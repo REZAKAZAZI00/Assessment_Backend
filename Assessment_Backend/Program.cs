@@ -1,19 +1,54 @@
+using Assessment_Backend.Filters;
+using Assessment_Backend.Middleware;
+using Serilog.Sinks.MSSqlServer;
+
 internal class Program
 {
     private static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-        #region Log
+
+        #region Log (Serilog)
+        // لاگ درخواست و پاسخ هر HTTP Request در دو جدول مجزای دیتابیس:
+        //   RequestLogs  -> پراپرتی LogType=Request
+        //   ResponseLogs -> پراپرتی LogType=Response
+        // (توسط RequestResponseLoggingMiddleware تولید و در اینجا به دیتابیس نوشته می‌شود)
+        var logConnectionString = builder.Configuration.GetConnectionString("AssessmentConnection");
+
+        // نمایش خطاهای خود Sink ها (مثل قطعی دیتابیس) روی stderr تا بی‌صدا گم نشوند
+        Serilog.Debugging.SelfLog.Enable(msg => Console.Error.WriteLine($"[SERILOG SELFLOG] {msg}"));
+
+        var requestSinkOptions = new MSSqlServerSinkOptions { TableName = "RequestLogs", AutoCreateSqlTable = true };
+        var responseSinkOptions = new MSSqlServerSinkOptions { TableName = "ResponseLogs", AutoCreateSqlTable = true };
+
         Log.Logger = new LoggerConfiguration()
            .MinimumLevel.Debug()
            .WriteTo.Console()
            .WriteTo.File("data/backend.txt", rollingInterval: RollingInterval.Day)
+           // جدول RequestLogs: فقط رخدادهای LogType=Request
+           .WriteTo.Logger(lc => lc
+               .Filter.ByExcluding(e =>
+                   !(e.Properties.TryGetValue("LogType", out var t) && t.ToString() == "\"Request\""))
+               .WriteTo.MSSqlServer(
+                   connectionString: logConnectionString,
+                   sinkOptions: requestSinkOptions,
+                   columnOptions: RequestResponseLogColumns.RequestOptions(),
+                   restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Information))
+           // جدول ResponseLogs: فقط رخدادهای LogType=Response
+           .WriteTo.Logger(lc => lc
+               .Filter.ByExcluding(e =>
+                   !(e.Properties.TryGetValue("LogType", out var t) && t.ToString() == "\"Response\""))
+               .WriteTo.MSSqlServer(
+                   connectionString: logConnectionString,
+                   sinkOptions: responseSinkOptions,
+                   columnOptions: RequestResponseLogColumns.ResponseOptions(),
+                   restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Information))
            .CreateLogger();
-        #endregion
+
         builder.Host.UseSerilog();
+        #endregion
 
         #region Authentication
-
         builder.Services.AddAuthentication("Bearer")
             .AddJwtBearer(options =>
             {
@@ -26,13 +61,10 @@ internal class Program
                     ValidIssuer = builder.Configuration["Authentication:Issuer"],
                     ValidAudience = builder.Configuration["Authentication:Audience"],
                     IssuerSigningKey = new SymmetricSecurityKey(
-                    Encoding.ASCII.GetBytes(builder.Configuration["Authentication:SecretForKey"]))
-
+                    Encoding.ASCII.GetBytes(builder.Configuration["Authentication:SecretForKey"]
+                        ?? throw new InvalidOperationException("Authentication:SecretForKey is not configured.")))
                 };
-            }
-            );
-
-
+            });
         #endregion
 
         #region DbContext
@@ -40,171 +72,108 @@ internal class Program
         builder.Services.AddDbContext<AssessmentDbContext>(options => options.UseSqlServer(connectionString));
         #endregion
 
-        var options=new DbContextOptionsBuilder<AssessmentDbContext>()
+        // اعمال Migration های در انتظار در زمان استارتاپ
+        var options = new DbContextOptionsBuilder<AssessmentDbContext>()
             .UseSqlServer(connectionString).Options;
-        using AssessmentDbContext context=new AssessmentDbContext(options);
-        
-        if (context.Database.GetPendingMigrations().Count()>0)
+        using (AssessmentDbContext context = new(options))
         {
-            context.Database.Migrate();
+            if (context.Database.GetPendingMigrations().Any())
+            {
+                context.Database.Migrate();
+            }
         }
 
         #region IOC
-
         builder.Services.AddScoped<ITokenHelperService, TokenHelper>();
-        builder.Services.AddTransient<IUserService, UserService>();
+        builder.Services.AddScoped<IUserService, UserService>();
         builder.Services.AddScoped<IGradeService, GradeService>();
-        builder.Services.AddTransient<ICourseService, CourseService>();
-        builder.Services.AddTransient<IAssessmentService, AssessmentService>();
-        builder.Services.AddScoped<IStatisticsService , StatisticsService>();
-
+        builder.Services.AddScoped<ICourseService, CourseService>();
+        builder.Services.AddScoped<IAssessmentService, AssessmentService>();
+        builder.Services.AddScoped<IStatisticsService, StatisticsService>();
         #endregion
 
-
-        builder.Services.AddControllers();
+        #region Controllers + Filters
+        builder.Services.AddControllers(options =>
+        {
+            // تبدیل خودکار نتیجه سرویس‌ها به HTTP Status واقعی
+            options.Filters.Add<ServiceResultFilter>();
+            // پاسخ استاندارد برای خطاهای ModelState
+            options.Filters.Add<ModelValidationFilter>();
+        });
+        #endregion
 
         #region Cors
         builder.Services.AddCors(options =>
         {
-            options.AddDefaultPolicy(
-            corsbuilder =>
+            options.AddDefaultPolicy(corsbuilder =>
             {
-                corsbuilder.WithOrigins("*")
-               .AllowAnyHeader()
-               .AllowAnyMethod()
-               .AllowAnyOrigin();
+                corsbuilder.AllowAnyOrigin()
+                           .AllowAnyHeader()
+                           .AllowAnyMethod();
             });
         });
         #endregion
 
-        builder.Services.AddControllers();
         builder.Services.AddHttpContextAccessor();
-
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
 
-        #region Confing Swagger
-        if (builder.Environment.IsDevelopment())
+        #region Swagger
+        builder.Services.AddSwaggerGen(c =>
         {
-            builder.Services.AddSwaggerGen(c =>
+            var xmlFile = $"{typeof(Program).Assembly.GetName().Name}.xml";
+            var xmlPath = builder.Environment.IsDevelopment()
+                ? Path.Combine(AppContext.BaseDirectory, xmlFile)
+                : Path.Combine(Directory.GetCurrentDirectory(), xmlFile);
+            if (File.Exists(xmlPath))
+                c.IncludeXmlComments(xmlPath);
+
+            c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
             {
-                c.IncludeXmlComments(Path.Combine(Directory.GetCurrentDirectory(), @"bin\Debug\net8.0", "Assessment_Backend.xml"));
-
-                c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
-                {
-                    In = Microsoft.OpenApi.Models.ParameterLocation.Header,
-                    Description = "Plese insert token",
-                    Name = "Authorization",
-                    Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http,
-                    BearerFormat = "JWT",
-                    Scheme = "bearer",
-
-                });
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+                Description = "Plese insert token",
+                Name = "Authorization",
+                Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http,
+                BearerFormat = "JWT",
+                Scheme = "bearer",
+            });
+            c.AddSecurityRequirement(new OpenApiSecurityRequirement
             {
                 {
                     new OpenApiSecurityScheme
                     {
-                        Reference=new OpenApiReference
+                        Reference = new OpenApiReference
                         {
-                            Type=ReferenceType.SecurityScheme,
-                             Id="Bearer"
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
                         }
                     },
-                    new string[]{}
+                    Array.Empty<string>()
                 }
             });
-            });
-        }
-        else
-        {
-            builder.Services.AddSwaggerGen(c =>
-            {
-                c.IncludeXmlComments(Path.Combine(Directory.GetCurrentDirectory(), "Assessment_Backend.xml"));
-
-
-                c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
-                {
-                    In = Microsoft.OpenApi.Models.ParameterLocation.Header,
-                    Description = "Plese insert token",
-                    Name = "Authorization",
-                    Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http,
-                    BearerFormat = "JWT",
-                    Scheme = "bearer",
-
-                });
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement
-            {
-                {
-                    new OpenApiSecurityScheme
-                    {
-                        Reference=new OpenApiReference
-                        {
-                            Type=ReferenceType.SecurityScheme,
-                             Id="Bearer"
-                        }
-                    },
-                    new string[]{}
-                }
-            });
-            });
-        }
-            
+        });
         #endregion
+
         var app = builder.Build();
 
-        app.UseCors();
+        #region Middleware Pipeline
+        // اولین Middleware: ثبت Request و Response هر درخواست در دو جدول دیتابیس
+        app.UseRequestResponseLogging();
 
+        // بعد از آن: هر Exception در کل برنامه فقط اینجا مدیریت می‌شود
+        app.UseGlobalExceptionHandling();
+
+        app.UseSerilogRequestLogging();
+
+        app.UseCors();
         app.UseHttpsRedirection();
         app.UseAuthentication();
         app.UseAuthorization();
         app.MapControllers();
-
-        #region Adding Security Middleware
-
-        //app.Use(async (context, next) =>
-        //{
-        //    if (context.Request.Path.StartsWithSegments("/swagger") && context.Request.Method == "GET")
-        //    {
-        //        string authHeader = context.Request.Headers["Authorization"];
-
-        //        if (authHeader == null || !authHeader.StartsWith("Basic "))
-        //        {
-        //            // Password not provided in the request
-        //            context.Response.StatusCode = 401;
-        //            context.Response.Headers["WWW-Authenticate"] = "Basic realm=\"My API\"";
-        //            await context.Response.WriteAsync("To access Swagger, you need to provide a password.");
-        //            return;
-        //        }
-        //        else
-        //        {
-        //            // Check the password
-        //            string credentials = Encoding.UTF8.GetString(Convert.FromBase64String(authHeader.Substring(6)));
-        //            string[] parts = credentials.Split(':');
-        //            string username = parts[0];
-        //            string password = parts[1];
-
-        //            if (username == "admin" && password == "123456789")
-        //            {
-        //                // Correct password, allow access to Swagger
-        //                await next();
-        //                return;
-        //            }
-        //            else
-        //            {
-        //                // Incorrect password
-        //                context.Response.StatusCode = 401;
-        //                await context.Response.WriteAsync("Incorrect password.");
-        //                return;
-        //            }
-        //        }
-        //    }
-
-        //    await next();
-        //});
         #endregion
+
         app.UseSwagger();
         app.UseSwaggerUI();
+
         app.Run();
     }
 }
