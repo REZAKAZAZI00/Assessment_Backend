@@ -41,7 +41,7 @@
         /// </summary>
         /// <param name="courseId"></param>
         /// <returns></returns>
-        [HttpGet("course/{courseId}")]
+        [HttpGet("course/{courseId:int}")]
         [Authorize]
         public async Task<ActionResult<OutPutModel<CourseDTO>>> GetCourseById(int courseId)
         {

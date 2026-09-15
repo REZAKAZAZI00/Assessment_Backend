@@ -1,4 +1,4 @@
-﻿namespace Assessment_Backend.Core.Servies
+namespace Assessment_Backend.Core.Servies
 {
     public class UserService : IUserService
     {
@@ -16,8 +16,6 @@
 
         #endregion
 
-       
-
         public async Task<bool> IsExistCodeMelliAsync(string code)
         {
             return await _context.Users
@@ -27,244 +25,147 @@
 
         public async Task<OutPutModel<UserProfileDTO>> LoginAsync(LoginDTO model)
         {
-            if (!ValidateModel.Validate(model, out var validationResult))
-            {
-                _logger.LogError(validationResult);
+            ValidateModel.ValidateOrThrow(model);
 
-                return new OutPutModel<UserProfileDTO>
-                {
-                    Message = validationResult,
-                    Result = null,
-                    StatusCode = 400
-                };
+            string password = PasswordHelper.EncodePasswordSHA1(model.Password);
+
+            var existingUser = await _context.Users
+               .AsNoTracking()
+               .SingleOrDefaultAsync(u => u.CodeMelli == model.CodeMelli && u.Password == password);
+
+            if (existingUser is null)
+            {
+                _logger.LogWarning("Failed login attempt for CodeMelli {CodeMelli}", model.CodeMelli);
+                throw new BusinessException("اطلاعات وارد شده صحیح نمی باشد.", 400);
             }
 
-            try
+            var userProfile = new UserProfileDTO
             {
-                string password = PasswordHelper.EncodePasswordSHA1(model.Password);
+                UserId = existingUser.UserId,
+                CodeMelli = existingUser.CodeMelli,
+                Role = (DTOs.Account.RoleDTO)existingUser.Role,
+                Token = ""
+            };
 
-                var existingUser = await _context.Users
-                   .AsNoTracking()
-                   .SingleOrDefaultAsync(u => u.CodeMelli == model.CodeMelli && u.Password == password);
+            var student = await _context.Students
+                .AsNoTracking()
+                .Include(g => g.Grade)
+                .SingleOrDefaultAsync(s => s.UserId == existingUser.UserId);
 
-                if (existingUser is null)
-                {
-                    return new OutPutModel<UserProfileDTO>
-                    {
-                        Message = "اطلاعات وارد شده صیحیح نمی باشد. ",
-                        Result = null,
-                        StatusCode = 400
-                    };
-                }
-                var userProfile = new UserProfileDTO
-                {
-                    UserId = existingUser.UserId,
-                    CodeMelli = existingUser.CodeMelli,
-                    Role = (DTOs.Account.RoleDTO)existingUser.Role,
-                    Token=""
-                };
-                var student = await _context.Students
+            if (student != null)
+            {
+                userProfile.Name = student.Name;
+                userProfile.Email = student.Email;
+                userProfile.PhoneNumber = student.PhoneNumber;
+                userProfile.Grade = student.Grade!.Title;
+                userProfile.family = student.family;
+                userProfile.StudentId = student.StudentId;
+                userProfile.Token = _tokenHelperService.GenerateToken<Student>(existingUser, student);
+            }
+            else
+            {
+                var teacher = await _context.Teachers
                     .AsNoTracking()
-                    .Include(g=> g.Grade)
-                    .SingleOrDefaultAsync(s => s.UserId == existingUser.UserId);
-                if (student != null)
+                    .SingleOrDefaultAsync(t => t.UserId == existingUser.UserId);
+
+                if (teacher != null)
                 {
-                    userProfile.Name = student.Name;
-                    userProfile.Email = student.Email;
-                    userProfile.PhoneNumber = student.PhoneNumber;
-                    userProfile.Grade = student.Grade.Title;
-                    userProfile.family=student.family;
-                    userProfile.StudentId = student.StudentId;
-                    userProfile.Token = _tokenHelperService.GenerateToken<Student>(existingUser,student);
+                    userProfile.TeacherId = teacher.TeacherId;
+                    userProfile.Name = teacher.Name;
+                    userProfile.family = teacher.family;
+                    userProfile.Email = teacher.Email;
+                    userProfile.PhoneNumber = teacher.PhoneNumber;
+                    userProfile.TeacherCode = teacher.TeacherCode;
+                    userProfile.Token = _tokenHelperService.GenerateToken<Teacher>(existingUser, teacher);
                 }
-                else
-                {
-                    var teacher = await _context.Teachers
-                        .AsNoTracking()
-                        .SingleOrDefaultAsync(t => t.UserId == existingUser.UserId);
-                    if (teacher != null)
-                    {
-                        userProfile.TeacherId=teacher.TeacherId;
-                        userProfile.Name = teacher.Name;
-                        userProfile.family=teacher.family;
-                        userProfile.Email = teacher.Email;
-                        userProfile.PhoneNumber = teacher.PhoneNumber;
-                        userProfile.TeacherCode = teacher.TeacherCode;
-                        userProfile.Token = _tokenHelperService.GenerateToken<Teacher>(existingUser,teacher);
-                    }
-                }
-
-                return new OutPutModel<UserProfileDTO>
-                {
-                     Result = userProfile,
-                     StatusCode=200,
-                     Message=""
-
-                };
-
             }
-            catch (Exception ex)
+
+            return new OutPutModel<UserProfileDTO>
             {
-
-                var errorMessage = "خطای غیرمنتظره ای رخ داد مجدد تلاش کنید";
-                _logger.LogError(errorMessage, ex);
-                return new OutPutModel<UserProfileDTO>
-                {
-                    Message = errorMessage,
-                    Result = null,
-                    StatusCode = 500
-
-                };
-            }
+                Result = userProfile,
+                StatusCode = 200,
+                Message = ""
+            };
         }
 
         public async Task<OutPutModel<bool>> RegisterStudentAsync(RegisterStudentDTO model)
         {
-            if (!ValidateModel.Validate(model, out var validationResult))
+            ValidateModel.ValidateOrThrow(model);
+
+            await using var transaction = await _context.Database.BeginTransactionAsync();
+
+            if (await IsExistCodeMelliAsync(model.CodeMelli))
+                throw new BusinessException("دانشجو گرامی شما قبلا ثبت نام کردید", 403);
+
+            var newUser = new User()
             {
-                _logger.LogError(validationResult);
+                CodeMelli = model.CodeMelli,
+                Password = PasswordHelper.EncodePasswordSHA1(model.Password),
+                Role = (Role)model.Role
+            };
+            await _context.Users.AddAsync(newUser);
+            await _context.SaveChangesAsync();
 
-                return new OutPutModel<bool>
-                {
-                    Message = validationResult,
-                    Result = false,
-                    StatusCode = 400
-                };
-            }
-
-            try
+            var newStudent = new Student()
             {
-                using var transaction = await _context.Database.BeginTransactionAsync();
+                Email = model.Email,
+                UserId = newUser.UserId,
+                family = model.family,
+                PhoneNumber = model.PhoneNumber,
+                GradeId = model.GradeId,
+                Name = model.Name,
+            };
+            await _context.Students.AddAsync(newStudent);
+            await _context.SaveChangesAsync();
 
-                if (await IsExistCodeMelliAsync(model.CodeMelli))
-                {
-                    return new OutPutModel<bool>
-                    {
-                         Result=false,
-                         StatusCode=403,
-                         Message="دانشجو گرامی شما قبلا ثبت نام کردید"
-                    };
-                }
+            await transaction.CommitAsync();
 
-                var newUser = new User()
-                {
-                    CodeMelli = model.CodeMelli,
-                    Password = PasswordHelper.EncodePasswordSHA1(model.Password),
-                    Role=(Role)model.Role  
-                };
-                await _context.Users.AddAsync(newUser);
-                await _context.SaveChangesAsync();
-
-                var newStuddent = new Student()
-                {
-                    Email = model.Email,
-                    UserId = newUser.UserId,
-                    family = model.family,
-                    PhoneNumber = model.PhoneNumber,
-                    GradeId = model.GradeId,
-                    Name = model.Name,
-
-
-                };
-                await _context.Students.AddAsync(newStuddent);
-                await _context.SaveChangesAsync();
-
-                await transaction.CommitAsync();
-                return new OutPutModel<bool>
-                {
-                    Message = "دانشجو گرامی ثبت نام شما با موفقیت انجام شد.",
-                    Result = true,
-                    StatusCode = 200
-
-                };
-            }
-            catch (Exception ex)
+            return new OutPutModel<bool>
             {
-
-                var errorMessage = "خطای غیرمنتظره ای رخ داد مجدد تلاش کنید.";
-                _logger.LogError(errorMessage, ex);
-                return new OutPutModel<bool>
-                {
-                    Message = errorMessage,
-                    Result = false,
-                    StatusCode = 500
-
-                };
-            }
+                Message = "دانشجو گرامی ثبت نام شما با موفقیت انجام شد.",
+                Result = true,
+                StatusCode = 200
+            };
         }
 
         public async Task<OutPutModel<bool>> RegisterTeacherAsync(RegisterTeacherDTO model)
         {
-            if (!ValidateModel.Validate(model, out var validationResult))
+            ValidateModel.ValidateOrThrow(model);
+
+            await using var transaction = await _context.Database.BeginTransactionAsync();
+
+            if (await IsExistCodeMelliAsync(model.CodeMelli))
+                throw new BusinessException("استاد گرامی شما قبلا ثبت نام کردید.", 403);
+
+            var newUser = new User()
             {
-                _logger.LogError(validationResult);
+                CodeMelli = model.CodeMelli,
+                Password = PasswordHelper.EncodePasswordSHA1(model.Password),
+                Role = (Role)model.Role
+            };
+            await _context.Users.AddAsync(newUser);
+            await _context.SaveChangesAsync();
 
-                return new OutPutModel<bool>
-                {
-                    Message = validationResult,
-                    Result = false,
-                    StatusCode = 400
-                };
-            }
-
-            try
+            var newTeacher = new Teacher()
             {
-                using var transaction = await _context.Database.BeginTransactionAsync();
+                Email = model.Email,
+                UserId = newUser.UserId,
+                family = model.family,
+                PhoneNumber = model.PhoneNumber,
+                TeacherCode = model.TeacherCode,
+                Name = model.Name,
+            };
+            await _context.Teachers.AddAsync(newTeacher);
+            await _context.SaveChangesAsync();
 
-                if (await IsExistCodeMelliAsync(model.CodeMelli))
-                {
-                    return new OutPutModel<bool>
-                    {
-                        Result = false,
-                        StatusCode = 403,
-                        Message = "استاد گرامی شما قبلا ثبت نام کردید."
-                    };
-                }
-                var newUser = new User()
-                {
-                    CodeMelli = model.CodeMelli,
-                    Password = PasswordHelper.EncodePasswordSHA1(model.Password),
-                    Role= (Role)model.Role
-                };
-                await _context.Users.AddAsync(newUser);
-                await _context.SaveChangesAsync();
+            await transaction.CommitAsync();
 
-                var newTeacher = new Teacher()
-                {
-                    Email = model.Email,
-                    UserId = newUser.UserId,
-                    family = model.family,
-                    PhoneNumber = model.PhoneNumber,
-                    TeacherCode = model.TeacherCode,
-                    Name = model.Name,
-
-
-                };
-                await _context.Teachers.AddAsync(newTeacher);
-                await _context.SaveChangesAsync();
-
-                await transaction.CommitAsync();
-                return new OutPutModel<bool>
-                {
-                    Message = "استاد گرامی ثبت نام شما با موفقیت انجام شد.",
-                    Result = true,
-                    StatusCode = 200
-
-                };
-            }
-            catch (Exception ex)
+            return new OutPutModel<bool>
             {
-
-                var errorMessage = ".خطای غیرمنتظره ای رخ داد مجدد تلاش کنید";
-                _logger.LogError(errorMessage, ex);
-                return new OutPutModel<bool>
-                {
-                    Message = errorMessage,
-                    Result = false,
-                    StatusCode = 500
-
-                };
-            }
+                Message = "استاد گرامی ثبت نام شما با موفقیت انجام شد.",
+                Result = true,
+                StatusCode = 200
+            };
         }
     }
 }

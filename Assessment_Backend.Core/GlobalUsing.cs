@@ -27,6 +27,7 @@ global using Assessment_Backend.Core.DTOs.Term;
 global using Assessment_Backend.Core.DTOs.Course;
 global using Assessment_Backend.Core.Services.InterFace;
 global using Assessment_Backend.Core.Generator;
+global using Assessment_Backend.Core.Exceptions;
 global using Assessment_Backend.DataLayer.Entities.duty;
 global using Assessment_Backend.Core.DTOs.Student;
 
