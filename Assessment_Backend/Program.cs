@@ -1,3 +1,4 @@
+using Amazon.S3;
 using Assessment_Backend.Filters;
 using Assessment_Backend.Middleware;
 using Serilog.Sinks.MSSqlServer;
@@ -82,6 +83,16 @@ internal class Program
                 context.Database.Migrate();
             }
         }
+
+        #region S3
+        // کلاینت S3 (آروان کلود) به صورت Singleton ساخته می‌شود و به سرویس‌ها Inject می‌شود
+        var s3Config = builder.Configuration.GetSection(S3StorageOptions.SectionName);
+        builder.Services.AddSingleton<IAmazonS3>(_ => new AmazonS3Client(
+            new Amazon.Runtime.BasicAWSCredentials(
+                s3Config[nameof(S3StorageOptions.AccessKey)] ?? "",
+                s3Config[nameof(S3StorageOptions.SecretKey)] ?? ""),
+            new AmazonS3Config { ServiceURL = s3Config[nameof(S3StorageOptions.ServiceUrl)] ?? "" }));
+        #endregion
 
         #region IOC
         builder.Services.AddScoped<ITokenHelperService, TokenHelper>();

@@ -24,6 +24,11 @@ namespace Assessment_Backend.Core.Servies
             if (teacherId is 0)
                 throw new UnauthorizedAppException();
 
+            // ترم باید واقعاً وجود داشته باشد وگرنه FK در SaveChanges خطای دیتابیسی می‌دهد
+            bool termExists = await _context.Terms.AnyAsync(t => t.TermId == model.TermId);
+            if (!termExists)
+                throw new BusinessException("ترم انتخاب شده پیدا نشد.", 400);
+
             var newCourse = new Course()
             {
                 Title = model.Title,
@@ -104,20 +109,15 @@ namespace Assessment_Backend.Core.Servies
             int teacherId = _httpContextAccessor.GetTeacherId();
             int studentId = _httpContextAccessor.GetStudentId();
 
+            // Include ها لازم نیست؛ Select پروجکشن خودش Join می‌سازد و AsNoTracking برای کوئری پروجکشنی زائد است
             var query = _context.Courses
-                .AsNoTracking()
-                .Include(c => c.Term)
-                .Include(c => c.Teacher)
-                .Include(c => c.Assessments)
-                .Include(c => c.CourseEnrollments)
-                .ThenInclude(e => e.Student)
                 .Where(c => teacherId != 0 ? c.TeacherId == teacherId : c.CourseEnrollments.Any(e => e.StudentId == studentId))
                 .Select(c => new CourseDTO
                 {
                     CountMembers = c.CountMembers,
                     Description = c.Description,
                     Link = c.Link,
-                    extant = (c.CountMembers - _context.CourseEnrollments.Count(ce => ce.CourseId == c.CourseId)),
+                    extant = c.CountMembers - c.CourseEnrollments.Count(),
                     Title = c.Title,
                     CourseId = c.CourseId,
                     Term = c.Term.Title,
@@ -158,14 +158,10 @@ namespace Assessment_Backend.Core.Servies
 
             var query = _context.Courses
                 .Where(c => c.CourseId == courseId)
-                .Include(c => c.Term)
-                .Include(c => c.Teacher)
-                .Include(c => c.Assessments)
-                .Include(c => c.CourseEnrollments).ThenInclude(e => e.Student)
                 .Where(c => teacherId != 0 ? c.TeacherId == teacherId : c.CourseEnrollments.Any(e => e.StudentId == studentId))
                 .Select(c => new CourseDTO
                 {
-                    extant = (c.CountMembers - _context.CourseEnrollments.Count(ce => ce.CourseId == c.CourseId)),
+                    extant = c.CountMembers - c.CourseEnrollments.Count(),
                     CountMembers = c.CountMembers,
                     Description = c.Description,
                     Link = c.Link,
@@ -212,26 +208,27 @@ namespace Assessment_Backend.Core.Servies
 
         public async Task<OutPutModel<CourseDTO>> GetCourseByCourseLinkAsync(string link)
         {
-            if (link is null)
+            if (string.IsNullOrWhiteSpace(link))
                 throw new NotFoundAppException("کلاس مورد نظر پیدا نشد.");
 
             var course = await _context.Courses
                 .Where(c => c.Link == link)
-                .Include(t => t.Teacher)
-                .Include(t => t.Term)
                 .Select(c => new CourseDTO
                 {
                     Link = c.Link,
                     CourseId = c.CourseId,
                     Term = c.Term.Title,
-                    TeacherName = c.Teacher.Name + "" + c.Teacher.family,
+                    TeacherName = c.Teacher.Name + " " + c.Teacher.family,
                     Description = c.Description,
                     CountMembers = c.CountMembers,
                     Title = c.Title,
                     TermId = c.TermId,
-                    extant = (c.CountMembers - _context.CourseEnrollments.Count(ce => ce.CourseId == c.CourseId))
+                    extant = c.CountMembers - c.CourseEnrollments.Count()
                 })
                 .SingleOrDefaultAsync();
+
+            if (course is null)
+                throw new NotFoundAppException("کلاس مورد نظر پیدا نشد.");
 
             return new OutPutModel<CourseDTO>
             {
@@ -261,8 +258,8 @@ namespace Assessment_Backend.Core.Servies
             if (existingEnrollment != null)
                 throw new ConflictAppException("شما قبلاً در این درس عضو شده‌اید.");
 
-            var count = _context.CourseEnrollments
-                .Where(ce => ce.CourseId == course.CourseId).Count();
+            int count = await _context.CourseEnrollments
+                .CountAsync(ce => ce.CourseId == course.CourseId);
 
             if (count >= course.CountMembers)
                 throw new ConflictAppException("ظرفیت کلاس پر شده است.");
@@ -312,10 +309,20 @@ namespace Assessment_Backend.Core.Servies
         {
             ValidateModel.ValidateOrThrow(model);
 
-            var course = await _context.Courses.FindAsync(model.CourseId);
+            int teacherId = _httpContextAccessor.GetTeacherId();
+            if (teacherId is 0)
+                throw new UnauthorizedAppException();
+
+            // استاد فقط کلاس خودش را می‌تواند ویرایش کند
+            var course = await _context.Courses
+                .SingleOrDefaultAsync(c => c.CourseId == model.CourseId && c.TeacherId == teacherId);
 
             if (course is null)
                 throw new NotFoundAppException("درس پیدا نشد .");
+
+            bool termExists = await _context.Terms.AnyAsync(t => t.TermId == model.TermId);
+            if (!termExists)
+                throw new BusinessException("ترم انتخاب شده پیدا نشد.", 400);
 
             course.Description = model.Description;
             course.Title = model.Title;
@@ -325,7 +332,6 @@ namespace Assessment_Backend.Core.Servies
             if (model.ChangeLink)
                 course.Link = NameGenerator.GenerateShareLink(8);
 
-            _context.Courses.Update(course);
             await _context.SaveChangesAsync();
 
             return new OutPutModel<List<CourseDTO>>
